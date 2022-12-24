@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -57,8 +58,44 @@ class CatagoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->all();
+
+        // Method #1
+    $category = new Category();
+        $category->name = $request->post('name');
+        $category->slug = Str::slug($request->post('name'));
+        $category->parent_id = $request->post('parent_id');
+        $category->descraption = $request->post('descraption');
+        $category->status = $request->post('status','active');
+        $category->save();
+        // dd($category);
+
+    //     // Method #2
+    // $category= Category::create([
+    //     'name'=> $request->post('name'),
+    //     'slug' => Str::slug($request->post('name')),
+    //     'parent_id'=>   $request->post('parent_id'),
+    //     'descraption'=> $request->post('descraption'),
+    //     'status'=> $request->post('status','active'),
+    // ]);
+
+        // Method #3 mass assigments
+    // $category= new Category ([
+    //     'name'=> $request->post('name'),
+    //     'slug' => Str::slug($request->post('name')),
+    //     'parent_id'=>   $request->post('parent_id'),
+    //     'descraption'=> $request->post('descraption'),
+    //     'status'=> $request->post('status','active'),
+    // ]);
+    //  $category->save();
+    // Method #4 mass assigments
+    // $category= new Category ($request->all());
+    //  $c ategory->save();
+
+    return redirect(route('catagories.index'));
+
     }
+
 
     /**
      * Display the specified resource.

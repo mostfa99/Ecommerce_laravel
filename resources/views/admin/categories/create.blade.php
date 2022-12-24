@@ -1,4 +1,4 @@
-@extends('layout.admin');
+@extends('layout.admin')
 
 @section('title', 'Create New Category')
 
@@ -11,6 +11,7 @@
 @endsection
 @section('content')
 <form action="{{route('catagories.store')}}" method="post">
+    @csrf
     <div class="form-group">
         <label for=""> Category Name</label>
         <input type="text" class="form-control" name="name">
@@ -39,6 +40,3 @@
 </form>
 
 @endsection
-
-<!--
-test contributes  -->
