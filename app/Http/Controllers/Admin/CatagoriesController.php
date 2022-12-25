@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class CatagoriesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +25,7 @@ class CatagoriesController extends Controller
             'categories.*',
             'parents.name as parent_name'
         ])
-            ->where('categories.status','=','active')
+            // ->where('categories.status','=','active')
             ->orderBy('categories.created_at', 'DESC')
             ->orderBy('categories.name','ASC')
             ->get();
@@ -58,16 +59,20 @@ class CatagoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->all();
+        //can add attrbutes not in fiablle model
+        $request->merge([
+            'slug'=>Str::slug($request->post('name')),
+            'status'=>'active',
+        ]);
 
         // Method #1
-    $category = new Category();
-        $category->name = $request->post('name');
-        $category->slug = Str::slug($request->post('name'));
-        $category->parent_id = $request->post('parent_id');
-        $category->descraption = $request->post('descraption');
-        $category->status = $request->post('status','active');
-        $category->save();
+    // $category = new Category();
+    //     $category->name = $request->post('name');
+    //     $category->slug = Str::slug($request->post('name'));
+    //     $category->parent_id = $request->post('parent_id');
+    //     $category->descraption = $request->post('descraption');
+    //     $category->status = $request->post('status','active');
+    //     $category->save();
         // dd($category);
 
     //     // Method #2
@@ -78,7 +83,7 @@ class CatagoriesController extends Controller
     //     'descraption'=> $request->post('descraption'),
     //     'status'=> $request->post('status','active'),
     // ]);
-
+    $category=  Category::create($request->all());
         // Method #3 mass assigments
     // $category= new Category ([
     //     'name'=> $request->post('name'),
@@ -91,7 +96,7 @@ class CatagoriesController extends Controller
     // Method #4 mass assigments
     // $category= new Category ($request->all());
     //  $c ategory->save();
-
+    // PRG
     return redirect(route('catagories.index'));
 
     }
@@ -116,7 +121,12 @@ class CatagoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        // category ::where ('id','=','$id)->first();
+
+        $category = Category::find($id);
+        $parents =Category::where('id','<>',$category->id)->get();
+        return view('admin.categories.edit',compact('category','parents'));
+
     }
 
     /**
@@ -128,9 +138,28 @@ class CatagoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        //Mass Assigment
+        //Category::where('id','=',$id)->update($request->all());
+        $category = Category::find($id);
+        $request->merge([
+            'slug'=> Str::slug($request->name),
+        ]);
 
+        // Mehtod #1
+        // $category->name = $request->post('name');
+        // $category->parent_id = $request->post('parent_id');
+        // $category->descraption = $request->post('descraption');
+        // $category->status = $request->post('status','active');
+        // $category->save();
+
+        // Mehtod #2: mass assigment
+        $category->update($request->all());
+
+         // Mehtod #3: mass assigment
+       //  $category->fill($request->all())->save();
+    //    PRG
+        return redirect()->route('catagories.index');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -139,6 +168,17 @@ class CatagoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Method #1
+        // $category = Category::find($id);
+        // $category->delete();
+
+        //Method #2
+        Category::destroy($id);
+
+        //Method #3
+        // Category::where('id','=',$id)->delete();
+
+        //    PRG
+        return redirect()->route('catagories.index');
     }
 }

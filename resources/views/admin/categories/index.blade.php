@@ -1,4 +1,4 @@
-@extends('layout.admin');
+@extends('layout.admin')
 @section('title')
 {{$title}} <a href="{{ route('catagories.create')}}"> Create</a>
 @endsection
@@ -19,6 +19,8 @@
             <th>Slug</th>
             <th>Paretn id </th>
             <th>Status </th>
+            <th>Edit</th>
+            <th>Delete</th>
             <th>Create At</th>
         </tr>
     </thead>
@@ -33,9 +35,19 @@
             <td>{{ $catagory->slug }}</td>
             <td>{{ $catagory->parent_name }}</td>
             <td>{{ $catagory->status }}</td>
+            <td> <a href="{{route('catagories.edit',$catagory->id)}}" class="btn btn-sm btn-dark"> Edit</a> </td>
+            <td>
+                <form action="{{route('catagories.destroy',$catagory->id)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-sm btn-danger"> Delete</button>
+                </form>
+            </td>
             <td>{{ $catagory->created_at }}</td>
         </tr>
         @endforeach
     </tbody>
 </table>
+
+
 @endsection
