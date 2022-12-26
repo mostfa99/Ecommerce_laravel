@@ -9,6 +9,17 @@
 </ol>
 @endsection
 @section('content')
+<!-- Mehtod #1 -->
+<!-- @if($success)
+    <div class="alert alert-success ">
+        {{$success}}
+    </div>
+@endif -->
+@if(Session::has('success'))W
+<div class="alert alert-success ">
+    {{Session::get('success')}}
+</div>
+@endif
 
 <table class="table">
     <thead>

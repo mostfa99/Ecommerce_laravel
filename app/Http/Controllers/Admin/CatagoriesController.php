@@ -34,9 +34,11 @@ class CatagoriesController extends Controller
 
         // dd(compact('categories','title'));
 
+        $success = session()->get('success');
         return view('admin.categories.index', [
             'categories'=> $categories,
             'title'=> $title,
+            'success'=>$success,
         ]);
     }
 
@@ -48,7 +50,8 @@ class CatagoriesController extends Controller
     public function create()
     {
         $parents = Category::all();
-        return view('admin.categories.create',compact('parents'));
+        $category = new Category();
+        return view('admin.categories.create',compact('category','parents'));
     }
 
     /**
@@ -66,41 +69,41 @@ class CatagoriesController extends Controller
         ]);
 
         // Method #1
-    // $category = new Category();
-    //     $category->name = $request->post('name');
-    //     $category->slug = Str::slug($request->post('name'));
-    //     $category->parent_id = $request->post('parent_id');
-    //     $category->descraption = $request->post('descraption');
-    //     $category->status = $request->post('status','active');
-    //     $category->save();
-        // dd($category);
+        // $category = new Category();
+        //     $category->name = $request->post('name');
+        //     $category->slug = Str::slug($request->post('name'));
+        //     $category->parent_id = $request->post('parent_id');
+        //     $category->descraption = $request->post('descraption');
+        //     $category->status = $request->post('status','active');
+        //     $category->save();
+            // dd($category);
 
-    //     // Method #2
-    // $category= Category::create([
-    //     'name'=> $request->post('name'),
-    //     'slug' => Str::slug($request->post('name')),
-    //     'parent_id'=>   $request->post('parent_id'),
-    //     'descraption'=> $request->post('descraption'),
-    //     'status'=> $request->post('status','active'),
-    // ]);
-    $category=  Category::create($request->all());
-        // Method #3 mass assigments
-    // $category= new Category ([
-    //     'name'=> $request->post('name'),
-    //     'slug' => Str::slug($request->post('name')),
-    //     'parent_id'=>   $request->post('parent_id'),
-    //     'descraption'=> $request->post('descraption'),
-    //     'status'=> $request->post('status','active'),
-    // ]);
-    //  $category->save();
-    // Method #4 mass assigments
-    // $category= new Category ($request->all());
-    //  $c ategory->save();
-    // PRG
-    return redirect(route('catagories.index'));
+            // Method #2
+        // $category= Category::create([
+        //     'name'=> $request->post('name'),
+        //     'slug' => Str::slug($request->post('name')),
+        //     'parent_id'=>   $request->post('parent_id'),
+        //     'descraption'=> $request->post('descraption'),
+        //     'status'=> $request->post('status','active'),
+        // ]);
+        $category=  Category::create($request->all());
+
+            // Method #3 mass assigments
+        // $category= new Category ([
+        //     'name'=> $request->post('name'),
+        //     'slug' => Str::slug($request->post('name')),
+        //     'parent_id'=>   $request->post('parent_id'),
+        //     'descraption'=> $request->post('descraption'),
+        //     'status'=> $request->post('status','active'),
+        // ]);
+        //  $category->save();
+        // Method #4 mass assigments
+        // $category= new Category ($request->all());
+        //  $c ategory->save();
+        // PRG
+        return redirect(route('catagories.index'));
 
     }
-
 
     /**
      * Display the specified resource.
@@ -157,7 +160,7 @@ class CatagoriesController extends Controller
 
          // Mehtod #3: mass assigment
        //  $category->fill($request->all())->save();
-    //    PRG
+        //    PRG
         return redirect()->route('catagories.index');
     }
     /**
@@ -178,7 +181,23 @@ class CatagoriesController extends Controller
         //Method #3
         // Category::where('id','=',$id)->delete();
 
-        //    PRG
-        return redirect()->route('catagories.index');
+        // wtire into sessions
+        // Session::put();
+        session()->put('success','category deleted!');
+        // session([
+        //     'success'=>'category deleted!',
+        // ]);
+
+        // // read from session
+         // Session::get();
+        // session()->get('success');
+
+        // // Delete From session
+         // Session::forget();
+        // session()->forget('success');
+        // PRG
+        return redirect()->route('catagories.index')
+        ->with('success','Category Deleted! ');
+
     }
 }
