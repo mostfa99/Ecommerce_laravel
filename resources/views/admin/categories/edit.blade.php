@@ -10,7 +10,7 @@
 </ol>
 @endsection
 @section('content')
-<form action="{{route('catagories.update',$category->id)}}" method="post">
+<form action="{{route('catagories.update',$category->id)}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
     @include('admin.categories._form',[

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -62,9 +63,33 @@ class CatagoriesController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Validate the request data
+
+    //    $clean =  $request->validate([
+    //     'name'=> 'required|string|max:255|min:3',
+    //     'parent_id' => 'nullable|int|exists:categories,id',
+    //     'descraption' => 'nullable|min:5',
+    //     'status' => 'required|in:active,draft',
+    //     'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
+    // ]);
+    $rules =[
+            'name'=> 'required|string|max:255|min:3',
+            'parent_id' => 'nullable|int|exists:categories,id',
+            'descraption' => 'min:5',//nullable|min:5
+            'status' => 'required|in:active,draft',
+            'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
+    ];
+    $clean = $request->validate($rules);
+    // $data= $request->all();
+    // $validator = Validator::make($data,$rules);
+
+    // if($validator->fails()){
+    //     return redirect()->back()->withErrors($validator);
+    // }
         //can add attrbutes not in fiablle model
         $request->merge([
-            'slug'=>Str::slug($request->post('name')),
+            'slug'=>Str::slug($clean['name']),
             'status'=>'active',
         ]);
 
@@ -101,7 +126,8 @@ class CatagoriesController extends Controller
         // $category= new Category ($request->all());
         //  $c ategory->save();
         // PRG
-        return redirect(route('catagories.index'));
+        return redirect(route('catagories.index'))
+        ->with('success','Category Created');
 
     }
 
@@ -144,8 +170,16 @@ class CatagoriesController extends Controller
         //Mass Assigment
         //Category::where('id','=',$id)->update($request->all());
         $category = Category::find($id);
+        $rules =[
+            'name'=> 'required|string|max:255|min:3',
+            'parent_id' => 'nullable|int|exists:categories,id',
+            'descraption' => 'min:5',//nullable|min:5
+            'status' => 'required|in:active,draft',
+            'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
+    ];
+    $clean = $request->validate($rules);
         $request->merge([
-            'slug'=> Str::slug($request->name),
+            'slug'=> Str::slug($clean['name']),
         ]);
 
         // Mehtod #1
@@ -161,7 +195,8 @@ class CatagoriesController extends Controller
          // Mehtod #3: mass assigment
        //  $category->fill($request->all())->save();
         //    PRG
-        return redirect()->route('catagories.index');
+        return redirect()->route('catagories.index')
+        ->with('success','Category Updated!');
     }
     /**
      * Remove the specified resource from storage.
@@ -197,7 +232,7 @@ class CatagoriesController extends Controller
         // session()->forget('success');
         // PRG
         return redirect()->route('catagories.index')
-        ->with('success','Category Deleted! ');
+        ->with('success','Category Deleted!');
 
     }
 }

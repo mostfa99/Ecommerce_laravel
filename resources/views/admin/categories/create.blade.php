@@ -10,10 +10,10 @@
 </ol>
 @endsection
 @section('content')
-<form action="{{route('catagories.store')}}" method="post">
+<form action="{{route('catagories.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     @include('admin.categories._form',[
-    'buttun'=>'Save',
+    'buttun'=>'Add',
     ])
 </form>
 

@@ -15,7 +15,7 @@
         {{$success}}
     </div>
 @endif -->
-@if(Session::has('success'))W
+@if(Session::has('success'))
 <div class="alert alert-success ">
     {{Session::get('success')}}
 </div>
