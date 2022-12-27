@@ -17,7 +17,7 @@
     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
         value="{{old('name',$category->name)}}">
     @error('name')
-    <p class="invalid-feedback">{{$message }}</p>
+    <p class="invalid-feedback">{{$message}}</p>
     @enderror()
 </div>
 
@@ -32,7 +32,7 @@
         @endforeach
     </select>
     @error('parent_id')
-    <p class="invalid-feedback">{{$message }}</p>
+    <p class="invalid-feedback">{{$message}}</p>
     @enderror()
 </div>
 
@@ -61,14 +61,14 @@
     <div>
         <div class="form-check ">
             <input class="form-check-input" type="radio" name="status" value="active" id="status-active"
-                @if(old('status',$category->status)=='active ' ) checked @endif>
+                @if(old('status',$category->status) == 'active' ) checked @endif>
             <label class="form-check-label" for="status-active">
                 Active
             </label>
         </div>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="status" value="draft" id="status-draft"
-                @if(old('status',$category->status)=='draft' ) checked @endif>
+                @if(old('status',$category->status) == 'draft' ) checked @endif>
             <label class="form-check-label" for="status-draft">
                 Draft
             </label>

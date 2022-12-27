@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Category;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -61,7 +62,7 @@ class CatagoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
 
         // Validate the request data
@@ -75,12 +76,12 @@ class CatagoriesController extends Controller
     // ]);
     $rules =[
             'name'=> 'required|string|max:255|min:3',
-            'parent_id' => 'nullable|int|exists:categories,id',
+            'parent_id' => 'required|int|exists:categories,id',
             'descraption' => 'min:5',//nullable|min:5
             'status' => 'required|in:active,draft',
             'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
     ];
-    $clean = $request->validate($rules);
+    // $clean = $request->validate($rules);
     // $data= $request->all();
     // $validator = Validator::make($data,$rules);
 
@@ -89,7 +90,7 @@ class CatagoriesController extends Controller
     // }
         //can add attrbutes not in fiablle model
         $request->merge([
-            'slug'=>Str::slug($clean['name']),
+            'slug'=>Str::slug($request->name),
             'status'=>'active',
         ]);
 
@@ -165,7 +166,7 @@ class CatagoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         //Mass Assigment
         //Category::where('id','=',$id)->update($request->all());
@@ -177,9 +178,10 @@ class CatagoriesController extends Controller
             'status' => 'required|in:active,draft',
             'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
     ];
-    $clean = $request->validate($rules);
+
+    // $clean = $request->validate($rules);
         $request->merge([
-            'slug'=> Str::slug($clean['name']),
+            'slug'=> Str::slug($request->name),
         ]);
 
         // Mehtod #1
