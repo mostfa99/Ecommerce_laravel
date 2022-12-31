@@ -18,12 +18,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->foreignId('parent_id')->constrained('categories')->restrictOnDelete();
+            $table->foreignId('category_id')->constrained('categories')->restrictOnDelete();
             $table->text('descraption')->nullable();
             $table->string('image_path')->nullable();
-            $table->unsignedFloat('price')->default(0);
-            $table->unsignedFloat('sale_price')->default(0);
-            $table->unsignedFloat('quantity')->default(0);
+            $table->unsignedFloat('price')->nullable()->default(0);
+            $table->unsignedFloat('sale_price')->nullable()->default(0);
+            $table->unsignedFloat('quantity')->nullable()->default(0);
             $table->string('sku')->unique()->nullable();
             $table->unsignedFloat('weight')->nullable();
             $table->unsignedFloat('hight')->nullable();

@@ -35,8 +35,8 @@ class CategoryRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-               ' min:3',
-    // Metho 1 for define rules but specifeic rule
+                ' min:3',
+    // Metho 1 for define rules but specifeic rule like "god" in this method
             // function ($attribute , $value ,$fail ){
             //     if(stripos($value ,'god' ) !== false ){
             //         $fail('you cant use "god" word in your input');
