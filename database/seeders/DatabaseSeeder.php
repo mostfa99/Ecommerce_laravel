@@ -23,11 +23,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        Category::factory(10)->create();
-        Product::factory(15)->create();
+
+        // Category::factory(10)->create();
+        Product::factory(5)->create();
 
         $this->call([
-            // CategoriesTableSeeder::class,
+            //CategoriesTableSeeder::class,
             //UsersTableSeeder::class,
         ]);
     }

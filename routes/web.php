@@ -41,17 +41,18 @@ Route::view('contact-me', 'pages/contact', [
     'page_descraption' => 'This is Descraption'
         ]);
 
-Route::get('catagory/{id}', function ($id = null) {
+// simple route for decraption
+
+    Route::get('catagory/{id}', function ($id = null) {
     $cats = [
-    '1' =>'games',
-    '2' =>'Programming',
-    '3' =>'Books',
-        ];
+        '1' =>'games',
+        '2' =>'Programming',
+        '3' =>'Books',
+            ];
 
-    return view('pages/catagory' , [
-        'the_id' =>$cats[$id] ?? "THIS ID IS NOT FOUND  "
-    ]) ;
+        return view('pages/catagory' , [
+            'the_id' =>$cats[$id] ?? "THIS ID IS NOT FOUND  "
+        ]) ;
 
-    });
-
+        });
     */

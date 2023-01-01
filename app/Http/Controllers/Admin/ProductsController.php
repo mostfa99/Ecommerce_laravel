@@ -22,7 +22,9 @@ class ProductsController extends Controller
             'products.*',
             'categories.name as category_name',
         ])
+        ->latest()
         ->paginate();
+
         $title ='products List';
 
         // $success = session()->get('success');

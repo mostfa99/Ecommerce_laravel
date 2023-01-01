@@ -22,14 +22,18 @@ class ProductFactory extends Factory
         ->inRandomOrder()
         ->limit(1)
         ->first(['id']);
+        // $price = $this->faker->randomNumber(2, true);
+        $price = $this->faker->numberBetween(200, 300);
         $name = $this->faker->words(2,true);
         $status = ['active','draft'];
-
         return [
         'name'=> $this->faker->words(2,true),//we use true to return vlaue as string without true will return as arry
         'slug'=> Str::slug($name) ,
-        'perant_id'=> $product? $product->id :null,
-        'descraption'=> $this->faker->words(200,true),
+        'category_id'=> $product? $product->id :null,
+        'descraption'=> $this->faker->realText(200,true),
+        'price'=>$price,
+        'sale_price'=> $this->faker->randomNumber(2, true),
+        'quantity'=>$this->faker->randomNumber(2, true),
         'image_path'=> $this->faker->imageUrl(),
         'status'=> $status[rand(0,1)] ,
         ];
