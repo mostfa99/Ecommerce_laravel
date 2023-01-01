@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -23,7 +24,10 @@ class ProductsController extends Controller
             'categories.name as category_name',
         ])
         ->latest()
-        ->paginate();
+        ->paginate(15,['*'],'p');
+        // ->simplePaginate();
+        // ->paginate( limit of entries , ['*'] , name page , defult apge );
+
 
         $title ='products List';
 
@@ -62,6 +66,17 @@ class ProductsController extends Controller
         $request->merge([
             'slug'=>Str::slug($request->post('name'))
         ]);
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+        }
+        $image_path = $file->store('/',[
+            'disk'=> 'uploads'
+        ]);
+        $request->merge([
+            'image_path' =>$image_path,
+
+        ]);
+
         $product = Product::create($request->all());
 
         return redirect()->route('products.index')
@@ -113,6 +128,17 @@ class ProductsController extends Controller
 
         $product = Product::findOrFail($id);
         $request->validate(Product::validateRules());
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+        }
+        $image_path = $file->store('/',[
+            'disk'=> 'uploads'
+        ]);
+        $request->merge([
+            'image_path' =>$image_path,
+
+        ]);
+
         $product->update($request->all());
 
         return redirect()->route('products.index')
@@ -130,7 +156,7 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         Product::destroy($id);
         session()->put('success','category deleted!');
-
+        Storage::disk('uploads')->delete($product->image_path);
         return redirect()->route('products.index')
         ->with('success',"Product($product->name) Deleted! ");
 

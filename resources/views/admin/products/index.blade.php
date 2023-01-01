@@ -19,12 +19,16 @@
     <thead>
         <tr>
 
+            <th></th>
             <th>Name</th>
             <th>Category </th>
             <th>price </th>
             <th>Qty. </th>
             <th>Status </th>
             <th>Create At</th>
+            <th></th>
+            <th></th>
+
         </tr>
     </thead>
     <tbody>
@@ -32,6 +36,8 @@
         @foreach($products as $product)
         <tr>
             <!-- to do loop number  -->
+
+            <td><img src="{{ asset('uploads/' . $product->image_path )}}" width="40" alt=""></td>
             <td>{{ $product->name }}</td>
             <td>{{ $product->category_name }}</td>
             <td>{{ $product->price }}</td>
@@ -56,5 +62,6 @@
     </tbody>
 </table>
 
+{{ $products->links() }}
 
 @endsection
