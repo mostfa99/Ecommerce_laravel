@@ -1,6 +1,5 @@
 <?php
-use App\Http\Controllers\Admin\CatagoriesController;
-use App\Http\Controllers\Admin\ProductsController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,44 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages/welcome');
+    return view('welcome');
 });
 
-// Route::get('/admin/catagories',[CatagoriesController::class,'index'])->name('catagories.index');
-// Route::get('/admin/catagories/create',[CatagoriesController::class,'create'])->name('catagories.create');
-// Route::post('/admin/catagories',[CatagoriesController::class,'store'])->name('catagories.store'); //to edit in database we will use post or delete but cant use get
-// Route::get('admin/catagories/{id}',[CatagoriesController::class, 'show'])->name('catagories.show');
-// Route::get('admin/catagories/edit/{id}',[CatagoriesController::class, 'edit'])->name('catagories.edit');
-// Route::put('admin/catagories/{id}',[CatagoriesController::class, 'update'])->name('catagories.update');
-// Route::delete('admin/catagories/{id}',[CatagoriesController::class, 'destroy'])->name('catagories.destroy');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('/admin/catagories', CatagoriesController::class);
-Route::resource('/admin/products', ProductsController::class);
-
-
-/*
-
-Route::get('/about-me', function () {
-    return view('pages/aboute');
-});
-
-Route::view('contact-me', 'pages/contact', [
-    'page_name'=> 'contact Me page',
-    'page_descraption' => 'This is Descraption'
-        ]);
-
-// simple route for decraption
-
-    Route::get('catagory/{id}', function ($id = null) {
-    $cats = [
-        '1' =>'games',
-        '2' =>'Programming',
-        '3' =>'Books',
-            ];
-
-        return view('pages/catagory' , [
-            'the_id' =>$cats[$id] ?? "THIS ID IS NOT FOUND  "
-        ]) ;
-
-        });
-    */
+require __DIR__.'/auth.php';
