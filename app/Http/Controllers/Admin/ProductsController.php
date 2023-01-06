@@ -46,7 +46,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::pluck('name' , 'id');
 
         return view('admin.products.create',[
         'categories' => $categories,
@@ -107,11 +107,11 @@ class ProductsController extends Controller
     public function edit($id)
     {
         // category ::where ('id','=','$id)->first();
-
         $product =Product::findOrFail($id);
         return view('admin.products.edit',[
             'product' => $product,
-            'categories'=> Category::all(),
+            'categories'=> Category::pluck('name' , 'id'),
+
         ]);
 
     }
@@ -128,6 +128,7 @@ class ProductsController extends Controller
 
         $product = Product::findOrFail($id);
         $request->validate(Product::validateRules());
+
         if($request->hasFile('image')){
             $file = $request->file('image');
         }
@@ -136,7 +137,6 @@ class ProductsController extends Controller
         ]);
         $request->merge([
             'image_path' =>$image_path,
-
         ]);
 
         $product->update($request->all());
@@ -155,8 +155,10 @@ class ProductsController extends Controller
     {
         $product = Product::findOrFail($id);
         Product::destroy($id);
-        session()->put('success','category deleted!');
+
         Storage::disk('uploads')->delete($product->image_path);
+        unlink(public_path('uploads/' . $product->image_path));
+
         return redirect()->route('products.index')
         ->with('success',"Product($product->name) Deleted! ");
 

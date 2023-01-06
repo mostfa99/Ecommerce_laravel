@@ -43,9 +43,11 @@ class LoginRequest extends FormRequest
      */
     public function authenticate()
     {
+        // if user enter data a lot of time
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::attempt($this->only('email', 'password'),
+        $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -63,6 +65,7 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    // if user enter data a lot of time
     public function ensureIsNotRateLimited()
     {
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
@@ -84,7 +87,7 @@ class LoginRequest extends FormRequest
     /**
      * Get the rate limiting throttle key for the request.
      *
-     * @return string
+    * @return string
      */
     public function throttleKey()
     {

@@ -9,13 +9,16 @@
 </ol>
 @endsection
 @section('content')
-@if(Session::has('success'))
-<div class="alert alert-success ">
-    {{Session::get('success')}}
-</div>
-@endif
 
-<table class="table">
+<x-alert />
+<x-message type="info" :count="1+1">
+    <x-slot name="title">
+        Info
+    </x-slot>
+    Welcome in Larvel
+</x-message>
+
+<table class=" table">
     <thead>
         <tr>
 
