@@ -109,5 +109,3 @@
 <div class="form-group">
     <button type="submit" class="btn btn-primary"> {{ $buttun }}</button>
 </div>
-
-<!-- stop in 1:19:23 / 3:13:42-->
