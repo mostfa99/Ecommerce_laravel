@@ -153,8 +153,9 @@ class CatagoriesController extends Controller
     {
         // category ::where ('id','=','$id)->first();
 
-        $category = Category::find($id);
-        $parents =Category::where('id','<>',$category->id)->get();
+        $category = Category::findorfail($id);
+
+        $parents =Category::withTrashed()->where('id','<>',$category->id)->get();
         return view('admin.categories.edit',compact('category','parents'));
 
     }

@@ -30,6 +30,11 @@ Route::get('admin/catagories/edit/{id}',[CatagoriesController::class, 'edit'])->
 Route::put('admin/catagories/{id}',[CatagoriesController::class, 'update'])->name('catagories.update');
 Route::delete('admin/catagories/{id}',[CatagoriesController::class, 'destroy'])->name('catagories.destroy');
 
+Route::get('admin/products/trash', [ProductsController::class, 'trash'])->name('products.trash');
+Route::put('admin/products/restore/{id?}', [ProductsController::class, 'restore'])->name('products.restore');
+Route::delete('admin/products/trash/{id?}', [ProductsController::class, 'forceDelete'])->name('products.force-delete');
+
+
 // Route::resource('/admin/catagories', CatagoriesController::class);
 Route::resource('/admin/products', ProductsController::class)->middleware('auth');
 

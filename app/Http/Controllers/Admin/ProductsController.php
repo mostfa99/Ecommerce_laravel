@@ -110,7 +110,7 @@ class ProductsController extends Controller
         $product =Product::findOrFail($id);
         return view('admin.products.edit',[
             'product' => $product,
-            'categories'=> Category::pluck('name' , 'id'),
+            'categories'=> Category::withTrashed()->pluck('name' , 'id'),
 
         ]);
 
@@ -125,10 +125,8 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $product = Product::findOrFail($id);
         $request->validate(Product::validateRules());
-
         if($request->hasFile('image')){
             $file = $request->file('image');
         }
@@ -138,7 +136,6 @@ class ProductsController extends Controller
         $request->merge([
             'image_path' =>$image_path,
         ]);
-
         $product->update($request->all());
 
         return redirect()->route('products.index')
@@ -156,11 +153,48 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         Product::destroy($id);
 
-        Storage::disk('uploads')->delete($product->image_path);
-        unlink(public_path('uploads/' . $product->image_path));
+        // Storage::disk('uploads')->delete($product->image_path);
+        // unlink(public_path('uploads/' . $product->image_path));
 
         return redirect()->route('products.index')
         ->with('success',"Product($product->name) Deleted! ");
 
     }
+
+    public function trash(){
+
+        $products = Product::onlyTrashed()->paginate();
+        return view('admin.products.trash',[
+            'products'=> $products
+        ]);
+    }
+
+    public function restore(Request $request, $id =null){
+        if($id){
+            $product=Product::onlyTrashed()->findOrfail($id);
+            $product->restore();
+            return redirect()->route('products.index')
+            ->with('success',"Product($product->name) Restored! ");
+        }
+            Product::onlyTrashed()->restore();
+            return redirect()->route('products.index')
+            ->with('success',"All Trashed Products Restored. ");
+
+
+    }
+    public function forceDelete($id=null){
+
+        if($id){
+            $product=Product::onlyTrashed()->findOrfail($id);
+            $product->forceDelete();
+            return redirect()->route('products.index')
+            ->with('success',"Product($product->name) delete forever! ");
+        }
+            Product::onlyTrashed()->forceDelete();
+            return redirect()->route('products.index')
+            ->with('success',"All Trashed Products delete forever. ");
+
+
+        }
+
 }
