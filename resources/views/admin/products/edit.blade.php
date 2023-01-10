@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'edit Product')
+@section('title', 'Edit Product')
 
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">

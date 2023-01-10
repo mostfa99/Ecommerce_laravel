@@ -18,11 +18,28 @@ class Category extends Model
     protected $table ='categories';
     protected $primaryKey ='id';
     protected $keyType ='int';
-
     public $incrementing = true;
     public $timestamps = true;
+
     protected $fillable =[
         'name','parent_id','descraption','status','slug',
     ];
+
+    // Accessors
+    //Exitsit Attribute get(AttributeName)Attribute
+    // $model->name
+    Public function getNameAttribute($value){
+        if ($this->trashed()){
+            return $value . '(deleted)';
+        }
+        return $value;
+
+    }
+    // non exists Attribute
+    // $model->original_name
+    public function getOriginalNameAttribute()
+    {
+        return $this->attributes['name'];
+    }
 
 }

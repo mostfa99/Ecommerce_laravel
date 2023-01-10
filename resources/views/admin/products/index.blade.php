@@ -2,8 +2,7 @@
 @section('title')
 
 <div class="d-flex justify-content-between">
-    <h2>
-        Products</h2>
+    <h2>Products List</h2>
     <div class="">
         <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">Create</a>
         <a class="btn btn-sm btn-outline-dark" href="{{route('products.trash')}}">Trash</a>
@@ -50,7 +49,7 @@
         <tr>
             <!-- to do loop number  -->
 
-            <td><img src="{{ asset('uploads/' . $product->image_path )}}" width="40" alt=""></td>
+            <td><img src="{{ $product->image_url }}" width="60" alt=""></td>
             <td>{{ $product->name }}</td>
             <td>{{ $product->category_name }}</td>
             <td>{{ $product->price }}</td>

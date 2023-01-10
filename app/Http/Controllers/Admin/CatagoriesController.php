@@ -30,6 +30,7 @@ class CatagoriesController extends Controller
             // ->where('categories.status','=','active')
             ->orderBy('categories.created_at', 'DESC')
             ->orderBy('categories.name','ASC')
+            ->withTrashed()
             ->get();
 
         $title ='Categories List';
@@ -154,7 +155,6 @@ class CatagoriesController extends Controller
         // category ::where ('id','=','$id)->first();
 
         $category = Category::findorfail($id);
-
         $parents =Category::withTrashed()->where('id','<>',$category->id)->get();
         return view('admin.categories.edit',compact('category','parents'));
 

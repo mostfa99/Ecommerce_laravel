@@ -66,16 +66,16 @@ class ProductsController extends Controller
         $request->merge([
             'slug'=>Str::slug($request->post('name'))
         ]);
+
         if($request->hasFile('image')){
             $file = $request->file('image');
+            $image_path = $file->store('/',[
+                'disk'=> 'uploads'
+            ]);
+            $request->merge([
+                'image_path' =>$image_path,
+            ]);
         }
-        $image_path = $file->store('/',[
-            'disk'=> 'uploads'
-        ]);
-        $request->merge([
-            'image_path' =>$image_path,
-
-        ]);
 
         $product = Product::create($request->all());
 
@@ -129,13 +129,13 @@ class ProductsController extends Controller
         $request->validate(Product::validateRules());
         if($request->hasFile('image')){
             $file = $request->file('image');
+            $image_path = $file->store('/',[
+                'disk'=> 'uploads'
+            ]);
+            $request->merge([
+                'image_path' =>$image_path,
+            ]);
         }
-        $image_path = $file->store('/',[
-            'disk'=> 'uploads'
-        ]);
-        $request->merge([
-            'image_path' =>$image_path,
-        ]);
         $product->update($request->all());
 
         return redirect()->route('products.index')

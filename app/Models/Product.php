@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -24,7 +25,7 @@ class Product extends Model
                 'name'=> 'required|max:255',
                 'category_id' => 'required|int|exists:categories,id',
                 'descraption' => 'min:5|nullable',
-                'image' => 'nullable|image|dimensions:min_width=300,min_height=300',
+                'image_path' => 'nullable|image|dimensions:min_width=300,min_height=300',
                 'price' => 'nullable|numeric|min:0',
                 'sale_price' => 'nullable|numeric|min:0',
                 'quantity' => 'nullable|numeric|min:0',
@@ -37,6 +38,22 @@ class Product extends Model
 
         ];
 
+    }
+
+    // Accessors
+    public function getImageUrlAttribute()
+    {
+        if(!$this->image_path){
+            return asset('images/placeholder.png');
+        }
+        if(stripos($this->image_path,'http') === 0){
+            return $this->image_path;
+        }
+            return asset('uploads/' . $this->image_path);
+    }
+    // Moutators
+    public function setNameAttribute($value){
+    $this->attributes['name'] = Str::title($value);
     }
 
 }
