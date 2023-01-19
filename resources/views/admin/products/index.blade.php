@@ -52,7 +52,7 @@
             <td><img src="{{ $product->image_url }}" width="60" alt=""></td>
             <td>{{ $product->name }}</td>
             <td>{{ $product->category_name }}</td>
-            <td>{{ $product->price }}</td>
+            <td>{{ $product->formatted_price}}</td>
             <td>{{ $product->quantity }}</td>
             <td>{{ $product->status }}</td>
             <td>{{ $product->created_at }}</td>

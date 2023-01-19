@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
+use NumberFormatter;
 
 class Product extends Model
 {
@@ -14,6 +16,12 @@ class Product extends Model
 
     const STATUS_ACTIVE ='active';
     const STATUS_DRAFT ='draft';
+
+    protected $cats =[
+        'price'=>'float',
+        'quantity' => 'int',
+        'creatd_at'=>'datetime',
+    ];
 
     protected $fillable =[
         'name','slug','image_path','descraption','status','price','sale_price',
@@ -53,7 +61,13 @@ class Product extends Model
     }
     // Moutators
     public function setNameAttribute($value){
-    $this->attributes['name'] = Str::title($value);
+        $this->attributes['name'] = Str::title($value);
     }
 
+    public function getFormattedPriceAttribute(){
+
+        $formatter = new NumberFormatter(App::getLocale(), NumberFormatter::CURRENCY);
+        return $formatter->formatCurrency($this->price, 'USD');
+
+    }
 }
