@@ -23,8 +23,8 @@
 <div class="form-group">
     @foreach (config('abilities') as $key => $value)
     <div class="form-check">
-        <input class="form-check-input" name="abilities[]" type="checkbox" value="{{$key}}" @if(in_array($key ,
-            $role->abilities ?? [])) checked @endif>
+        <input class="form-check-input" name="abilities[]" type="checkbox" value="{{$key}}"
+            @if(in_array($key,$role->abilities ?? [])) checked @endif>
         <label class="form-check-label">
             {{$value}}
         </label>

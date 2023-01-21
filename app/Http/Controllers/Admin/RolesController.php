@@ -51,8 +51,9 @@ class RolesController extends Controller
         ]);
         $role = Role::create([
             'name'=> $request->post('name'),
-            'abilities'=> json_encode($request->post('abilities')),
+            'abilities'=> json_encode($request->post('abilities'))
         ]);
+
         return redirect()->route('roles.index')->with('success','Role added');
 
     }
