@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,10 @@ Route::delete('admin/products/trash/{id?}', [ProductsController::class, 'forceDe
 
 
 // Route::resource('/admin/catagories', CatagoriesController::class);
-Route::resource('/admin/products', ProductsController::class)->middleware('auth');
+Route::resource('/admin/products', ProductsController::class)
+    ->middleware('auth');
+
+Route::resource('/admin/roles', RolesController::class)
+    ->middleware('auth');
 
 require __DIR__.'/auth.php';

@@ -5,6 +5,7 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,6 +18,10 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        if(!Gate::allows('products.create')){
+            abort(403);
+        };
+
         //return collection of model catagory
         $products = Product::join('categories','categories.id','=','products.category_id')
         ->select([
@@ -152,7 +157,7 @@ class ProductsController extends Controller
     {
         $product = Product::findOrFail($id);
         Product::destroy($id);
-
+            Gate::authorize('products.delete');
         // Storage::disk('uploads')->delete($product->image_path);
         // unlink(public_path('uploads/' . $product->image_path));
 

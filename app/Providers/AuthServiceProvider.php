@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Gate::define('name of permastion',function{
+            //code
+        // });
+        Gate::define('products.create' , function($user) {
+            return true ;
+        });
+
+        Gate::define('products.delete' , function($user) {
+            return false;
+        });
+
     }
 }
