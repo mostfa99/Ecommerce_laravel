@@ -24,10 +24,10 @@
 
             <th></th>
             <th>Name</th>
-            <th>Category </th>
+            <!-- <th>Category </th>
             <th>price </th>
             <th>Qty. </th>
-            <th>Status </th>
+            <th>Status </th> -->
             <th>Create At</th>
             <th></th>
             <th></th>
@@ -42,10 +42,10 @@
 
             <td><img src="{{ $role->image_url }}" width="60" alt=""></td>
             <td>{{ $role->name }}</td>
-            <td>{{ $role->category_name }}</td>
+            <!-- <td>{{ $role->category_name }}</td>
             <td>{{ $role->formatted_price}}</td>
             <td>{{ $role->quantity }}</td>
-            <td>{{ $role->status }}</td>
+            <td>{{ $role->status }}</td> -->
             <td>{{ $role->created_at }}</td>
             <td>
                 <a href="{{route('roles.edit',$role->id)}}" class="btn btn-sm btn-dark">

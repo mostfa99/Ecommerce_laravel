@@ -47,9 +47,12 @@ class RolesController extends Controller
         //Gate::authorize('role.create');
         $request ->validate([
             'name'=> 'required',
-            'abilities' => 'required||array',
+            'abilities' => 'required|array',
         ]);
-        $role = Role::create($request->all());
+        $role = Role::create([
+            'name'=> $request->post('name'),
+            'abilities'=> json_encode($request->post('abilities')),
+        ]);
         return redirect()->route('roles.index')->with('success','Role added');
 
     }

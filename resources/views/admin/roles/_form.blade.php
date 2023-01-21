@@ -13,51 +13,24 @@
 
 <!-- Name  -->
 <div class="form-group">
-    <x-form-input name="name" label="Role Name" :value="$role->name" />
+    <label for=""> Role Name</label>
+    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+        value="{{old('name',$role->name)}}">
+    @error('name')
+    <p class="invalid-feedback">{{$message}}</p>
+    @enderror()
 </div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-check-label" for="flexCheckDefault">
-        Default checkbox
-    </label>
+<div class="form-group">
+    @foreach (config('abilities') as $key => $value)
+    <div class="form-check">
+        <input class="form-check-input" name="abilities[]" type="checkbox" value="{{$key}}" @if(in_array($key ,
+            $role->abilities ?? [])) checked @endif>
+        <label class="form-check-label">
+            {{$value}}
+        </label>
+    </div>
+    @endforeach
 </div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-        Checked checkbox
-    </label>
-</div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-        Checked checkbox
-    </label>
-</div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-        Checked checkbox
-    </label>
-</div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-        Checked checkbox
-    </label>
-</div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-        Checked checkbox
-    </label>
-</div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-        Checked checkbox
-    </label>
-</div>
-
 
 <!-- Button -->
 <div class="form-group">
