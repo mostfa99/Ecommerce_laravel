@@ -23,7 +23,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/catagories',[CatagoriesController::class,'index'])->name('catagories.index');
+Route::get('/admin/catagories',[CatagoriesController::class,'index'])
+->name('catagories.index')
+->middleware(['auth','can:categories.view']);
 Route::get('/admin/catagories/create',[CatagoriesController::class,'create'])->name('catagories.create');
 Route::post('/admin/catagories',[CatagoriesController::class,'store'])->name('catagories.store'); //to edit in database we will use post or delete but cant use get
 Route::get('admin/catagories/{id}',[CatagoriesController::class, 'show'])->name('catagories.show');

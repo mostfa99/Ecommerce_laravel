@@ -4,7 +4,9 @@
 <div class="d-flex justify-content-between">
     <h2>Roles List</h2>
     <div class="">
+        @can('roles.create')
         <a class="btn btn-sm btn-outline-primary" href="{{route('roles.create')}}">Create</a>
+        @endcan
     </div>
 
 </div>
@@ -24,10 +26,6 @@
 
             <th></th>
             <th>Name</th>
-            <!-- <th>Category </th>
-            <th>price </th>
-            <th>Qty. </th>
-            <th>Status </th> -->
             <th>Create At</th>
             <th></th>
             <th></th>
@@ -39,13 +37,8 @@
         @foreach($roles as $role)
         <tr>
             <!-- to do loop number  -->
-
             <td><img src="{{ $role->image_url }}" width="60" alt=""></td>
             <td>{{ $role->name }}</td>
-            <!-- <td>{{ $role->category_name }}</td>
-            <td>{{ $role->formatted_price}}</td>
-            <td>{{ $role->quantity }}</td>
-            <td>{{ $role->status }}</td> -->
             <td>{{ $role->created_at }}</td>
             <td>
                 <a href="{{route('roles.edit',$role->id)}}" class="btn btn-sm btn-dark">
@@ -53,13 +46,14 @@
                 </a>
             </td>
             <td>
+                @can('roles.delete')
                 <form action="{{route('roles.destroy',$role->id)}}" method="post">
                     @csrf
                     @method('delete')
                     <button type="submit" class="btn btn-sm btn-danger"> Delete</button>
                 </form>
+                @endcan
             </td>
-
         </tr>
         @endforeach
     </tbody>

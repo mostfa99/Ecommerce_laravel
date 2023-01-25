@@ -13,9 +13,7 @@
 <form action="{{route('roles.update',$role->id)}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
-    @include('admin.roles._form',[
-    'buttun' =>'Update',
-    ])
+    @include('admin.roles._form',['buttun' =>'Update',])
 </form>
 
 @endsection
