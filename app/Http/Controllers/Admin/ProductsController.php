@@ -18,9 +18,12 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        if(!Gate::allows('products.create')){
-            abort(403);
-        };
+
+        $this->authorize('view-any',Product::class);
+
+        // if(!Gate::allows('products.create')){
+        //     abort(403);
+        // };
 
         //return collection of model catagory
         $products = Product::join('categories','categories.id','=','products.category_id')
@@ -51,6 +54,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Product::class);
+
         $categories = Category::pluck('name' , 'id');
 
         return view('admin.products.create',[
@@ -97,6 +102,9 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product =Product::findOrFail($id);
+
+        $this->authorize('view',$product);
+
         return view('admin.products.show',[
             'product' => $product,
 
@@ -113,6 +121,9 @@ class ProductsController extends Controller
     {
         // category ::where ('id','=','$id)->first();
         $product =Product::findOrFail($id);
+        $this->authorize('update',$product);
+
+        $this->authorize('create',Product::class);
         return view('admin.products.edit',[
             'product' => $product,
             'categories'=> Category::withTrashed()->pluck('name' , 'id'),
@@ -131,6 +142,8 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        $this->authorize('update',$product);
+
         $request->validate(Product::validateRules());
         if($request->hasFile('image')){
             $file = $request->file('image');
@@ -155,9 +168,12 @@ class ProductsController extends Controller
 
     public function destroy($id)
     {
+        // Gate::authorize('products.delete');
         $product = Product::findOrFail($id);
+        $this->authorize('delete',$product);
+
         Product::destroy($id);
-            Gate::authorize('products.delete');
+
         // Storage::disk('uploads')->delete($product->image_path);
         // unlink(public_path('uploads/' . $product->image_path));
 

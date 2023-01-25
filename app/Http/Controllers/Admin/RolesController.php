@@ -18,7 +18,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-    Gate::authorize('roles.view-any');
+        //Gate::authorize('roles.view-any');
+    $this->authorize('view-any',Role::class);
     $roles = Role::paginate();
     return view('admin.roles.index', compact('roles'));
     }
@@ -30,7 +31,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        Gate::authorize('roles.create');
+       // Gate::authorize('roles.create');
         return view('admin.roles.create',[
             'role'=>new Role(),
         ]);
@@ -44,7 +45,7 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('roles.create');
+       //Gate::authorize('roles.create');
         $request->validate([
             'name'=> 'required',
             'abilities' => 'required|array',
@@ -77,7 +78,7 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        Gate::authorize('roles.update');
+        //Gate::authorize('roles.update');
         $role = Role::findOrFail($id);
 
         return view('admin.roles.edit',compact('role'));
@@ -92,7 +93,7 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Gate::authorize('roles.update');
+        //Gate::authorize('roles.update');
         $request->validate([
             'name' => 'required',
             'abilities'=>'required',
@@ -112,7 +113,7 @@ class RolesController extends Controller
 
     public function destroy($id)
     {
-        Gate::authorize('roles.delete');
+        //Gate::authorize('roles.delete');
 
         $role = Role::findOrFail($id);
         $role->delete();
