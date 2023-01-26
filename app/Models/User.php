@@ -56,4 +56,11 @@ class User extends Authenticatable
         }
         return false ;
     }
+
+    public function profile(){
+        return $this->hasOne(Profile::class, 'user_id','id')->withDefult([
+            'address'=>'Not Found ',
+        ]);
+
+    }
 }

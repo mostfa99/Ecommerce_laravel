@@ -22,6 +22,7 @@ class RolesController extends Controller
     $this->authorize('view-any',Role::class);
     $roles = Role::paginate();
     return view('admin.roles.index', compact('roles'));
+
     }
 
     /**
