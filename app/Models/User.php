@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Profile;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -58,9 +59,18 @@ class User extends Authenticatable
     }
 
     public function profile(){
-        return $this->hasOne(Profile::class, 'user_id','id')->withDefult([
-            'address'=>'Not Found ',
+        $this->hasOne(Profile::class,'user_id','id')->withDefault([
+            'address'=> 'Not Enterd',
         ]);
+    }
 
+    public function roles(){
+        return $this->belongsToMany(
+            Role::class,
+            'role_user',
+            'user_id',
+            'role_id',
+            'id',
+        );
     }
 }

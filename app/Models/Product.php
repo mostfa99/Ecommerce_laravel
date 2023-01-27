@@ -70,4 +70,8 @@ class Product extends Model
         return $formatter->formatCurrency($this->price, 'USD');
 
     }
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id','id');
+    }
+
 }

@@ -68,7 +68,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-
+        $role = Role::find($id);
+        return $role->users;
     }
 
     /**

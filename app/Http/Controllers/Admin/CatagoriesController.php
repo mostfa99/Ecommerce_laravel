@@ -21,7 +21,7 @@ class CatagoriesController extends Controller
 
         //return collection of model catagory
         //$categories = Category::all(['*']);
-
+        $this->authorize('view-any',Category::class);
         $categories = Category::leftJoin('categories as parents','parents.id','=','categories.parent_id')
             ->select([
             'categories.*',
@@ -36,8 +36,9 @@ class CatagoriesController extends Controller
         $title ='Categories List';
 
         // dd(compact('categories','title'));
+            $categories =Category::withCount('products as count')->get();
 
-        $success = session()->get('success');
+            $success = session()->get('success');
         return view('admin.categories.index', [
             'categories'=> $categories,
             'title'=> $title,
@@ -52,6 +53,7 @@ class CatagoriesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Category::class);
         $parents = Category::all();
         $category = new Category();
         return view('admin.categories.create',compact('category','parents'));
@@ -139,9 +141,9 @@ class CatagoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+    return $category->products->count() ;
     }
 
     /**

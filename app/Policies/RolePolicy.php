@@ -10,6 +10,17 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user, $ability ){
+        if($user->type == 'super-admin'){
+            return true;
+        }
+
+    }
+    public function viewAny(User $user)
+    {
+        return $user->hasAbility('role.view-any');
+    }
+
     /**
      * Determine whether the user can view the model.
      *
