@@ -59,6 +59,7 @@
     </tbody>
 </table>
 
+<!-- for number of pages  after paginte in controller to display it  -->
 {{ $roles->links() }}
 
 @endsection

@@ -19,8 +19,8 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Slug</th>
-                <th>Paretn ID </th>
-                <th>Paretn count</th>
+                <th>Paretn Name </th>
+                <th>Products Count</th>
                 <th>Status </th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -52,6 +52,6 @@
             @endforeach
         </tbody>
     </table>
-
-
+    <!-- for number of pages  after paginte in controller to display it  -->
+    {{ $categories->links() }}
     @endsection

@@ -36,7 +36,7 @@ class CatagoriesController extends Controller
         $title ='Categories List';
 
         // dd(compact('categories','title'));
-            $categories =Category::withCount('products as count')->get();
+            $categories =Category::with('parent')->withCount('products as count')->paginate();
 
             $success = session()->get('success');
         return view('admin.categories.index', [
@@ -70,28 +70,28 @@ class CatagoriesController extends Controller
 
         // Validate the request data
 
-    //    $clean =  $request->validate([
-    //     'name'=> 'required|string|max:255|min:3',
-    //     'parent_id' => 'nullable|int|exists:categories,id',
-    //     'descraption' => 'nullable|min:5',
-    //     'status' => 'required|in:active,draft',
-    //     'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
-    // ]);
-    $rules =[
+        //    $clean =  $request->validate([
+        //     'name'=> 'required|string|max:255|min:3',
+        //     'parent_id' => 'nullable|int|exists:categories,id',
+        //     'descraption' => 'nullable|min:5',
+        //     'status' => 'required|in:active,draft',
+        //     'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
+        // ]);
+        $rules =[
             'name'=> 'required|string|max:255|min:3',
             'parent_id' => 'required|int|exists:categories,id',
             'descraption' => 'min:5',//nullable|min:5
             'status' => 'required|in:active,draft',
             'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
-    ];
-    // $clean = $request->validate($rules);
-    // $data= $request->all();
-    // $validator = Validator::make($data,$rules);
+        ];
+        // $clean = $request->validate($rules);
+        // $data= $request->all();
+        // $validator = Validator::make($data,$rules);
 
-    // if($validator->fails()){
-    //     return redirect()->back()->withErrors($validator);
-    // }
-        //can add attrbutes not in fiablle model
+        // if($validator->fails()){
+        //     return redirect()->back()->withErrors($validator);
+        // }
+            //can add attrbutes not in fiablle model
         $request->merge([
             'slug'=>Str::slug($request->name),
             'status'=>'active',
@@ -143,7 +143,12 @@ class CatagoriesController extends Controller
      */
     public function show(Category $category)
     {
-    return $category->products->count() ;
+            // SELECT / FROM product WHERE category_id = ? ORDER BY price ASC
+        return $category ->products()
+        ->with('category:id,name,slug')
+        ->where('price','>',20)
+        ->orderBy('price')
+        ->get();
     }
 
     /**
@@ -180,28 +185,28 @@ class CatagoriesController extends Controller
             'descraption' => 'min:5',//nullable|min:5
             'status' => 'required|in:active,draft',
             'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
-    ];
+     ];
 
-    // $clean = $request->validate($rules);
-        $request->merge([
-            'slug'=> Str::slug($request->name),
-        ]);
+        // $clean = $request->validate($rules);
+            $request->merge([
+                'slug'=> Str::slug($request->name),
+            ]);
 
-        // Mehtod #1
-        // $category->name = $request->post('name');
-        // $category->parent_id = $request->post('parent_id');
-        // $category->descraption = $request->post('descraption');
-        // $category->status = $request->post('status','active');
-        // $category->save();
+            // Mehtod #1
+            // $category->name = $request->post('name');
+            // $category->parent_id = $request->post('parent_id');
+            // $category->descraption = $request->post('descraption');
+            // $category->status = $request->post('status','active');
+            // $category->save();
 
-        // Mehtod #2: mass assigment
-        $category->update($request->all());
+            // Mehtod #2: mass assigment
+            $category->update($request->all());
 
-         // Mehtod #3: mass assigment
-       //  $category->fill($request->all())->save();
-        //    PRG
-        return redirect()->route('catagories.index')
-        ->with('success','Category Updated!');
+            // Mehtod #3: mass assigment
+        //  $category->fill($request->all())->save();
+            //    PRG
+            return redirect()->route('catagories.index')
+            ->with('success','Category Updated!');
     }
     /**
      * Remove the specified resource from storage.

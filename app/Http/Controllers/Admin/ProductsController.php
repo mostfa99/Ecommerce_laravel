@@ -27,9 +27,10 @@ class ProductsController extends Controller
 
         //return collection of model catagory
         $products = Product::join('categories','categories.id','=','products.category_id')
+        ->with('category.parent')
         ->select([
             'products.*',
-            'categories.name as category_name',
+           // 'categories.name as category_name',
         ])
         ->latest()
         ->paginate(15,['*'],'p');

@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function getUser(){
         $users = User::with('profile')->get();
         foreach($users as $user){
-            $user->profile->address ;
+            echo $user->profile->address .'<br>';
         }
 
 

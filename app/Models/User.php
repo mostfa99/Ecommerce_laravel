@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     public function profile(){
-        $this->hasOne(Profile::class,'user_id','id')->withDefault([
+    return  $this->hasOne(Profile::class,'user_id','id')->withDefault([
             'address'=> 'Not Enterd',
         ]);
     }

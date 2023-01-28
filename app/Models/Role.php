@@ -17,7 +17,7 @@ class Role extends Model
     protected $casts = [
         'abilities' => 'json',
     ];
-
+// Relation 1 to 1
     public function users(){
         return $this->belongsToMany(
             User::class,

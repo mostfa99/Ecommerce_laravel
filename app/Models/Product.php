@@ -59,19 +59,21 @@ class Product extends Model
         }
             return asset('uploads/' . $this->image_path);
     }
+
     // Moutators
     public function setNameAttribute($value){
         $this->attributes['name'] = Str::title($value);
     }
 
+     // Accessors
     public function getFormattedPriceAttribute(){
-
         $formatter = new NumberFormatter(App::getLocale(), NumberFormatter::CURRENCY);
         return $formatter->formatCurrency($this->price, 'USD');
-
     }
+
+    // Relation 1 to many
     public function category(){
-        return $this->belongsTo(Category::class, 'category_id','id');
+        return $this->belongsTo(Category::class, 'category_id','id')->withDefault();
     }
 
 }

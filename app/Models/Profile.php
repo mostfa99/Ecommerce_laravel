@@ -12,8 +12,10 @@ class Profile extends Model
 {
     use HasFactory;
     protected $table = 'profiles';
+
+    // Relation 1  to 1
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();
     }
 }
