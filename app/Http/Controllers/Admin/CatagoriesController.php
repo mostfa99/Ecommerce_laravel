@@ -36,7 +36,16 @@ class CatagoriesController extends Controller
         $title ='Categories List';
 
         // dd(compact('categories','title'));
-            $categories =Category::with('parent')->withCount('products as count')->paginate();
+        //egerload
+            $categories =Category::with('parent')
+            ->withCount('products as count')
+            /*
+            // will do filterd for all data and return specific data
+            ->has('parent')
+            ->whereHas('products', function($query) {
+                $query->where('price','>',500);
+            })*/
+            ->paginate();
 
             $success = session()->get('success');
         return view('admin.categories.index', [
@@ -143,6 +152,13 @@ class CatagoriesController extends Controller
      */
     public function show(Category $category)
     {
+        // after egar load i will make it arrengment as ASC
+        return $category->load([
+            'parent',
+            'products'=> function($query){
+                $query->orderBy('price','ASC')->where('status','active');
+            }
+        ]);
             // SELECT / FROM product WHERE category_id = ? ORDER BY price ASC
         return $category ->products()
         ->with('category:id,name,slug')

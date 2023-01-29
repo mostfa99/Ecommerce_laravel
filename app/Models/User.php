@@ -73,4 +73,13 @@ class User extends Authenticatable
             'id',
         );
     }
+
+    public function country(){
+        return $this->belongsTo(Country::class)->withDefault('');
+
+    }
+    public function products(){
+        return $this->hasMany(Prouct::class);
+
+    }
 }

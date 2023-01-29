@@ -26,7 +26,8 @@ class ProductsController extends Controller
         // };
 
         //return collection of model catagory
-        $products = Product::join('categories','categories.id','=','products.category_id')
+        $products = Product::WithoutGlobalScopes([ActiveStatusScope::class])
+        // ->join('categories','categories.id','=','products.category_id')
         ->with('category.parent')
         ->select([
             'products.*',
@@ -103,7 +104,8 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product =Product::findOrFail($id);
-
+        // SELECT * FROM rating WHERE rateable_id = ? 5 AND rateable_type = 'App\Models\Product'
+        return $product->ratings;
         $this->authorize('view',$product);
 
         return view('admin.products.show',[

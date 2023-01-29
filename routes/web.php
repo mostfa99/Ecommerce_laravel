@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CatagoriesController;
+use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\HomeController;
@@ -39,12 +40,15 @@ Route::get('admin/products/trash', [ProductsController::class, 'trash'])->name('
 Route::put('admin/products/restore/{id?}', [ProductsController::class, 'restore'])->name('products.restore');
 Route::delete('admin/products/trash/{id?}', [ProductsController::class, 'forceDelete'])->name('products.force-delete');
 
-
 // Route::resource('/admin/catagories', CatagoriesController::class);
 Route::resource('/admin/products', ProductsController::class)
     ->middleware('auth');
 
 Route::resource('/admin/roles', RolesController::class)
     ->middleware('auth');
+Route::resource('/admin/country', CountriesController::class)
+    ->middleware('auth');
+
+Route::post('ratings/{rating}', [RatingController::class,'store']);
 
 require __DIR__.'/auth.php';

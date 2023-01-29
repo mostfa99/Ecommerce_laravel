@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use NumberFormatter;
+use Termwind\Components\Raw;
 
 class Product extends Model
 {
@@ -76,4 +77,13 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id','id')->withDefault();
     }
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id','id')->withDefault();
+
+    }
+    public function rating()
+    {
+        // relationships with rating
+        return $this->morphMany(Rating::class , 'rateable','rateable_type','rateable_id','id');
+    }
 }
