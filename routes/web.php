@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +51,9 @@ Route::resource('/admin/roles', RolesController::class)
 Route::resource('/admin/country', CountriesController::class)
     ->middleware('auth');
 
-Route::post('ratings/{rating}', [RatingController::class,'store']);
+Route::post('ratings/{type}', [RatingController::class,'store'])
+->where('type','product|profile');
+
+Route::get('profile/{profile}', [ProfileController::class,'show']);
 
 require __DIR__.'/auth.php';

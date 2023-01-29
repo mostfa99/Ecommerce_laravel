@@ -10,7 +10,7 @@ class Rating extends Model
     use HasFactory;
 
 protected  $fillable =[
-    'reteable_type','reteable_id','rating'
+    'rateable_type','rateable_id','rating'
 ];
     public function rateable()
     {

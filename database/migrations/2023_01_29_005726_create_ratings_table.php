@@ -19,7 +19,7 @@ return new class extends Migration
                 // rateable_id BIGINT unsingned
                 // rateable_type VARCHAR
 
-            $table->morphs('ratable');
+            $table->morphs('rateable');
             $table->enum('rating', [1,2,3,4,5]);
             $table->timestamps();
         });

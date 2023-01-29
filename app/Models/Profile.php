@@ -11,11 +11,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Profile extends Model
 {
     use HasFactory;
-    protected $table = 'profiles';
 
     // Relation 1  to 1
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();
+    }
+    public function ratings()
+    {
+        // relationships with rating
+        return $this->morphMany(Rating::class , 'rateable','rateable_type','rateable_id','id');
     }
 }

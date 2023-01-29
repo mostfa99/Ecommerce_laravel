@@ -12,7 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        // to expect this route
-        '/ratings'
+        // to expect this route from CSRF
+        '/ratings/product',
+        '/ratings/profile',
     ];
 }

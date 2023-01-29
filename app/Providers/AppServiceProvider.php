@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Models\Profile;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // to tell laravel use bootstrap in paginate not bootstrap
         Paginator::useBootstrapFive();
-
+        Relation::morphMap([
+            'product'=>Product::class,
+            'profile'=>Profile::class,
+        ]);
     }
 }

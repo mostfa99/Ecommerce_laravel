@@ -103,9 +103,11 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product =Product::findOrFail($id);
+        $product =Product::withoutGlobalScopes()->findOrFail($id);
         // SELECT * FROM rating WHERE rateable_id = ? 5 AND rateable_type = 'App\Models\Product'
+
         return $product->ratings;
+
         $this->authorize('view',$product);
 
         return view('admin.products.show',[
