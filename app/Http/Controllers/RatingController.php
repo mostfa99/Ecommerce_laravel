@@ -15,9 +15,12 @@ class RatingController extends Controller
     {
         $request->validate([
             'rating' => 'required|int|min:1|max:5',
-             // 'id' => 'required|int|exists:products,id',
+            // to maunal
+            // 'id' => 'required|int|exists:products,id',
             'id' => 'required|int',
         ]);
+
+        // add autamaticly to store data & i will add path class in database
 
         if ($type == 'product') {
             $mdoel = Product::find($request->post('id'));
@@ -32,7 +35,9 @@ class RatingController extends Controller
             'rating' => $request->post('rating'),
         ]);
 
-       /* $rating= Rating::create([
+        // add maunal to store data & i will add path class in database
+
+        /* $rating= Rating::create([
             //'rateable_type' => Product::class,
             'rateable_type' => Profile::class,
             'rateable_id' => $request->post('id'),
