@@ -16,13 +16,13 @@
         <thead>
             <tr>
                 <th>loop</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Paretn Name </th>
+                <th>{{__('ID')}}</th>
+                <th>{{__('Name')}}</th>
+                <th>{{__('Slug')}}</th>
+                <th>{{__('Paretn Name')}} </th>
                 <th>Products Count</th>
                 <th>Status </th>
-                <th>Edit</th>
+                <th>{{__('Edit')}}</th>
                 <th>Delete</th>
                 <th>Create At</th>
             </tr>

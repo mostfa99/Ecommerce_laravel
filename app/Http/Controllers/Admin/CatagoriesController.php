@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Str;

@@ -20,7 +20,9 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
+        // take input and do trim for form
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // if form empty convert it to null
     ];
 
     /**
@@ -37,7 +39,10 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
+        'admin'=> [
+            'auth' => \App\Http\Middleware\Authenticate::class,
+            'auth.type'=>\App\Http\Middleware\CheckUserType::class,
+        ],
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
@@ -63,5 +68,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'auth.type'=>\App\Http\Middleware\CheckUserType::class,
     ];
 }

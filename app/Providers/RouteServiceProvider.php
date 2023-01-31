@@ -35,6 +35,8 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            // connect this link with Kernal in $middlewareGroups
         });
     }
 
