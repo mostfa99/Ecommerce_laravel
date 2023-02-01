@@ -32,12 +32,12 @@
         <tr>
 
             <th></th>
-            <th>Name</th>
-            <th>Category </th>
-            <th>price </th>
-            <th>Qty. </th>
-            <th>Status </th>
-            <th>Create At</th>
+            <th>{{__('Name')}}</th>
+            <th>{{__('Category')}} </th>
+            <th> {{__('Price')}}</th>
+            <th>{{__('Qty')}}</th>
+            <th>{{__('Status')}}</th>
+            <th>{{__('Create At')}}</th>
             <th></th>
             <th></th>
 

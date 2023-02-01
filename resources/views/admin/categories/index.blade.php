@@ -12,6 +12,11 @@
     @endsection
     @section('content')
     <x-alert />
+    <!-- return count of categories in collection with singler or popular will use it in main dashbord  -->
+    {{trans_choice('app.categoreis_count',$categories->count() , ['number' => $categories->count()])}}
+
+    <!-- هنا بقدر احدد شيئ معين واعطيه قيمة معينة واعطيه ترجمة معينة -->
+    {{__('Current Locale is :locale', ['locale' => App::getLocale()])}}
     <table class="table">
         <thead>
             <tr>
@@ -22,9 +27,10 @@
                 <th>{{__('Paretn Name')}} </th>
                 <th>{{__('Products Count')}}</th>
                 <th>{{__('Status')}}</th>
+                <th>{{__('Create At')}}</th>
                 <th>{{__('Edit')}}</th>
                 <th>{{__('Delete')}}</th>
-                <th>{{__('Create At')}}</th>
+
             </tr>
         </thead>
         <tbody>
@@ -39,6 +45,7 @@
                 <td>{{ @$catagory->parent->name}}</td>
                 <td>{{ $catagory->count}}</td>
                 <td>{{ $catagory->status }}</td>
+                <td>{{ $catagory->created_at }}</td>
                 <td> <a href="{{route('catagories.edit',$catagory->id)}}" class="btn btn-sm btn-dark">{{__('Edit')}}</a>
                 </td>
                 <td>
@@ -48,7 +55,7 @@
                         <button type="submit" class="btn btn-sm btn-danger"> {{__('Delete')}}</button>
                     </form>
                 </td>
-                <td>{{ $catagory->created_at }}</td>
+
             </tr>
             @endforeach
         </tbody>

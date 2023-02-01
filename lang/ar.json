@@ -4,6 +4,13 @@
     "loop":"حلقة",
     "Paretn Name": "اسم االأب",
     "Products Count": "عدد المنتجات",
+    "Category Name": "اسم التصنيف",
+    "Category": "التصنيف",
+    "Price": "السعر",
+    "Qty": "الكمية",
+    "categories_count" : "{1}:number تصنيف  |{2,*}:number تصنيفات ",
+    "Current Locale is :locale" : "اللغة الحالية هي :locale",
+
         "(and :count more error)": "(و :count خطأ إضافي)",
         "(and :count more errors)": "(و :count أخطاء إضافية)",
         "30 Days": "30 يوم",

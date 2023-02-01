@@ -13,7 +13,7 @@
 
 <!-- Name  -->
 <div class="form-group">
-    <label for=""> Category Name</label>
+    <label for=""> {{__('Category Name')}}</label>
     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
         value="{{old('name',$category->name)}}">
     @error('name')

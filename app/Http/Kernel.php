@@ -23,6 +23,7 @@ class Kernel extends HttpKernel
         // take input and do trim for form
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         // if form empty convert it to null
+
     ];
 
     /**
@@ -38,6 +39,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\SetLocal::class,
+            // to change languages
         ],
         'admin'=> [
             'auth' => \App\Http\Middleware\Authenticate::class,
