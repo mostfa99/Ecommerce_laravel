@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RatingController;
 use App\Http\Middleware\CheckUserType;
@@ -74,14 +75,18 @@ Route::resource('admin/roles', RolesController::class)
 Route::resource('admin/countries', CountriesController::class)
 ->middleware(['auth', 'auth.type:admin,super-admin']);
 
-    Route::post('ratings/{type}', [RatingController::class,'store'])
+Route::post('ratings/{type}', [RatingController::class,'store'])
     ->where('type','product|profile');
-    Route::get('profile/{profile}', [ProfileController::class,'show']);
+
+Route::get('profile/{profile}', [ProfileController::class,'show']);
 
     // homePage
-    Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class,'index'])->name('home');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');})
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-    })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/cart' ,[CartController::class ,'index'])->name('cart');
+Route::post('/cart' ,[CartController::class ,'store']);
