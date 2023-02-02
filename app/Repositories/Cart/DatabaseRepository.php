@@ -15,42 +15,44 @@ class DatabaseRepository implements CartRepository
     public function all()
     {
         // return all item
-      return Cart::where('cookie_id',
-        $this->getCookieId())
-        ->orWhere('user_id',Auth::id())
-        ->get();
-
+        return Cart::where(
+            'cookie_id',
+            $this->getCookieId()
+        )
+            ->orWhere('user_id', Auth::id())
+            ->get();
     }
 
-    public function add($item ,$qty =1)
+    public function add($item, $qty = 1)
     {
         // add to cart
         return   Cart::create([
-            'id'=> Str::uuid(),
-            'cookie_id'=> $this->getCookieId(),
-            'product_id'=> ($item instanceof Product)? $item->id : $item,
-            'user_id'=> Auth::id(),
-            'quantity'=> $qty,
+            'id' => Str::uuid(),
+            'cookie_id' => $this->getCookieId(),
+            'product_id' => ($item instanceof Product) ? $item->id : $item,
+            'user_id' => Auth::id(),
+            'quantity' => $qty,
         ]);
-
     }
 
     public function clear()
     {
         // delete cart
-        Cart::where('cookie_id',
-        $this->getCookieId())
-        ->orWhere('user_id',Auth::id())
-        ->delete();
+        Cart::where(
+            'cookie_id',
+            $this->getCookieId()
+        )
+            ->orWhere('user_id', Auth::id())
+            ->delete();
     }
 
     protected function getCookieId()
     {
-        $id =Cookie::get('cart_cookie_id');
+        $id = Cookie::get('cart_cookie_id');
 
-        if(!$id){
+        if (!$id) {
             $id = Str::uuid();
-            Cookie::queue('cart_cookie_id', $id ,60*24*30);
+            Cookie::queue('cart_cookie_id', $id, 60 * 24 * 30);
         }
         return $id;
     }
