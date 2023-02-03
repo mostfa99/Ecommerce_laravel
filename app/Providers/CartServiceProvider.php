@@ -18,16 +18,17 @@ class CartServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(CartRepository::class, function($app){
-
-        if(config('cart.driver') == 'cookie'){
+        $this->app->bind(CartRepository::class, function ($app) {
+            //if cookie have data to cart
+            if (config('cart.driver') == 'cookie') {
                 return new CookieRepository();
             }
-            if(config('cart.driver') == 'session'){
+            // if else session have cart
+            if (config('cart.driver') == 'session') {
                 return new SessionRepository();
             }
-                // else database
-                return new DatabaseRepository();
+            // else database
+            return new DatabaseRepository();
         });
     }
 

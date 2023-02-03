@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RatingController;
 use App\Http\Middleware\CheckUserType;
@@ -95,5 +96,12 @@ Route::get('/dashboard', function () {
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+// product front
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+
+Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.details');
+
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
 Route::post('/cart', [CartController::class, 'store']);

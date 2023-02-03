@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Cart extends Model
 {
@@ -14,12 +15,23 @@ class Cart extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-       'id', 'cookie_id', 'product_id','user_id','quantity'
+        'id', 'cookie_id', 'product_id', 'user_id', 'quantity'
     ];
 
-    protected $with = [ 'product', ];
+    protected $with = ['product',];
 
-    public function product(){
+    protected static function booted()
+    {
+        /* Events:
+        creaeting , created , updating , updated , saving , saved
+        deleting , deleted , restoring ,restored */
+
+        static::creating(function (Cart $cart) {
+            $cart->id = Str::uuid();
+        });
+    }
+    public function product()
+    {
 
         return $this->belongsTo(Product::class);
     }
