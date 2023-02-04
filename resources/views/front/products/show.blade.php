@@ -70,7 +70,7 @@
                             <span class="product-available">In Stock</span>
                         </div>
                         <p>{{$product->descraption}}</p>
-                        <form action="{{route('cart')}}" method="post">
+                        <form action="{{route('cart')}}" method="post" id="add-to-cart">
                             <input type="hidden" name="product_id" value="{{$product->id}}">
                             @csrf
                             <div class="product-options">
@@ -97,7 +97,12 @@
                                         <span class="qty-down">-</span>
                                     </div>
                                 </div>
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                <h1>
+                                    do here
+                                </h1>
+                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i> add
+                                    to
+                                    cart</button>
                             </div>
                         </form>
                         <ul class="product-btns">
@@ -499,6 +504,16 @@ roduct -->
             </div>
             <!-- /row -->
         </div>
+
+
+
+
+
+
+
+
+
+
 
 
 

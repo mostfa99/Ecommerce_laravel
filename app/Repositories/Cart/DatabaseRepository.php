@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 class DatabaseRepository implements CartRepository
 {
+    /**
+     * @var \Illuminate\Support\Collection
+     */
     protected $items;
     public function __construct()
     {
@@ -63,8 +66,11 @@ class DatabaseRepository implements CartRepository
             'user_id' => Auth::id(),
             'quantity' => DB::raw('quantity + ' . $qty),
         ]);
+        // push new data to cart
+        // $this->items->push($cart);
 
-        $this->items->push($cart);
+        // givv all data from database againe
+        $this->items = collect([]);
         return $cart;
     }
 
@@ -96,5 +102,10 @@ class DatabaseRepository implements CartRepository
         return $items->sum(function ($item) {
             return $item->quantity * $item->product->price;
         });
+    }
+    public function quantity()
+    {
+        $items = $this->all();
+        return $items->sum('quantity');
     }
 }

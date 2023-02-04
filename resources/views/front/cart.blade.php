@@ -28,8 +28,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($cart as $item )
 
+                                @foreach ($cart as $item )
                                 <tr>
                                     <td class="w-25">
                                         <img src="{{$item->product->image_url}}" width="90px" class="img-fluid img-thumbnail" alt="Sheep">
@@ -39,7 +39,7 @@
                                     <td class="qty">
                                         <input type="text" class="form-control" name="qty" id="input1" value="{{$item->quantity}}">
                                     </td>
-                                    <td>${{$item->product->price * $item->quantity}} </td>
+                                    <td> $ {{$item->product->price * $item->quantity}} </td>
                                     <td>
                                         <a href="#" class="btn btn-danger btn-sm">
                                             <i class="fa fa-times"></i>
@@ -47,6 +47,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+
                             </tbody>
 
                         </table>
@@ -61,6 +62,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+
 
 
 

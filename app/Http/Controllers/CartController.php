@@ -45,6 +45,13 @@ class CartController extends Controller
         ]);
         $cart = $this->cart->add($request->post('product_id'), $request->post('quantity', 1));
 
+        if ($request->expectsJson()) {
+            return $this->cart->all();
+            // return $cart->refresh();
+            // after i change from quantity data becouse it be oject that method will return fresh data
+            // refresh()
+        }
+
         return redirect()->back()->with('success', __('Item added to cart!'));
     }
 
