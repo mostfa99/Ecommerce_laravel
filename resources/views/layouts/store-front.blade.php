@@ -65,8 +65,8 @@
                     <!-- LOGO -->
                     <div class="col-md-3">
                         <div class="header-logo">
-                            <a href="#" class="logo">
-                                <img src="{{asset('assets/front/./img/logo.png')}}" alt="">
+                            <a href="{{route('home')}}" class="logo">
+                                <img src="{{asset('assets/front/img/logo.png')}}" alt="">
                             </a>
                         </div>
                     </div>
@@ -304,6 +304,18 @@
     <script type="text/javascript" src="{{asset('js/cart.js')}}"></script>
 
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

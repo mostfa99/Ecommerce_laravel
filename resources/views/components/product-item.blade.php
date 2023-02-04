@@ -1,7 +1,7 @@
 <!-- product -->
 <div class="product">
     <div class="product-img">
-        <img src="{{asset('assets/front/./img/product01.png')}}" alt=""><a class="ps-shoe__overlay" href="{{route('products.details', $product->slug )}}">product</a>
+        <img src="{{$product->image_url}}" alt="">
         <div class="product-label">
             <span class="sale">-30%</span>
             <span class="new">NEW</span>
@@ -9,7 +9,7 @@
     </div>
     <div class="product-body">
         <p class="product-category">{{$product->category_name}}</p>
-        <h3 class="product-name"><a href="#">{{$product->name}}</a></h3>
+        <h3 class="product-name"><a class="ps-shoe__overlay" href="{{$product->premalink}}">{{$product->name}}</a></h3>
         <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
         </h4>
         <div class="product-rating">
@@ -32,5 +32,7 @@
             cart</button>
     </div>
 </div>
+
+
 
 <!-- /product -->

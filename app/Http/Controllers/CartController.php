@@ -52,7 +52,7 @@ class CartController extends Controller
             // refresh()
         }
 
-        return redirect()->back()->with('success', __('Item added to cart!'));
+        return redirect()->back()->with('success', __("{$cart->product->name}  added to cart!"));
     }
 
 
