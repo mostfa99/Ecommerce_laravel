@@ -16,7 +16,7 @@
     {{trans_choice('app.categoreis_count',$categories->count() , ['number' => $categories->count()])}}
 
     <!-- هنا بقدر احدد شيئ معين واعطيه قيمة معينة واعطيه ترجمة معينة -->
-    {{__('Current Locale is :locale', ['locale' => App::getLocale()])}}
+    {{__(' and Current Locale is :locale  ', ['locale' => App::getLocale()])}}
     <table class="table">
         <thead>
             <tr>

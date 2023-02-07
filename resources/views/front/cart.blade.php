@@ -4,9 +4,6 @@
 
     <div class="cart">
         <div class="container">
-            <div class="text-cart">
-                <h1>Cart</h1>
-            </div>
             <div class="modal-dialog modal-lg modal-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header border-bottom-0">
@@ -32,12 +29,14 @@
                                 @foreach ($cart as $item )
                                 <tr>
                                     <td class="w-25">
-                                        <img src="{{$item->product->image_url}}" width="90px" class="img-fluid img-thumbnail" alt="Sheep">
+                                        <img src="{{$item->product->image_url}}" width="90px"
+                                            class="img-fluid img-thumbnail" alt="Sheep">
                                     </td>
                                     <td>{{$item->product->name}}</td>
                                     <td>{{$item->product->price}}</td>
                                     <td class="qty">
-                                        <input type="text" class="form-control" name="qty" id="input1" value="{{$item->quantity}}">
+                                        <input type="text" class="form-control" name="qty" id="input1"
+                                            value="{{$item->quantity}}">
                                     </td>
                                     <td> $ {{$item->product->price * $item->quantity}} </td>
                                     <td>
@@ -52,15 +51,30 @@
 
                         </table>
                         <div class="d-flex justify-content-end">
-                            <h5>Total: <span class="price text-success">{{$total}}$</span></h5>
+                            <h4>Total: <span class="price text-success">{{$total}}$</span></h4>
                         </div>
                     </div>
                     <div class="modal-footer border-top-0 d-flex justify-content-between">
-                        <button type="button" class="btn btn-success">Checkout</button>
+                        <button type="button" class="btn btn-success"><a class="ps-btn"
+                                href="{{route('checkout')}}">Checkout <i class="fa fa-chevron-right"></i>
+
+                            </a></button>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
 </x-store-front-layout>

@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->unsignedFloat('quantity')->default(0);
+            $table->foreignId('product_id')->constrained('products')->restrictOnDelete();
+            $table->unsignedInteger('quantity')->default(1);
             $table->unsignedFloat('price');
 
-            $table->primary('order_id', 'product_id');
+            $table->primary(['order_id', 'product_id']);
         });
     }
 

@@ -13,4 +13,13 @@ class OrderItem extends Pivot
     // protected $fillable =[];
 
     public $timestamps = false;
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

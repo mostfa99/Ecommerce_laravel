@@ -23,17 +23,13 @@ return new class extends Migration
             $table->unsignedFloat('total')->default(0);
             $table->enum('status', ['pending', 'cancelled', 'processing', 'shipping', 'completed'])->default('pending');
             $table->enum('payment_status', ['unpaid', 'paid', 'refund']);
-            // shipping
-            $table->string('shipping_firstname');
-            $table->string('shipping_lastname');
+            $table->string('shipping_name');
             $table->string('shipping_email');
             $table->string('shipping_phone');
             $table->string('shipping_address');
             $table->string('shipping_city');
             $table->string('shipping_country');
-            // billing
-            $table->string('billing_firstname');
-            $table->string('billing_lastname');
+            $table->string('billing_name');
             $table->string('billing_email');
             $table->string('billing_phone');
             $table->string('billing_address');
