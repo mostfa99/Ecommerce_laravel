@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderCreated;
 use App\Models\Order;
 use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
@@ -65,6 +66,9 @@ class CheckoutController extends Controller
             }
             DB::table('order_items')->insert($items);
             DB::commit();
+
+            event(new OrderCreated($order));
+
             // هان بنختار وين نوجه المستخدم سواء على صفحة الدفع او على الاورد حسب شو بدك
             // call route to orders by name orders with success massage
             return redirect()->route('orders')->with('success', __('Order Created'));

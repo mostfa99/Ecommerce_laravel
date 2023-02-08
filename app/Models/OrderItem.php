@@ -13,6 +13,8 @@ class OrderItem extends Pivot
     // protected $fillable =[];
 
     public $timestamps = false;
+    // call table becouse pivot remove 's
+    protected $table = 'order_items';
 
     public function order()
     {
