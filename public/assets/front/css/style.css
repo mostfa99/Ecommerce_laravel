@@ -2221,7 +2221,9 @@ height: 100vh !important;
   .cart .modal-footer a{
     padding: 20px;
   }
-  .cart   .modal-footer a:hover{
+  .cart .modal-footer a{
     color: #fff;
-
-  }
+    }
+    .cart .modal-footer a:hover{
+        color: #fff;
+    }

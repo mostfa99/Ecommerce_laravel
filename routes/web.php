@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\RatingController;
 use App\Http\Middleware\CheckUserType;
 use App\Models\Order;
@@ -113,3 +114,5 @@ Route::post('/checkout', [CheckoutController::class, 'store']);
 Route::get('/orders', function () {
     return Order::all();
 })->name('orders');
+Route::get('chat', [MessagesController::class, 'index'])->name('chat');
+Route::post('chat', [MessagesController::class, 'store']);
