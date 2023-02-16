@@ -21,7 +21,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @else
     <link rel="stylesheet" href="{{ asset('assets/admin/css/adminlte.min.css') }}">
     @endif
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- @vite(['resources/css/app.css', 'resources/js/app.js'])
+    without css -->
+    @vite([ 'resources/js/app.js'])
 </head>
 
 <body class="hold-transition sidebar-mini">
