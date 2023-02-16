@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -34,7 +35,7 @@ class OrderCreatedNotification extends Notification
         // mail , database , nexmo (SMS) , brodcast , stack
         // return ['mail','database', 'nexmo', 'broadcast'];
         $via = [
-            'mail', 'database', 'broadcast'
+            'database', 'mail',  'broadcast'
         ];
         /* if ($notifiable->notify_sms) {
             $via[] = 'nexmo';
@@ -61,7 +62,7 @@ class OrderCreatedNotification extends Notification
             ->from('invoices@localhost', 'Electro Billing ')
             // welcome name
             ->greeting(__('Hello , :name ', [
-                'name' => $notifiable->name
+                'name' => $notifiable->name ?? ''
             ]))
             ->line(__('New order has been created (Order #:number).', [
                 'number' => $this->order->number,
@@ -87,6 +88,7 @@ class OrderCreatedNotification extends Notification
             'url'   => url('/'),
         ];
     }
+
     public function toBroadcast($notifiable)
     {
 
@@ -99,6 +101,7 @@ class OrderCreatedNotification extends Notification
             ]),
             'icon'  => '',
             'url'   => url('/'),
+            'time' => Carbon::now()->diffForHumans(),
         ]);
         /* return [
             'title' => __('New order #:number', [

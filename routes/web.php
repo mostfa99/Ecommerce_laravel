@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\CountriesController;
+use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolesController;
@@ -38,6 +39,8 @@ Route::namespace('Admin')
     ->middleware(['auth', 'auth.type:admin,super-admin'])
     ->group(function () {
 
+        Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
+        Route::get('notifications/{id}', [NotificationsController::class, 'show'])->name('notifications.read');
         // Product Route
         Route::group([
             'prefix' => '/products',

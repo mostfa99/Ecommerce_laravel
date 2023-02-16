@@ -30,11 +30,8 @@ class OrderInvoice extends Mailable
      */
     public function build()
     {
-        // عنوان الرسالة
         $this->subject('Invoice #' .  $this->order->number);
-        // صاحب الرسالة
         $this->from('Billing@localhost', 'Billing Account');
-        // محتوى الرسالة
         return $this->view('mails.invoice', [
             'order' => $this->order,
         ]);

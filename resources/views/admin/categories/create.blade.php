@@ -4,9 +4,9 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{ route('catagories.index')}}"> Category</a></li>
-    <li class="breadcrumb-item active">Create</li>
+    <li class="breadcrumb-item"><a href="#">{{__('Home')}}</a></li>
+    <li class="breadcrumb-item active"><a href="{{ route('catagories.index')}}">{{__('Category')}}</a></li>
+    <li class="breadcrumb-item active">{{__('Create')}}</li>
 </ol>
 @endsection
 @section('content')

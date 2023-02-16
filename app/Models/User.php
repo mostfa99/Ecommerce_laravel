@@ -44,27 +44,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function hasAbility($ability){
-        $roles =Role::whereRaw('roles.id IN (SELECT role_id FROM role_user WHERE user_id = ? )', [
-            $this->id ,
+    public function hasAbility($ability)
+    {
+        $roles = Role::whereRaw('roles.id IN (SELECT role_id FROM role_user WHERE user_id = ? )', [
+            $this->id,
         ])->get();
-            // SELECT * FROM roles WHERE id IN(SELECT role_id FROM role_user WHERE user_id =? )
-            //SELECT * FROM roles INNER JOIN role_user ON roles.id = role_user.role_id WHERE role_id.user_id = ?
+        // SELECT * FROM roles WHERE id IN(SELECT role_id FROM role_user WHERE user_id =? )
+        //SELECT * FROM roles INNER JOIN role_user ON roles.id = role_user.role_id WHERE role_id.user_id = ?
         foreach ($roles as $role) {
-            if(in_array($ability , $role->abilities)){
+            if (in_array($ability, $role->abilities)) {
                 return true;
             }
         }
-        return false ;
+        return false;
     }
 
-    public function profile(){
-    return  $this->hasOne(Profile::class,'user_id','id')->withDefault([
-            'address'=> 'Not Enterd',
+    public function profile()
+    {
+        return  $this->hasOne(Profile::class, 'user_id', 'id')->withDefault([
+            'address' => 'Not Enterd',
         ]);
     }
 
-    public function roles(){
+    public function roles()
+    {
         return $this->belongsToMany(
             Role::class,
             'role_user',
@@ -74,12 +77,27 @@ class User extends Authenticatable
         );
     }
 
-    public function country(){
+    public function country()
+    {
         return $this->belongsTo(Country::class)->withDefault('');
-
     }
-    public function products(){
+    public function products()
+    {
         return $this->hasMany(Prouct::class);
-
+    }
+    // to custome mail if i change default name for email like email_adress
+    public function routeNotificationForMail($notificaction = null)
+    {
+        return $this->email;
+    }
+    // in nexmo i need phone number for end sms massage i went to craet custome methods
+    public function  routeNotificationForNexmo($notificaction = null)
+    {
+        return $this->mobile;
+    }
+    // change broadcast name
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'Notifications.' . $this->id;
     }
 }
