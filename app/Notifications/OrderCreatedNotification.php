@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Channels\TweetSmsChannel;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -9,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\VonageMessage;
 
 class OrderCreatedNotification extends Notification
 {
@@ -32,13 +34,14 @@ class OrderCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        // mail , database , nexmo (SMS) , brodcast , stack
-        // return ['mail','database', 'nexmo', 'broadcast'];
+        // mail , database , vonage (SMS) , brodcast , stack
+        // return ['mail','database', 'vonage', 'broadcast'];
         $via = [
-            'database', 'mail',  'broadcast'
+            //'database', 'mail',  'broadcast', 'vonage'
+            TweetSmsChannel::class
         ];
         /* if ($notifiable->notify_sms) {
-            $via[] = 'nexmo';
+            $via[] = 'vonage';
         }
         if ($notifiable->notify_mail) {
             $via[] = 'mail';
@@ -113,6 +116,21 @@ class OrderCreatedNotification extends Notification
             'icon'  => '',
             'url'   => url('/'),
         ];*/
+    }
+    /**
+     * Get the Vonage / SMS representation of the notification.
+     */
+    public function toVonage($notifiable)
+    {
+        $message = new VonageMessage();
+        $message->content(__('New order has been created (Order #:number).', [
+            'number' => $this->order->number,
+        ]));
+        return $message;
+    }
+    public function toTweetSms($notifiable)
+    {
+        return __('New order has been created (Order #:number).', ['number' => $this->order->number,]);
     }
     /**
      * Get the array representation of the notification.

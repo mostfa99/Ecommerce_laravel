@@ -91,7 +91,11 @@ class User extends Authenticatable
         return $this->email;
     }
     // in nexmo i need phone number for end sms massage i went to craet custome methods
-    public function  routeNotificationForNexmo($notificaction = null)
+    public function  routeNotificationForVonage($notificaction = null)
+    {
+        return $this->mobile;
+    }
+    public function  routeNotificationForTweetSms($notificaction = null)
     {
         return $this->mobile;
     }

@@ -12,8 +12,7 @@
                 <i class="fas fa-envelope mr-2"></i>
                 @if ($notification->unread())<b>*</b>@endif
                 {{$notification->data['title']}}
-
-                <span class="float-right text-muted text-sm">{{$notification->created_at->diffForHumans()}}mins</span>
+                <span class="float-right text-muted text-sm">{{$notification->created_at->diffForHumans()}}</span>
             </a>
             @endforeach
             <div class="dropdown-divider"></div>
