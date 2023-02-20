@@ -130,7 +130,10 @@ class OrderCreatedNotification extends Notification
     }
     public function toTweetSms($notifiable)
     {
-        return __('New order has been created (Order #:number).', ['number' => $this->order->number,]);
+        return __(
+            'New order has been created (Order #:number).',
+            ['number' => $this->order->number,]
+        );
     }
     /**
      * Get the array representation of the notification.

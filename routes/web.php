@@ -104,9 +104,7 @@ Route::get('/dashboard', function () {
 
 // product front
 Route::get('/products', [ProductController::class, 'index'])->name('products');
-
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.details');
-
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart', [CartController::class, 'store']);

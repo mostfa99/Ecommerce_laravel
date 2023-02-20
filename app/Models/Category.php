@@ -5,35 +5,49 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    const CREATED_AT ='created_at';
-    const UPDATED_AT ='updated_at';
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
 
-    protected $connection ='mysql';
-    protected $table ='categories';
-    protected $primaryKey ='id';
-    protected $keyType ='int';
+    protected $connection = 'mysql';
+    protected $table = 'categories';
+    protected $primaryKey = 'id';
+    protected $keyType = 'int';
     public $incrementing = true;
     public $timestamps = true;
 
-    protected $fillable =[
-        'name','parent_id','descraption','status','slug',
+    protected $fillable = [
+        'name', 'parent_id', 'descraption', 'status', 'slug',
     ];
+    protected $hidden = [
+        'created_at', 'updated_at', 'deleted_at',
+    ];
+    protected $appends = [
+        'original_name'
+    ];
+
+    protected static function booted()
+    {
+        static::creating(function (Category $category) {
+            $category->slug = Str::slug($category->name);
+        });
+    }
 
     // Accessors
     //Exitsit Attribute get(AttributeName)Attribute
     // $model->name
-    Public function getNameAttribute($value){
-        if ($this->trashed()){
+    public function getNameAttribute($value)
+    {
+        if ($this->trashed()) {
             return $value . '(deleted)';
         }
         return $value;
-
     }
     // non exists Attribute
     // $model->original_name
@@ -42,25 +56,22 @@ class Category extends Model
         return $this->attributes['name'];
     }
 
-// Relation 1 to many
+    // Relation 1 to many
     public function products()
     {
-        return $this->hasMany(Product::class, 'category_id','id');
+        return $this->hasMany(Product::class, 'category_id', 'id');
     }
-// Relation many to many
+    // Relation many to many
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id','id');
+        return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 
-// Relation many to many
+    // Relation many to many
     public function parent()
     {
-        return $this->belongsTo(self::class, 'parent_id','id')->withDefault([
+        return $this->belongsTo(self::class, 'parent_id', 'id')->withDefault([
             'name' => 'Not Parent',
         ]);
     }
-
-
-
 }
