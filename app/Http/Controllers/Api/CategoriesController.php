@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,9 +19,14 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        return Category::when($request->query('parent_id'), function ($query, $value) {
-            $query->where('parent_id', '=', $value);
-        })->paginate();
+        if (!$request->user()->tokenCan('categories.create')) {
+            abort(403, 'not allowed ');
+        }
+        $categories = Category::with('parent')
+            ->when($request->query('parent_id'), function ($query, $value) {
+                $query->where('parent_id', '=', $value);
+            })->paginate();
+        return  CategoryResource::collection($categories);
     }
 
     /**
@@ -58,7 +64,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        return Category::with('children')->findOrFail($id);
+        $category =  Category::with('children')->findOrFail($id);
+        return new CategoryResource($category);
     }
 
     /**
