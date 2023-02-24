@@ -61,5 +61,6 @@
         </tbody>
     </table>
     <!-- for number of pages  after paginte in controller to display it  -->
-    {{ $categories->links() }}
+    <!-- http://localhost:8000/admin/products?page=2&cat_id=1 -->
+    {{ $categories->withQueryString()->links() }}
     @endsection

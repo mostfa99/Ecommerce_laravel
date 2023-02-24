@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AccessTokenController extends Controller
 {
@@ -18,7 +19,7 @@ class AccessTokenController extends Controller
             'username' => ['required'],
             'password' => ['required'],
             'device_name' => ['required'],
-            'abilities' => 'required',
+            'abilities' => ['nullable'],
 
         ]);
         // dd($request);
@@ -36,7 +37,14 @@ class AccessTokenController extends Controller
         if ($abilities && is_string($abilities)) {
             $abilities = explode(',', $abilities);
         }
+
         $token = $user->createToken($request->device_name, $abilities);
+
+        $accessToken = PersonalAccessToken::findToken($token->plainTextToken);
+        $accessToken->forceFill([
+            'ip' => $request->ip(),
+        ])->save();
+
         return Response::json([
             'token' =>  $token->plainTextToken,
             // 'token' =>  $token,

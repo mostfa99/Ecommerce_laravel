@@ -75,6 +75,6 @@
 </table>
 
 <!-- for number of pages  after paginte in controller to display it  -->
-{{ $products->links() }}
+{{ $products->withQueryString()->links() }}
 
 @endsection

@@ -26,8 +26,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// /login
 require __DIR__ . '/auth.php';
+
+// admin/login
+Route::prefix('admin')
+    // ->middleware(['auth:admin'])
+    ->namespace('Admin')
+    ->as('admin.')
+    ->group(function () {
+        require __DIR__ . '/auth.php';
+    });
 
 // Web Route
 //
@@ -38,7 +47,6 @@ Route::namespace('Admin')
     ->prefix('admin')
     ->middleware(['auth', 'auth.type:admin,super-admin'])
     ->group(function () {
-
         Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
         Route::get('notifications/{id}', [NotificationsController::class, 'show'])->name('notifications.read');
         // Product Route
@@ -99,7 +107,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth:web,admin', 'verified'])
     ->name('dashboard');
 
 // product front
