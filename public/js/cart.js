@@ -26,9 +26,6 @@
                 <div class="alert alert-success">
                 </div>);
                 */
-            //$('.alert-container').show();
-            $('.alert-container').fadeIn(1000);
-            //$('.alert-container').fadeOut(1000);
 
         });//end post function
     }); // end function #add-to-cart

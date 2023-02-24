@@ -10,11 +10,11 @@ class ProductPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability ){
-        if($user->type == 'super-admin'){
+    public function before($user, $ability)
+    {
+        if ($user->type == 'super-admin') {
             return true;
         }
-
     }
 
     /**
@@ -23,7 +23,7 @@ class ProductPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny($user)
     {
         return $user->hasAbility('products.view-any');
     }
@@ -35,7 +35,7 @@ class ProductPolicy
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Product $product)
+    public function view($user, Product $product)
     {
         return $user->hasAbility('products.view');
     }
@@ -46,7 +46,7 @@ class ProductPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create($user)
     {
         return $user->hasAbility('products.create');
     }
