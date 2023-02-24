@@ -100,9 +100,7 @@
                                 <h1>
                                     do here
                                 </h1>
-                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i> add
-                                    to
-                                    cart</button>
+                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
                             </div>
                         </form>
                         <ul class="product-btns">
