@@ -52,7 +52,18 @@ class Product extends Model
 
         ];
     }
-
+    protected static  function boot()
+    {
+        static::creating(function (Product $product) {
+            $slug = Str::slug($product->name);
+            $count = Product::where('slug', 'LIKE', "{$slug}%")->count();
+            if ($count) {
+                // $product->slug = $slug + '-' + $count;
+                $slug .= '-' . ($count + 1);
+            }
+            $product->slug = $slug;
+        });
+    }
     // Accessors
 
     // premalink

@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*
 // /login
 require __DIR__ . '/auth.php';
 
@@ -36,7 +37,7 @@ Route::prefix('admin')
     ->as('admin.')
     ->group(function () {
         require __DIR__ . '/auth.php';
-    });
+    });*/
 
 // Web Route
 //
