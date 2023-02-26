@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\TwoFactorAuthentcationContoller;
+use App\Http\Controllers\Admin\TwoFactorChallangeController;
+use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
@@ -48,6 +51,9 @@ Route::namespace('Admin')
     ->prefix('admin')
     ->middleware(['auth', 'auth.type:admin,super-admin'])
     ->group(function () {
+        Route::get('/user-profile', [UserProfileController::class, 'index'])->name('profile');
+        Route::get('/2fa', [TwoFactorAuthentcationContoller::class, 'index'])->name('2fa');
+        //Route::get('/two-factor-challenge', [TwoFactorChallangeController::class, 'index'])->name('2faC');
         Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
         Route::get('notifications/{id}', [NotificationsController::class, 'show'])->name('notifications.read');
         // Product Route

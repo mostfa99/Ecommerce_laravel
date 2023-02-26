@@ -43,41 +43,41 @@
 
 <!-- SKU -->
 <div class="form-group">
-    <x-form-input type="number" name="sku" label="SKU" :value="$product->sku" />
+    <x-form-input type="number" name="sku" label="SKU" :value="$product->sku" placeholder="sku" />
 </div>
 
 <!-- Price -->
 <div class="form-group">
-    <x-form-input type="number" name="price" label="Price" :value="$product->price" />
+    <x-form-input type="number" name="price" label="Price" :value="$product->price" placeholder="Price" />
 </div>
 
 <!-- Sale Price -->
 <div class="form-group">
-    <x-form-input type="number" name="sale_price" label="Sale Price" :value="$product->sale_price" />
+    <x-form-input type="number" name="sale_price" label="Sale Price" :value="$product->sale_price" placeholder="sale_price" />
 </div>
 
 <!-- Quantity -->
 <div class="form-group">
-    <x-form-input type="number" name="quantity" label="Quantity" :value="$product->quantity" />
+    <x-form-input type="number" name="quantity" label="Quantity" :value="$product->quantity" placeholder="Quantity" />
 </div>
 
 <!-- Weight -->
 <div class="form-group">
-    <x-form-input type="number" name="weight" label="Weight" :value="$product->weight" />
+    <x-form-input type="number" name="weight" label="Weight" :value="$product->weight" placeholder="weight" />
 </div>
 
 <!-- Width -->
 <div class="form-group">
-    <x-form-input type="number" name="width" label="Width" :value="$product->width" />
+    <x-form-input type="number" name="width" label="Width" :value="$product->width" placeholder="width" />
 </div>
 
 <!-- Hight -->
 <div class="form-group">
-    <x-form-input type="number" name="hight" label="Hight" :value="$product->hight" />
+    <x-form-input type="number" name="hight" label="Hight" :value="$product->hight" placeholder="hight" />
 </div>
 <!-- Length -->
 <div class="form-group">
-    <x-form-input type="number" name="length" label="Length" :value="$product->length" />
+    <x-form-input type="number" name="length" label="Length" :value="$product->length" placeholder="length" />
 </div>
 
 
@@ -86,15 +86,13 @@
     <label for="status">Status </label>
     <div>
         <div class="form-check ">
-            <input class="form-check-input" type="radio" name="status" value="active" id="status-active"
-                @if(old('status',$product->status) == 'active' ) checked @endif>
+            <input class="form-check-input" type="radio" name="status" value="active" id="status-active" @if(old(' status',$product->status) == 'active' ) checked @endif>
             <label class="form-check-label" for="status-active">
                 Active
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" value="draft" id="status-draft"
-                @if(old('status',$product->status) == 'draft' ) checked @endif>
+            <input class="form-check-input" type="radio" name="status" value="draft" id="status-draft" @if(old('status',$product->status) == 'draft' ) checked @endif>
             <label class="form-check-label" for="status-draft">
                 Draft
             </label>

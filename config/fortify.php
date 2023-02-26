@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'guard' => 'admin',
+    'guard' => 'web',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'passwords' => 'admins',
+    'passwords' => 'users',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'username' => 'username',
+    'username' => 'email',
 
     'email' => 'email',
 
@@ -74,7 +74,7 @@ return [
     |
     */
 
-    'prefix' => 'auth',
+    'prefix' => '',
     // 'subdomain' => 'admin.localhost',
     'domain' => 'admin.localhost',
 
@@ -132,13 +132,15 @@ return [
     */
 
     'features' => [
+
         Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([
-            'confirm' => true,
+            'confirm' => false,
+            // 'confirm' => true,
             'confirmPassword' => true,
             // 'window' => 0,
         ]),
