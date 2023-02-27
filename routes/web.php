@@ -53,9 +53,10 @@ Route::namespace('Admin')
     ->group(function () {
         Route::get('/user-profile', [UserProfileController::class, 'index'])->name('profile');
         Route::get('/2fa', [TwoFactorAuthentcationContoller::class, 'index'])->name('2fa');
-        //Route::get('/two-factor-challenge', [TwoFactorChallangeController::class, 'index'])->name('2faC');
         Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
         Route::get('notifications/{id}', [NotificationsController::class, 'show'])->name('notifications.read');
+        Route::get('/get-user', [HomeController::class, 'getUser'])->name('getUser');
+
         // Product Route
         Route::group([
             'prefix' => '/products',
@@ -74,7 +75,6 @@ Route::namespace('Admin')
             'as' => 'catagories.'
         ], function () {
             // Route::resource('/catagories', CatagoriesController::class);
-
             Route::get('create', [CatagoriesController::class, 'create'])
                 ->name('create');
             Route::post('catagories', [CatagoriesController::class, 'store'])
@@ -90,8 +90,6 @@ Route::namespace('Admin')
             Route::get('', [CatagoriesController::class, 'index'])
                 ->name('index');
         });
-
-        Route::get('get-user', [HomeController::class, 'getUser']);
     });
 
 Route::resource('admin/products', ProductsController::class)

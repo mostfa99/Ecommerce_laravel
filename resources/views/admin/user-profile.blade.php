@@ -7,7 +7,7 @@
     {{__('your profile updated ')}}
 </div>
 @endif
-<form action="{{ route('user-profile-information.update') }}" method="post">
+<form action="{{route('user-profile-information.update')}}" method="post">
     @csrf
     @method('put')
 
