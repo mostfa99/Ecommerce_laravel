@@ -18,19 +18,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // \App\Models\User::factory(4)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        // Category::factory(10)->create();
-        // Product::factory(5)->create();
-        Admin::factory(5)->create();
+        //Category::factory(10)->create();
+        Product::factory(50)->create();
+        //Admin::factory(5)->create();
 
         $this->call([
             //CategoriesTableSeeder::class,
+            //ProductTableSeeder::class,
             //UsersTableSeeder::class,
         ]);
     }

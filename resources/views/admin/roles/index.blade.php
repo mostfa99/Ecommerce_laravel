@@ -7,6 +7,7 @@
         @can('roles.create')
         <a class="btn btn-sm btn-outline-primary" href="{{route('roles.create')}}">Create</a>
         @endcan
+
     </div>
 
 </div>

@@ -20,32 +20,31 @@ class ProductsController extends Controller
     public function index()
     {
 
-        $this->authorize('view-any',Product::class);
+        $this->authorize('view-any', Product::class);
 
         // if(!Gate::allows('products.create')){
         //     abort(403);
         // };
-
         //return collection of model catagory
         $products = Product::WithoutGlobalScopes([ActiveStatusScope::class])
-        // ->join('categories','categories.id','=','products.category_id')
-        ->with('category.parent')
-        ->select([
-            'products.*',
-           // 'categories.name as category_name',
-        ])
-        ->latest()
-        ->paginate(15,['*'],'p');
+            // ->join('categories','categories.id','=','products.category_id')
+            ->with('category.parent')
+            ->select([
+                'products.*',
+                // 'categories.name as category_name',
+            ])
+            ->latest()
+            ->paginate(15, ['*'], 'p');
         // ->simplePaginate();
         // ->paginate( limit of entries , ['*'] , name page , defult apge );
 
 
-        $title ='products List';
+        $title = 'products List';
 
         // $success = session()->get('success');
         return view('admin.products.index', [
-            'products'=> $products,
-            'title'=> $title,
+            'products' => $products,
+            'title' => $title,
             // 'success'=>$success,
         ]);
     }
@@ -57,13 +56,13 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Product::class);
+        $this->authorize('create', Product::class);
 
-        $categories = Category::pluck('name' , 'id');
+        $categories = Category::pluck('name', 'id');
 
-        return view('admin.products.create',[
-        'categories' => $categories,
-        'product' => new Product(),
+        return view('admin.products.create', [
+            'categories' => $categories,
+            'product' => new Product(),
         ]);
     }
 
@@ -77,23 +76,23 @@ class ProductsController extends Controller
     {
         $request->validate(Product::validateRules());
         $request->merge([
-            'slug'=>Str::slug($request->post('name'))
+            'slug' => Str::slug($request->post('name'))
         ]);
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $image_path = $file->store('/',[
-                'disk'=> 'uploads'
+            $image_path = $file->store('/', [
+                'disk' => 'uploads'
             ]);
             $request->merge([
-                'image_path' =>$image_path,
+                'image_path' => $image_path,
             ]);
         }
 
         $product = Product::create($request->all());
 
         return redirect()->route('products.index')
-        ->with('success',"Product($product->name) Created.");
+            ->with('success', "Product($product->name) Created.");
     }
 
     /**
@@ -104,14 +103,14 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product =Product::withoutGlobalScopes()->findOrFail($id);
+        $product = Product::withoutGlobalScopes()->findOrFail($id);
         // SELECT * FROM rating WHERE rateable_id = ? 5 AND rateable_type = 'App\Models\Product'
 
         return $product->ratings;
 
-        $this->authorize('view',$product);
+        $this->authorize('view', $product);
 
-        return view('admin.products.show',[
+        return view('admin.products.show', [
             'product' => $product,
 
         ]);
@@ -126,16 +125,15 @@ class ProductsController extends Controller
     public function edit($id)
     {
         // category ::where ('id','=','$id)->first();
-        $product =Product::findOrFail($id);
-        $this->authorize('update',$product);
+        $product = Product::findOrFail($id);
+        $this->authorize('update', $product);
 
-        $this->authorize('create',Product::class);
-        return view('admin.products.edit',[
+        $this->authorize('create', Product::class);
+        return view('admin.products.edit', [
             'product' => $product,
-            'categories'=> Category::withTrashed()->pluck('name' , 'id'),
+            'categories' => Category::withTrashed()->pluck('name', 'id'),
 
         ]);
-
     }
 
     /**
@@ -148,22 +146,22 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $this->authorize('update',$product);
+        $this->authorize('update', $product);
 
         $request->validate(Product::validateRules());
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $image_path = $file->store('/',[
-                'disk'=> 'uploads'
+            $image_path = $file->store('/', [
+                'disk' => 'uploads'
             ]);
             $request->merge([
-                'image_path' =>$image_path,
+                'image_path' => $image_path,
             ]);
         }
         $product->update($request->all());
 
         return redirect()->route('products.index')
-        ->with('success',"Product($product->name) Updated! ");
+            ->with('success', "Product($product->name) Updated! ");
     }
     /**
      * Remove the specified resource from storage.
@@ -176,7 +174,7 @@ class ProductsController extends Controller
     {
         // Gate::authorize('products.delete');
         $product = Product::findOrFail($id);
-        $this->authorize('delete',$product);
+        $this->authorize('delete', $product);
 
         Product::destroy($id);
 
@@ -184,44 +182,41 @@ class ProductsController extends Controller
         // unlink(public_path('uploads/' . $product->image_path));
 
         return redirect()->route('products.index')
-        ->with('success',"Product($product->name) Deleted! ");
-
+            ->with('success', "Product($product->name) Deleted! ");
     }
 
-    public function trash(){
+    public function trash()
+    {
 
         $products = Product::onlyTrashed()->paginate();
-        return view('admin.products.trash',[
-            'products'=> $products
+        return view('admin.products.trash', [
+            'products' => $products
         ]);
     }
 
-    public function restore(Request $request, $id =null){
-        if($id){
-            $product=Product::onlyTrashed()->findOrfail($id);
+    public function restore(Request $request, $id = null)
+    {
+        if ($id) {
+            $product = Product::onlyTrashed()->findOrfail($id);
             $product->restore();
             return redirect()->route('products.index')
-            ->with('success',"Product($product->name) Restored! ");
+                ->with('success', "Product($product->name) Restored! ");
         }
-            Product::onlyTrashed()->restore();
-            return redirect()->route('products.index')
-            ->with('success',"All Trashed Products Restored. ");
-
-
+        Product::onlyTrashed()->restore();
+        return redirect()->route('products.index')
+            ->with('success', "All Trashed Products Restored. ");
     }
-    public function forceDelete($id=null){
+    public function forceDelete($id = null)
+    {
 
-        if($id){
-            $product=Product::onlyTrashed()->findOrfail($id);
+        if ($id) {
+            $product = Product::onlyTrashed()->findOrfail($id);
             $product->forceDelete();
             return redirect()->route('products.index')
-            ->with('success',"Product($product->name) delete forever! ");
+                ->with('success', "Product($product->name) delete forever! ");
         }
-            Product::onlyTrashed()->forceDelete();
-            return redirect()->route('products.index')
-            ->with('success',"All Trashed Products delete forever. ");
-
-
-        }
-
+        Product::onlyTrashed()->forceDelete();
+        return redirect()->route('products.index')
+            ->with('success', "All Trashed Products delete forever. ");
+    }
 }

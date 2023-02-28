@@ -24,11 +24,18 @@ class HomeController extends Controller
 
     public function getUser()
     {
-        $users = User::with('profile')->get();
+        $users = User::with(['profile', 'country'])->get();
         echo '<h2>User details </h2>' . '<br>';
         foreach ($users as $user) {
             echo '<p><ul>';
-            echo '<li>' . $user->name  . ' ==>' . $user->profile->address . '</li>';
+            echo '<li>' . $user->name;
+            if ($user->profile) {
+                echo ' ==> ' . $user->profile->address;
+            }
+            if ($user->country) {
+                echo ' + ' . $user->country->name;
+            }
+            echo '</li>';
             echo '</ul></p>';
         }
 

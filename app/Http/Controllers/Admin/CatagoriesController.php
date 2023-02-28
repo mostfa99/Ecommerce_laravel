@@ -22,23 +22,24 @@ class CatagoriesController extends Controller
 
         //return collection of model catagory
         //$categories = Category::all(['*']);
-        $this->authorize('view-any',Category::class);
-        $categories = Category::leftJoin('categories as parents','parents.id','=','categories.parent_id')
+        //$this->authorize('view-any',Category::class);
+
+        $categories = Category::leftJoin('categories as parents', 'parents.id', '=', 'categories.parent_id')
             ->select([
-            'categories.*',
-            'parents.name as parent_name'
-        ])
+                'categories.*',
+                'parents.name as parent_name'
+            ])
             // ->where('categories.status','=','active')
             ->orderBy('categories.created_at', 'DESC')
-            ->orderBy('categories.name','ASC')
+            ->orderBy('categories.name', 'ASC')
             ->withTrashed()
             ->get();
 
-        $title ='Categories List';
+        $title = 'Categories List';
 
         // dd(compact('categories','title'));
         //egerload
-            $categories =Category::with('parent')
+        $categories = Category::with('parent')
             ->withCount('products as count')
             /*
             // will do filterd for all data and return specific data
@@ -48,11 +49,11 @@ class CatagoriesController extends Controller
             })*/
             ->paginate();
 
-            $success = session()->get('success');
+        $success = session()->get('success');
         return view('admin.categories.index', [
-            'categories'=> $categories,
-            'title'=> $title,
-            'success'=>$success,
+            'categories' => $categories,
+            'title' => $title,
+            'success' => $success,
         ]);
     }
 
@@ -63,10 +64,10 @@ class CatagoriesController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Category::class);
+        //$this->authorize('create', Category::class);
         $parents = Category::all();
         $category = new Category();
-        return view('admin.categories.create',compact('category','parents'));
+        return view('admin.categories.create', compact('category', 'parents'));
     }
 
     /**
@@ -87,10 +88,10 @@ class CatagoriesController extends Controller
         //     'status' => 'required|in:active,draft',
         //     'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
         // ]);
-        $rules =[
-            'name'=> 'required|string|max:255|min:3',
+        $rules = [
+            'name' => 'required|string|max:255|min:3',
             'parent_id' => 'required|int|exists:categories,id',
-            'descraption' => 'min:5',//nullable|min:5
+            'descraption' => 'min:5', //nullable|min:5
             'status' => 'required|in:active,draft',
             'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
         ];
@@ -101,10 +102,10 @@ class CatagoriesController extends Controller
         // if($validator->fails()){
         //     return redirect()->back()->withErrors($validator);
         // }
-            //can add attrbutes not in fiablle model
+        //can add attrbutes not in fiablle model
         $request->merge([
-            'slug'=>Str::slug($request->name),
-            'status'=>'active',
+            'slug' => Str::slug($request->name),
+            'status' => 'active',
         ]);
 
         // Method #1
@@ -115,9 +116,9 @@ class CatagoriesController extends Controller
         //     $category->descraption = $request->post('descraption');
         //     $category->status = $request->post('status','active');
         //     $category->save();
-            // dd($category);
+        // dd($category);
 
-            // Method #2
+        // Method #2
         // $category= Category::create([
         //     'name'=> $request->post('name'),
         //     'slug' => Str::slug($request->post('name')),
@@ -125,9 +126,9 @@ class CatagoriesController extends Controller
         //     'descraption'=> $request->post('descraption'),
         //     'status'=> $request->post('status','active'),
         // ]);
-        $category=  Category::create($request->all());
+        $category =  Category::create($request->all());
 
-            // Method #3 mass assigments
+        // Method #3 mass assigments
         // $category= new Category ([
         //     'name'=> $request->post('name'),
         //     'slug' => Str::slug($request->post('name')),
@@ -141,8 +142,7 @@ class CatagoriesController extends Controller
         //  $c ategory->save();
         // PRG
         return redirect(route('catagories.index'))
-        ->with('success','Category Created');
-
+            ->with('success', 'Category Created');
     }
 
     /**
@@ -156,16 +156,16 @@ class CatagoriesController extends Controller
         // after egar load i will make it arrengment as ASC
         return $category->load([
             'parent',
-            'products'=> function($query){
-                $query->orderBy('price','ASC')->where('status','active');
+            'products' => function ($query) {
+                $query->orderBy('price', 'ASC')->where('status', 'active');
             }
         ]);
-            // SELECT / FROM product WHERE category_id = ? ORDER BY price ASC
-        return $category ->products()
-        ->with('category:id,name,slug')
-        ->where('price','>',20)
-        ->orderBy('price')
-        ->get();
+        // SELECT / FROM product WHERE category_id = ? ORDER BY price ASC
+        return $category->products()
+            ->with('category:id,name,slug')
+            ->where('price', '>', 20)
+            ->orderBy('price')
+            ->get();
     }
 
     /**
@@ -179,9 +179,8 @@ class CatagoriesController extends Controller
         // category ::where ('id','=','$id)->first();
 
         $category = Category::findorfail($id);
-        $parents =Category::withTrashed()->where('id','<>',$category->id)->get();
-        return view('admin.categories.edit',compact('category','parents'));
-
+        $parents = Category::withTrashed()->where('id', '<>', $category->id)->get();
+        return view('admin.categories.edit', compact('category', 'parents'));
     }
 
     /**
@@ -196,34 +195,34 @@ class CatagoriesController extends Controller
         //Mass Assigment
         //Category::where('id','=',$id)->update($request->all());
         $category = Category::find($id);
-        $rules =[
-            'name'=> 'required|string|max:255|min:3',
+        $rules = [
+            'name' => 'required|string|max:255|min:3',
             'parent_id' => 'nullable|int|exists:categories,id',
-            'descraption' => 'min:5',//nullable|min:5
+            'descraption' => 'min:5', //nullable|min:5
             'status' => 'required|in:active,draft',
             'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',
-     ];
+        ];
 
         // $clean = $request->validate($rules);
-            $request->merge([
-                'slug'=> Str::slug($request->name),
-            ]);
+        $request->merge([
+            'slug' => Str::slug($request->name),
+        ]);
 
-            // Mehtod #1
-            // $category->name = $request->post('name');
-            // $category->parent_id = $request->post('parent_id');
-            // $category->descraption = $request->post('descraption');
-            // $category->status = $request->post('status','active');
-            // $category->save();
+        // Mehtod #1
+        // $category->name = $request->post('name');
+        // $category->parent_id = $request->post('parent_id');
+        // $category->descraption = $request->post('descraption');
+        // $category->status = $request->post('status','active');
+        // $category->save();
 
-            // Mehtod #2: mass assigment
-            $category->update($request->all());
+        // Mehtod #2: mass assigment
+        $category->update($request->all());
 
-            // Mehtod #3: mass assigment
+        // Mehtod #3: mass assigment
         //  $category->fill($request->all())->save();
-            //    PRG
-            return redirect()->route('catagories.index')
-            ->with('success','Category Updated!');
+        //    PRG
+        return redirect()->route('catagories.index')
+            ->with('success', 'Category Updated!');
     }
     /**
      * Remove the specified resource from storage.
@@ -245,21 +244,20 @@ class CatagoriesController extends Controller
 
         // wtire into sessions
         // Session::put();
-        session()->put('success','category deleted!');
+        session()->put('success', 'category deleted!');
         // session([
         //     'success'=>'category deleted!',
         // ]);
 
         // // read from session
-         // Session::get();
+        // Session::get();
         // session()->get('success');
 
         // // Delete From session
-         // Session::forget();
+        // Session::forget();
         // session()->forget('success');
         // PRG
         return redirect()->route('catagories.index')
-        ->with('success','Category Deleted!');
-
+            ->with('success', 'Category Deleted!');
     }
 }

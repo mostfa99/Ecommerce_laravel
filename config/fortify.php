@@ -75,8 +75,8 @@ return [
     */
 
     'prefix' => '',
-    // 'subdomain' => 'admin.localhost',
-    'domain' => 'admin.localhost',
+
+    'domain' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -132,15 +132,13 @@ return [
     */
 
     'features' => [
-
         Features::registration(),
         Features::resetPasswords(),
-        Features::emailVerification(),
+        // Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([
-            'confirm' => false,
-            // 'confirm' => true,
+            'confirm' => true,
             'confirmPassword' => true,
             // 'window' => 0,
         ]),

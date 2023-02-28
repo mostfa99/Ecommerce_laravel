@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -21,18 +22,18 @@ class CategoryFactory extends Factory
     public function definition()
     {
         $category = DB::table('categories')
-        ->inRandomOrder()
-        ->limit(1)
-        ->first(['id']);
-        $name = $this->faker->words(2,true);
-        $status = ['active','draft'];
+            ->inRandomOrder()
+            ->limit(1)
+            ->first(['id']);
+        $name = $this->faker->words(2, true);
+        $status = ['active', 'draft'];
         return [
-        'name'=> $this->faker->words(2,true),//we use true to return vlaue as string without true will return as arry
-        'slug'=> Str::slug($name) ,
-        'parent_id'=> $category? $category->id :null,
-        'descraption'=> $this->faker->words(200,true),
-        'image_path'=> $this->faker->imageUrl(),
-        'status'=> $status[rand(0,1)] ,
+            'name' => $this->faker->words(2, true), //we use true to return vlaue as string without true will return as arry
+            'slug' => Str::slug($name),
+            'parent_id' => $category ? $category->id : null,
+            'descraption' => $this->faker->words(200, true),
+            'image_path' => $this->faker->imageUrl(),
+            'status' => $status[rand(0, 1)],
         ];
     }
 }

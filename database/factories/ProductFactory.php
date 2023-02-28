@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Factories;
+
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -16,26 +18,45 @@ class ProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    /*public function definition()
     {
         $product = DB::table('products')
-        ->inRandomOrder()
-        ->limit(1)
-        ->first(['id']);
+            ->inRandomOrder()
+            ->limit(1)
+            ->first(['id']);
+        //$category = Category::factory()->create();
         // $price = $this->faker->randomNumber(2, true);
         $price = $this->faker->numberBetween(200, 300);
-        $name = $this->faker->words(2,true);
-        $status = ['active','draft'];
+        $name = $this->faker->words(2, true);
+        $status = ['active', 'draft'];
         return [
-        'name'=> $this->faker->words(2,true),//we use true to return vlaue as string without true will return as arry
-        'slug'=> Str::slug($name) ,
-        'category_id'=> $product? $product->id :null,
-        'descraption'=> $this->faker->realText(200,true),
-        'price'=>$price,
-        'sale_price'=> $this->faker->randomNumber(2, true),
-        'quantity'=>$this->faker->randomNumber(2, true),
-        'image_path'=> $this->faker->imageUrl(),
-        'status'=> $status[rand(0,1)] ,
+            'name' => $this->faker->words(2, true), //we use true to return vlaue as string without true will return as arry
+            'slug' => Str::slug($name),
+            'category_id' => $product ? $product->id : null,
+            'descraption' => $this->faker->realText(200, true),
+            'price' => $price,
+            'sale_price' => $this->faker->randomNumber(2, true),
+            'quantity' => $this->faker->randomNumber(2, true),
+            'image_path' => $this->faker->imageUrl(),
+            'status' => $status[rand(0, 1)],
+        ];
+    }*/
+    public function definition()
+    {
+        $price = $this->faker->numberBetween(200, 300);
+        $name = $this->faker->words(2, true);
+        $status = ['active', 'draft'];
+        $category = Category::factory()->create();
+        return [
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'category_id' => $category->id,
+            'descraption' => $this->faker->realText(200, true),
+            'price' => $price,
+            'sale_price' => $this->faker->randomNumber(2, true),
+            'quantity' => $this->faker->randomNumber(2, true),
+            'image_path' => $this->faker->imageUrl(),
+            'status' => $status[rand(0, 1)],
         ];
     }
 }
