@@ -11,6 +11,13 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\VonageMessage;
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
+use NotificationChannels\Fcm\Resources\AndroidConfig;
+use NotificationChannels\Fcm\Resources\AndroidFcmOptions;
+use NotificationChannels\Fcm\Resources\AndroidNotification;
+use NotificationChannels\Fcm\Resources\ApnsConfig;
+use NotificationChannels\Fcm\Resources\ApnsFcmOptions;
 
 class OrderCreatedNotification extends Notification
 {
@@ -37,8 +44,9 @@ class OrderCreatedNotification extends Notification
         // mail , database , vonage (SMS) , brodcast , stack
         // return ['mail','database', 'vonage', 'broadcast'];
         $via = [
-            //'database', 'mail',  'broadcast', 'vonage'
-            TweetSmsChannel::class
+            'database', FcmChannel::class,
+            // 'mail',  'broadcast', 'vonage'
+            // TweetSmsChannel::class
         ];
         /* if ($notifiable->notify_sms) {
             $via[] = 'vonage';
@@ -48,6 +56,7 @@ class OrderCreatedNotification extends Notification
         }*/
         return  $via;
     }
+
 
     /**
      * Get the mail representation of the notification.
@@ -146,5 +155,30 @@ class OrderCreatedNotification extends Notification
         return [
             //
         ];
+    }
+    public function toFcm($notifiable)
+    {
+        return FcmMessage::create()
+            ->setData([
+                'order_id' => $this->order->id,
+            ])
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
+                ->setTitle(__('New order'))
+                ->setBody(
+                    __('New order has been created (Order #:number).', [
+                        'number' => $this->order->number,
+                    ])
+                )
+                ->setImage('http://example.com/url-to-image-here.png'));
+
+        /* custome data for andriod
+                ->setAndroid(
+                AndroidConfig::create()
+                    ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))
+                    ->setNotification(AndroidNotification::create()->setColor('#0A0A0A'))
+            )->setApns(
+                ApnsConfig::create()
+                    ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios'))
+            );*/
     }
 }

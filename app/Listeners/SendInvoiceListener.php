@@ -49,8 +49,8 @@ class SendInvoiceListener
         }
         FacadesNotification::send($users, new OrderCreatedNotification($order));
 
-        FacadesNotification::route('mail', ['info@example.com', 'admin@example.com'])
-            ->notify(new OrderCreatedNotification($order));
+        // FacadesNotification::route('mail', ['info@example.com', 'admin@example.com'])
+        //     ->notify(new OrderCreatedNotification($order));
 
         // Mail::to($order->billing_email)->send(new OrderInvoice($order));
     }

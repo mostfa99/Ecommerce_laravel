@@ -75,6 +75,11 @@ class User extends Authenticatable
         return false;
     }
 
+    public function deviceTokens()
+    {
+        return $this->hasMany(deviceToken::class);
+    }
+
     public function profile()
     {
         return  $this->hasOne(Profile::class, 'user_id', 'id')->withDefault([
@@ -111,12 +116,18 @@ class User extends Authenticatable
     {
         return $this->mobile;
     }
+    public function routeNotificationForFcm($notificaction = null)
+    {
+        // return $this->fcm_token;
+        // return $this->getDeviceTokens();
+        return $this->deviceTokens()->pluck('token')->toArray();
+    }
     public function  routeNotificationForTweetSms($notificaction = null)
     {
         return $this->mobile;
     }
     // change broadcast name
-    public function receivesBroadcastNotificationsOn()
+    public function receivesBroadcastNotificationsOn($notificaction = null)
     {
         return 'Notifications.' . $this->id;
     }
