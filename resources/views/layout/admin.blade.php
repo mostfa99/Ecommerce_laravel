@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @endif
     <!-- @vite(['resources/css/app.css', 'resources/js/app.js'])
     without css -->
-    @vite([ 'resources/js/app.js'])
+    @vite(['resources/js/app.js','resources/js/firebase.js'])
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -310,13 +310,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.js') }}"></script>
+    {{--
     <script>
-        const userId = "{{Auth::id()}}";
-        const userName = "{{Auth::user()->name}}";
+    const userId = "{{Auth::id()}}";
+    const userName = "{{Auth::user()->name}}";
     </script>
+    --}}
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/admin/js/adminlte.min.js') }}"></script>
-
 
 </body>
 
