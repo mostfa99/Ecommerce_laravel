@@ -44,9 +44,9 @@ class OrderCreatedNotification extends Notification
         // mail , database , vonage (SMS) , brodcast , stack
         // return ['mail','database', 'vonage', 'broadcast'];
         $via = [
-            'database', FcmChannel::class,
+            'database', //FcmChannel::class,
             // 'mail',  'broadcast', 'vonage'
-            // TweetSmsChannel::class
+            TweetSmsChannel::class
         ];
         /* if ($notifiable->notify_sms) {
             $via[] = 'vonage';
@@ -129,6 +129,7 @@ class OrderCreatedNotification extends Notification
     /**
      * Get the Vonage / SMS representation of the notification.
      */
+    // vonage = nexmo
     public function toVonage($notifiable)
     {
         $message = new VonageMessage();
@@ -137,6 +138,7 @@ class OrderCreatedNotification extends Notification
         ]));
         return $message;
     }
+
     public function toTweetSms($notifiable)
     {
         return __(
