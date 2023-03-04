@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // $schedule->job(new SendReminderMailJob(), 'mail')->everyTwoMinutes();
         $schedule->job(new SendReminderMailJob())->everyTwoMinutes();
     }
 

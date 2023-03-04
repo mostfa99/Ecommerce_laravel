@@ -50,7 +50,7 @@ return [
             'block_for' => 0,
             'after_commit' => false,
         ],
-
+        // amazone
         'sqs' => [
             'driver' => 'sqs',
             'key' => env('AWS_ACCESS_KEY_ID'),
