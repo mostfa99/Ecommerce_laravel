@@ -90,7 +90,7 @@ class CatagoriesController extends Controller
         // ]);
         $rules = [
             'name' => 'required|string|max:255|min:3',
-            'parent_id' => 'required|int|exists:categories,id',
+            'parent_id' => 'int|exists:categories,id',
             'descraption' => 'min:5', //nullable|min:5
             'status' => 'required|in:active,draft',
             'image' => 'image|max:521000|dimensions:min_width=300,min_height=300',

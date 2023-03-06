@@ -1,7 +1,7 @@
 <!-- product -->
 <div class="product">
     <div class="product-img">
-        <img src="{{$product->image_url}}" alt="">
+        <img src="{{$product->image_url}}" alt="Product Image">
         <div class="product-label">
             <span class="sale">-30%</span>
             <span class="new">NEW</span>

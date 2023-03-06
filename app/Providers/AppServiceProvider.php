@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,7 +18,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (App::environment('production')) {
+            $this->app->bind('path.public', function ($app) {
+                return base_path('public_html');
+            });
+        }
     }
 
     /**
@@ -32,8 +37,8 @@ class AppServiceProvider extends ServiceProvider
 
         // to change model path name FROM 'App\model\product' TO  'product'
         Relation::morphMap([
-            'product'=>Product::class,
-            'profile'=>Profile::class,
+            'product' => Product::class,
+            'profile' => Profile::class,
         ]);
     }
 }

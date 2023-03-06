@@ -44,9 +44,9 @@ class OrderCreatedNotification extends Notification
         // mail , database , vonage (SMS) , brodcast , stack
         // return ['mail','database', 'vonage', 'broadcast'];
         $via = [
-            'database', //FcmChannel::class,
+            'database', 'mail', //FcmChannel::class,
             // 'mail',  'broadcast', 'vonage'
-            TweetSmsChannel::class
+            //TweetSmsChannel::class
         ];
         /* if ($notifiable->notify_sms) {
             $via[] = 'vonage';
