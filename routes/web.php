@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TwoFactorChallangeController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Front\PaymentsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
@@ -124,6 +125,15 @@ Route::post('/cart', [CartController::class, 'store']);
 
 Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store']);
+
+Route::get('orders/{order}/pay', [PaymentsController::class, 'create'])
+    ->name('order.payments.create');
+
+Route::post('orders/{order}/stripe/payment-intent', [PaymentsController::class, 'createStripePaymentIntent'])
+    ->name('stripe.PaymentIntent.create');
+
+Route::get('orders/{order}/pay/stripe/callback', [PaymentsController::class, 'confirm'])
+    ->name('stripe.return');
 
 Route::get('/orders', function () {
     return Order::all();

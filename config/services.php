@@ -97,6 +97,10 @@ return [
     | application's API usage within the dedicated Vonage dashboards.
     |
     */
+    'stripe' => [
+        'secret_key' => env('STRIPE_SECRET_KEY'),
+        'publishable_key' => env('STRIPE_PUBLISHABLE_KEY'),
+    ],
 
     'app' => [
         'name' =>  env('VONAGE_APP_NAME', 'Laravel'),

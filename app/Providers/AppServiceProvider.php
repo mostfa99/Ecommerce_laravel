@@ -9,6 +9,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -18,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         if (App::environment('production')) {
             $this->app->bind('path.public', function ($app) {
                 return base_path('public_html');
