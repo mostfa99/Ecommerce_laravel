@@ -29,5 +29,31 @@
 
         });//end post function
     }); // end function #add-to-cart
+
+    $(document).ready(function () {
+        $('#add-to-wishlist').click(function (event) {
+            event.preventDefault();
+            var productId = $(this).data('product-id');
+            $.ajax({
+                url: '/wishlist/add',
+                type: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'product_id': productId
+                },
+                success: function (response) {
+                    var wishlistCount = response['wishlist_count'];
+                    $('.wishlist-count').text(wishlistCount);
+                    alert('Product added to wishlist!');
+                },
+                error: function (error) {
+                    alert('An error occurred while adding the product to the wishlist.');
+                }
+            });
+        });
+    });
+
 })(jQuery);
+
+
 

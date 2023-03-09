@@ -104,7 +104,9 @@
                             </div>
                         </form>
                         <ul class="product-btns">
-                            <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+                            <button class="btn btn-primary" id="add-to-wishlist" data-product-id="{{ $product->id }}">
+                                Add to Wishlist
+                            </button>
                             <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
                         </ul>
 

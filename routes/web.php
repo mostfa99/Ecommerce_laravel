@@ -19,6 +19,7 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\RatingController;
 use App\Http\Middleware\CheckUserType;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\WishlistController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
@@ -145,3 +146,11 @@ Route::get('/orders', function () {
 })->name('orders');
 Route::get('chat', [MessagesController::class, 'index'])->name('chat');
 Route::post('chat', [MessagesController::class, 'store']);
+
+Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.show');
+Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])
+    ->name('wishlist.destroy');
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('catagories.index');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('catagories.show');

@@ -86,7 +86,10 @@ class User extends Authenticatable
             'address' => 'Not Enterd',
         ]);
     }
-
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
     public function roles()
     {
         return $this->belongsToMany(

@@ -94,11 +94,19 @@
                         <div class="header-ctn">
                             <!-- Wishlist -->
                             <div>
-                                <a href="#">
+                                @auth
+                                <a href="{{route('wishlist.show')}}">
                                     <i class="fa fa-heart-o"></i>
                                     <span>Your Wishlist</span>
-                                    <div class="qty">2</div>
+                                    <div class="qty">{{ auth()->user()->wishlist()->count() }}</div>
                                 </a>
+                                @else
+                                <a href="{{route('login')}}">
+                                    <i class="fa fa-heart-o"></i>
+                                    <span>Your Wishlist</span>
+                                    <div class="qty">0</div>
+                                </a>
+                                @endauth
                             </div>
                             <!-- /Wishlist -->
 
@@ -136,7 +144,7 @@
                 <ul class="main-nav nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="#">Hot Deals</a></li>
-                    <li><a href="#">Categories</a></li>
+                    <li><a href="{{route('catagories.index')}}">Categories</a></li>
                     <li><a href="#">Laptops</a></li>
                     <li><a href="#">Smartphones</a></li>
                     <li><a href="#">Cameras</a></li>

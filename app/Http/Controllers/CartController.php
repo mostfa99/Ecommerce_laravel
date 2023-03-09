@@ -24,6 +24,7 @@ class CartController extends Controller
     public function index()
     {
         $cart = $this->cart->all();
+
         // return $this->cart->all();
         return view('front.cart', [
             'cart' => $cart,

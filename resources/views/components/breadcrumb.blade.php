@@ -1,14 +1,13 @@
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
-    <!-- container -->
     <div class="container">
         <!-- row -->
         <div class="row">
             <div class="col-md-12">
-                <h3 class="breadcrumb-header">Regular Page</h3>
+                <h3 class="breadcrumb-header">{{$page}}</h3>
                 <ul class="breadcrumb-tree">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Blank</li>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li class="active">{{$page}}</li>
                 </ul>
             </div>
         </div>

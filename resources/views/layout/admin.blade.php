@@ -214,29 +214,67 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Active Page</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inactive Page</p>
-                                    </a>
-                                </li>
-                            </ul>
+
                         </li>
-                        <li class="nav-item">
+
+                        <li class="nav-item menu-open">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                                <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
+                                    Pages
+                                    <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item ">
+                                    <a href="{{route('products.index')}}" class="nav-link{{ Request::is('admin/products*') ? ' active' : '' }}">
+                                        <i class="fas fa-angle-left right"></i>
+                                        <p>Products</p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('products.index')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>All Products</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('products.create')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Create</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{route('products.trash')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>trash</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('catagories.index')}}" class="nav-link{{ Request::route()->getName() == 'catagories.index' ? ' active' : '' }}">
+                                        <i class="fas fa-angle-left right"></i>
+                                        <p>Categories</p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('catagories.index')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>All Catagories</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('catagories.create')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Create</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
                         </li>
                     </ul>
                 </nav>

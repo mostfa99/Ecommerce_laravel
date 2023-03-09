@@ -1,7 +1,9 @@
+@php
+$page = __('Cart');
+@endphp
+
 <x-store-front-layout :title="__('Cart')">
-
-    <x-breadcrumb />
-
+    <x-breadcrumb :page="$page" />
     <div class="cart">
         <div class="container">
             <div class="modal-dialog modal-lg modal-centered" role="document">
@@ -29,14 +31,12 @@
                                 @foreach ($cart as $item )
                                 <tr>
                                     <td class="w-25">
-                                        <img src="{{$item->product->image_url}}" width="90px"
-                                            class="img-fluid img-thumbnail" alt="Sheep">
+                                        <img src="{{$item->product->image_url}}" width="90px" class="img-fluid img-thumbnail" alt="Sheep">
                                     </td>
                                     <td>{{$item->product->name}}</td>
                                     <td>{{$item->product->price}}</td>
                                     <td class="qty">
-                                        <input type="text" class="form-control" name="qty" id="input1"
-                                            value="{{$item->quantity}}">
+                                        <input type="text" class="form-control" name="qty" id="input1" value="{{$item->quantity}}">
                                     </td>
                                     <td> $ {{$item->product->price * $item->quantity}} </td>
                                     <td>
@@ -55,8 +55,7 @@
                         </div>
                     </div>
                     <div class="modal-footer border-top-0 d-flex justify-content-between">
-                        <button type="button" class="btn btn-success"><a class="ps-btn"
-                                href="{{route('checkout')}}">Checkout <i class="fa fa-chevron-right"></i>
+                        <button type="button" class="btn btn-success"><a class="ps-btn" href="{{route('checkout')}}">Checkout <i class="fa fa-chevron-right"></i>
 
                             </a></button>
                     </div>
