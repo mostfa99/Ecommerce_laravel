@@ -9,6 +9,7 @@ use Error;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Stripe\StripeClient;
 
 class PaymentsController extends Controller
 {

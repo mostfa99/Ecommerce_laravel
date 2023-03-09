@@ -107,6 +107,15 @@ class CatagoriesController extends Controller
             'slug' => Str::slug($request->name),
             'status' => 'active',
         ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $image_path = $file->store('/', [
+                'disk' => 'catagory_images'
+            ]);
+            $request->merge([
+                'image_path' => $image_path,
+            ]);
+        }
 
         // Method #1
         // $category = new Category();
@@ -141,6 +150,7 @@ class CatagoriesController extends Controller
         // $category= new Category ($request->all());
         //  $c ategory->save();
         // PRG
+        // dd($request);
         return redirect(route('catagories.index'))
             ->with('success', 'Category Created');
     }
@@ -207,6 +217,15 @@ class CatagoriesController extends Controller
         $request->merge([
             'slug' => Str::slug($request->name),
         ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $image_path = $file->store('/', [
+                'disk' => 'catagory_images'
+            ]);
+            $request->merge([
+                'image_path' => $image_path,
+            ]);
+        }
 
         // Mehtod #1
         // $category->name = $request->post('name');

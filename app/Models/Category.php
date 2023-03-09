@@ -23,13 +23,13 @@ class Category extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'name', 'parent_id', 'descraption', 'status', 'slug',
+        'name', 'parent_id', 'descraption', 'status', 'slug', 'image_path',
     ];
     protected $hidden = [
         'created_at', 'updated_at', 'deleted_at',
     ];
     protected $appends = [
-        'original_name'
+        'original_name', 'image_url',
     ];
 
     protected static function booted()
@@ -55,7 +55,16 @@ class Category extends Model
     {
         return $this->attributes['name'];
     }
-
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image_path) {
+            return asset('images/placeholder.png');
+        }
+        if (stripos($this->image_path, 'http') === 0) {
+            return $this->image_path;
+        }
+        return asset('storage/catagory_images/' . $this->image_path);
+    }
     // Relation 1 to many
     public function products()
     {

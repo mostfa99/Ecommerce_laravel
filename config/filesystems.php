@@ -35,18 +35,31 @@ return [
             'root' => storage_path('app'),
             'throw' => false,
         ],
-
+        //original
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
+        'product_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/product_images'),
+            'url' => env('APP_URL') . '/storage/product_images',
+            'visibility' => 'public',
+        ],
+        'catagory_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/catagory_images'),
+            'url' => env('APP_URL') . '/storage/catagory_images',
+            'visibility' => 'public',
+        ],
+
         'uploads' => [
             'driver' => 'local',
             'root' => public_path('uploads'),
-            'url' => env('APP_URL').'/uploads',
+            'url' => env('APP_URL') . '/uploads',
             'visibility' => 'public',
         ],
 

@@ -82,7 +82,7 @@ class ProductsController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $image_path = $file->store('/', [
-                'disk' => 'uploads'
+                'disk' => 'product_images'
             ]);
             $request->merge([
                 'image_path' => $image_path,

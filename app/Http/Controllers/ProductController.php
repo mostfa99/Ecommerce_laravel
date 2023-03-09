@@ -18,9 +18,11 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', '=', $slug)->firstOrfail();
+        $products = Product::paginate(4);
         // dd($product);
         return view('front.products.show', [
             'product' => $product,
+            'products' => $products,
         ]);
     }
 }

@@ -77,14 +77,16 @@
                             <form>
                                 <select class="input-select">
                                     <option value="0">All Categories</option>
-                                    <option value="1">Category 01</option>
-                                    <option value="1">Category 02</option>
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
                                 </select>
                                 <input class="input" placeholder="Search here">
                                 <button class="search-btn">Search</button>
                             </form>
                         </div>
                     </div>
+
                     <!-- /SEARCH BAR -->
 
                     <!-- ACCOUNT -->
@@ -165,9 +167,10 @@
                 <div class="col-md-12">
                     <div class="newsletter">
                         <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form>
-                            <input class="input" type="email" placeholder="Enter Your Email">
-                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                        <form method="POST" action="{{ route('newsletter.subscribe') }}">
+                            @csrf
+                            <input class="input" type="email" name="email" placeholder="Enter Your Email">
+                            <button class="newsletter-btn" type="submit"><i class="fa fa-envelope"></i> Subscribe</button>
                         </form>
                         <ul class="newsletter-follow">
                             <li>

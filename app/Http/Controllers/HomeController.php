@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 
@@ -12,6 +13,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $categories = Category::paginate(5);
         $products = Product::join('categories', 'categories.id', '=', 'products.category_id')
             ->select([
                 'products.*',
@@ -19,6 +21,7 @@ class HomeController extends Controller
             ])->latest()->limit(10)->get();
         return view('home', [
             'products' => $products,
+            'categories' => $categories,
         ]);
     }
 

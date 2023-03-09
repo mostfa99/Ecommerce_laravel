@@ -80,7 +80,7 @@ class Product extends Model
         if (stripos($this->image_path, 'http') === 0) {
             return $this->image_path;
         }
-        return asset('uploads/' . $this->image_path);
+        return asset('storage/product_images/' . $this->image_path);
     }
 
     // Moutators

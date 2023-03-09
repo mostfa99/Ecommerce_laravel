@@ -93,9 +93,9 @@ class CheckoutController extends Controller
 
             // way 2
             Notification::send($users, new OrderCreatedNotification($order));
-            Notification::route('mail', ['info@example.com', 'admin@example.com'])
+            /*Notification::route('mail', ['info@example.com', 'admin@example.com'])
                 ->notify(new OrderCreatedNotification($order));
-
+            */
             /*
             Mail::to($order->billing_email)->send(new OrderInvoice($order));
            */

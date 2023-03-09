@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\TwoFactorAuthentcationContoller;
 use App\Http\Controllers\Admin\TwoFactorChallangeController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Front\PaymentsController;
 use App\Http\Controllers\ProductController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\RatingController;
 use App\Http\Middleware\CheckUserType;
+use App\Http\Controllers\NewsletterController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
@@ -119,6 +121,9 @@ Route::get('/dashboard', function () {
 // product front
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.details');
+
+Route::get('/Categories', [CategoryController::class, 'index'])->name('Category');
+Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart', [CartController::class, 'store']);

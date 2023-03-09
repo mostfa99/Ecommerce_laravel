@@ -2,11 +2,12 @@
 
 namespace App\View\Components;
 
+use App\Models\Category;
 use Illuminate\View\Component;
 
 class StoreFrontLayout extends Component
 {
-    public $title ;
+    public $title;
     /**
      * Create a new component instance.
      *
@@ -14,7 +15,7 @@ class StoreFrontLayout extends Component
      */
     public function __construct($title = '')
     {
-        $this->title = $title ;
+        $this->title = $title;
     }
 
     /**
@@ -24,6 +25,9 @@ class StoreFrontLayout extends Component
      */
     public function render()
     {
-        return view('layouts.store-front');
+        $categories = Category::all();
+        return view('layouts.store-front', [
+            'categories' => $categories,
+        ]);
     }
 }
