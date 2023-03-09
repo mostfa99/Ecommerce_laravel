@@ -229,10 +229,10 @@
                             <h3 class="footer-title">Categories</h3>
                             <ul class="footer-links">
                                 <li><a href="#">Hot deals</a></li>
-                                <li><a href="#">Laptops</a></li>
-                                <li><a href="#">Smartphones</a></li>
-                                <li><a href="#">Cameras</a></li>
-                                <li><a href="#">Accessories</a></li>
+                                @foreach ($categories->take(4) as $category)
+                                <li><a href="{{ route('front.catagories.show',$category->name)  }}">{{ $category->name }}</a></li>
+                                @endforeach
+
                             </ul>
                         </div>
                     </div>
