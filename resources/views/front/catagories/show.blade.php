@@ -11,7 +11,7 @@
                     <img src="{{ asset($product->image_url) }}" alt="{{ $product->name }}" width="200" height="150">
                     <h4>{{ $product->name }}</h4>
                     <p>{{ $product->description }}</p>
-                    <a href="{{ route('products.show', $product) }}" class="btn">{{ __('View Details') }}</a>
+                    <a href="{{ route('products.details', $product->slug) }}" class="btn">{{ __('View Details') }}</a>
                 </div>
             </div>
             @endforeach

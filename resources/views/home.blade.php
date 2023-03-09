@@ -18,7 +18,7 @@
                         <!-- text and links  -->
                         <div class="shop-body">
                             <h3>{{$category->name}}<br>Collection</h3>
-                            <a href="{{route('Category')}}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="{{route('front.catagories.show', $category->id)}}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\NotificationsController;
@@ -55,6 +56,9 @@ Route::namespace('Admin')
     ->prefix('admin')
     ->middleware(['auth', 'auth.type:admin,super-admin'])
     ->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
         Route::get('/user-profile', [UserProfileController::class, 'index'])->name('profile');
         Route::get('/2fa', [TwoFactorAuthentcationContoller::class, 'index'])->name('2fa');
         Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
@@ -152,5 +156,7 @@ Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.sho
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])
     ->name('wishlist.destroy');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('catagories.index');
-Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('catagories.show');
+Route::get('/categories', [CategoryController::class, 'index'])->name('front.catagories.index');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('front.catagories.show');
+
+Route::get('/my-account', [AccountController::class, 'index'])->name('account');

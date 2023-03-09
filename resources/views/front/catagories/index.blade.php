@@ -19,7 +19,7 @@
                         <div class="category-box">
                             <h4>{{ $category->name }}</h4>
                             <img src="{{ asset($category->image_url) }}" alt="{{ $category->name }}" width="200" height="150">
-                            <a href="{{ route('catagories.show', $category) }}" class="btn">{{ __('View Products') }}</a>
+                            <a href="{{ route('front.catagories.show', $category) }}" class="btn">{{ __('View Products') }}</a>
                         </div>
                     </div>
                     @endforeach
