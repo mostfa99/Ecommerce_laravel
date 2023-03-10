@@ -226,7 +226,7 @@
                             <ul class="footer-links">
                                 <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
                                 <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                                <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                                <li><a href="mailto:mt.a1999@outlook.sa"><i class="fa fa-envelope-o"></i> email@services.com</a></li>
                             </ul>
                         </div>
                     </div>
