@@ -1,5 +1,5 @@
 <!-- product -->
-<div class="product">
+<div class="product" data-filter="{{ $product->category_name }}">
     <div class="product-img">
         <img src="{{$product->image_url}}" alt="Product Image" width="250" height="250">
         <div class="product-label">
@@ -19,15 +19,18 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
         </div>
-        <div class="product-btns">
-            <form action="{{ route('wishlist.add', $product->id) }}" method="POST">
+        <form action="{{ route('wishlist.add', $product->id) }}" method="POST">
+            <div class="product-btns">
                 @csrf
                 <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
                         wishlist</span></button>
-            </form>
+            </div>
+        </form>
+        <div class="product-btns">
+            <form action="{{ route('compare.index') }}" method="GET">
 
-            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to
-                    compare</span></button>
+                <button type="submit" class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+            </form>
             <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
         </div>
     </div>
@@ -37,5 +40,4 @@
             cart</button>
     </div>
 </div>
-
 <!-- /product -->

@@ -16,6 +16,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Front\PaymentsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CompareController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\RatingController;
 use App\Http\Middleware\CheckUserType;
@@ -155,8 +156,12 @@ Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name
 Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.show');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])
     ->name('wishlist.destroy');
+Route::get('/compare', [CompareController::class, 'index'])->name('compare.index');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('front.catagories.index');
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('front.catagories.show');
 
 Route::get('/my-account', [AccountController::class, 'index'])->name('account');
+
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])
+    ->name('cart.destroy');

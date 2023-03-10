@@ -35,4 +35,12 @@ class Cart extends Model
 
         return $this->belongsTo(Product::class);
     }
+    public function carts()
+    {
+        return $this->belongsToMany(Product::class, 'wishlists')->withTimestamps();
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

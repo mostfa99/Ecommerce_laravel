@@ -53,6 +53,32 @@
         });
     });
 
+    $(".qty-input").on("change", function () {
+        // Get the item ID and new quantity from the input element
+        var id = $(this).attr("id").replace("qty_", "");
+        var quantity = $(this).val();
+
+        // Send an AJAX request to update the quantity in the database
+        $.ajax({
+            url: "{{ route('cart.update') }}",
+            type: "POST",
+            data: {
+                id: id,
+                quantity: quantity,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function (data) {
+                // Update the total price of the item and the total price of the cart
+                $("#qty_" + id).val(data.quantity);
+                $(".item-total-price").filter(":contains('$ " + data.total_price + " ')").text("$ " + data.new_total_price);
+                $(".cart-total-price").text("$ " + data.cart_total_price);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
 })(jQuery);
 
 

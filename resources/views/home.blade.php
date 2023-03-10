@@ -45,9 +45,9 @@
                         <div class="section-nav">
                             <ul class="section-tab-nav tab-nav">
                                 <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+                                @foreach ($categories->take(4) as $category)
+                                <li><a data-toggle=".{{$category->slug}}" href="#tab1" class="category-link">{{ $category->name }}<sup>{{$category->count}}</sup></a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -64,6 +64,7 @@
                                     @foreach ($products as $product )
                                     <x-product-item :product="$product" />
                                     @endforeach
+
                                 </div>
                                 <div id="slick-nav-1" class="products-slick-nav"></div>
                             </div>
@@ -139,7 +140,7 @@
                         <div class="section-nav">
                             <ul class="section-tab-nav tab-nav">
                                 <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
-                                <li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
+                                <li><a data-toggle="tab" href=".laptops">Smartphones</a></li>
                                 <li><a data-toggle="tab" href="#tab2">Cameras</a></li>
                                 <li><a data-toggle="tab" href="#tab2">Accessories</a></li>
                             </ul>

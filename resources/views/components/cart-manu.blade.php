@@ -2,7 +2,13 @@
     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
         <i class="fa fa-shopping-cart"></i>
         <span>Your Cart</span>
-        <div class="qty">3</div>
+        @if (auth()->check())
+        <div class="qty">{{ auth()->user()->carts()->count() }}</div>
+        @else
+        <div class="qty">
+            0
+        </div>
+        @endif
     </a>
     <div class="cart-dropdown">
         <div class="cart-list">
@@ -19,7 +25,12 @@
                         <span class="qty" name="quantity">{{$item->quantity}}x</span>${{$item->product->price}}
                     </h4>
                 </div>
-                <button class="delete"><i class="fa fa-close"></i></button>
+                <form action="{{route('cart.destroy',$item->id)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="delete"><i class="fa fa-close"></i></button>
+                </form>
+                </td>
             </div>
             @endforeach
 

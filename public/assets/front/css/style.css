@@ -93,6 +93,45 @@ ol {
     list-style: none
 }
 
+.ps-loading:before,
+.ps-loading:after {
+    content: "";
+    position: fixed;
+    z-index: 1000000;
+}
+
+.ps-loading:before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.ps-loading:after {
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -20px 0 0 -20px;
+    border: 8px solid #c32a2a;
+    border-bottom-color: #992121;
+    border-radius: 50%;
+    animation: animLoader 0.8s linear infinite forwards;
+}
+
+.ps-loading.loaded:before,
+.ps-loading.loaded:after {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition-delay: 0.5s;
+    -moz-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+}
+
 /*----------------------------*\
 	Buttons
 \*----------------------------*/

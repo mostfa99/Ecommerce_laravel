@@ -13,7 +13,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = Category::paginate(5);
+        $categories = Category::with('parent')
+            ->withCount('products')
+            ->paginate(5);
+
         $products = Product::join('categories', 'categories.id', '=', 'products.category_id')
             ->select([
                 'products.*',

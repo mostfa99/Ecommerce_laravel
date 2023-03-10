@@ -36,9 +36,9 @@
 
 </head>
 
-<body>
+<body class="ps-loading">
     <!-- HEADER -->
-    <header>
+    <header class="header">
         <!-- TOP HEADER -->
         <div id="top-header">
             <div class="container">
@@ -49,7 +49,14 @@
                 </ul>
                 <ul class="header-links pull-right">
                     <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+                    @auth
                     <li><a href="{{route('account')}}"><i class="fa fa-user-o"></i> My Account</a></li>
+                    </a>
+                    @else
+                    <a href="{{route('login')}}">
+                        <li><a href="{{route('account')}}"><i class="fa fa-user-o"></i> Register</a></li>
+                    </a>
+                    @endauth
                 </ul>
             </div>
         </div>

@@ -36,13 +36,15 @@ $page = __('Cart');
                                     <td>{{$item->product->name}}</td>
                                     <td>{{$item->product->price}}</td>
                                     <td class="qty">
-                                        <input type="text" class="form-control" name="qty" id="input1" value="{{$item->quantity}}">
+                                        <input type="number" class="form-control qty-input" name="qty" id="qty_{{$item->id}}" value="{{$item->quantity}}" min="1">
                                     </td>
                                     <td> $ {{$item->product->price * $item->quantity}} </td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-times"></i>
-                                        </a>
+                                        <form action="{{route('cart.destroy',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-sm btn-danger"> {{__('Delete')}}</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

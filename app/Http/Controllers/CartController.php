@@ -66,4 +66,11 @@ class CartController extends Controller
 
         ]);
     }
+    public function destroy($id)
+    {
+        Cart::destroy($id);
+        session()->put('success', 'category deleted!');
+        return redirect()->route('cart')
+            ->with('success', 'Cart Deleted!');
+    }
 }
