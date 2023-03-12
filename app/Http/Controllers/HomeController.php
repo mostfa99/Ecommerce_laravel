@@ -17,11 +17,12 @@ class HomeController extends Controller
             ->withCount('products')
             ->paginate(5);
 
-        $products = Product::join('categories', 'categories.id', '=', 'products.category_id')
+        /*$products = Product::join('categories', 'categories.id', '=', 'products.category_id')
             ->select([
                 'products.*',
                 'categories.name as category_name',
-            ])->latest()->limit(10)->get();
+            ])->latest()->limit(10)->get();*/
+        $products = Product::all();
         return view('home', [
             'products' => $products,
             'categories' => $categories,

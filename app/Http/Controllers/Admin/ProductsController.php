@@ -26,7 +26,15 @@ class ProductsController extends Controller
         //     abort(403);
         // };
         //return collection of model catagory
-        $products = Product::WithoutGlobalScopes([ActiveStatusScope::class])
+        $request = request();
+        $query = Product::query();
+        if ($name = $request->query('name')) {
+            $query->where('products.name', 'LIKE', "%{$name}%");
+        }
+        if ($status = $request->query('status')) {
+            $query->where('products.status', 'LIKE', "%{$status}%");
+        }
+        $products =  $query->WithoutGlobalScopes([ActiveStatusScope::class])
             // ->join('categories','categories.id','=','products.category_id')
             ->with('category.parent')
             ->select([

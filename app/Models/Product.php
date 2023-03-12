@@ -53,7 +53,7 @@ class Product extends Model
         ];
     }
 
-    protected static  function booted()
+    protected static function booted()
     {
         static::creating(function (Product $product) {
             $slug = Str::slug($product->name);

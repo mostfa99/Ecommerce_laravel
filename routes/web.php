@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\NotificationsController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolesController;
@@ -60,6 +61,15 @@ Route::namespace('Admin')
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
+
+        // Orders
+        Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+        Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+        Route::get('/trash', [OrderController::class, 'trash'])->name('orders.trash');
+        Route::put('/restore/{id?}', [OrderController::class, 'restore'])->name('orders.restore');
+        Route::get('/trash/{id?}', [OrderController::class, 'forceDelete'])->name('orders.force-delete');
+
+        // USER
         Route::get('/user-profile', [UserProfileController::class, 'index'])->name('profile');
         Route::get('/2fa', [TwoFactorAuthentcationContoller::class, 'index'])->name('2fa');
         Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
@@ -73,6 +83,7 @@ Route::namespace('Admin')
         ], function () {
             Route::get('/trash', [ProductsController::class, 'trash'])
                 ->name('trash');
+
             Route::put('products/restore/{id?}', [ProductsController::class, 'restore'])
                 ->name('restore');
             Route::delete('trash/{id?}', [ProductsController::class, 'forceDelete'])

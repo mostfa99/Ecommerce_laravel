@@ -19,12 +19,19 @@ class CatagoriesController extends Controller
      */
     public function index()
     {
-
+        $request = request();
+        $query = Category::query();
+        if ($name = $request->query('name')) {
+            $query->where('categories.name', 'LIKE', "%{$name}%");
+        }
+        if ($status = $request->query('status')) {
+            $query->where('categories.status', 'LIKE', "%{$status}%");
+        }
         //return collection of model catagory
         //$categories = Category::all(['*']);
         //$this->authorize('view-any',Category::class);
-
-        $categories = Category::leftJoin('categories as parents', 'parents.id', '=', 'categories.parent_id')
+        // $categories = $query->paginate();
+        $categories = $query->leftJoin('categories as parents', 'parents.id', '=', 'categories.parent_id', 'parent')
             ->select([
                 'categories.*',
                 'parents.name as parent_name'
@@ -32,22 +39,22 @@ class CatagoriesController extends Controller
             // ->where('categories.status','=','active')
             ->orderBy('categories.created_at', 'DESC')
             ->orderBy('categories.name', 'ASC')
+            ->withCount('products as count')
             ->withTrashed()
-            ->get();
+            ->paginate();
 
         $title = 'Categories List';
 
         // dd(compact('categories','title'));
         //egerload
-        $categories = Category::with('parent')
-            ->withCount('products as count')
+        /* $categories = Category::with('parent')
             /*
             // will do filterd for all data and return specific data
             ->has('parent')
             ->whereHas('products', function($query) {
                 $query->where('price','>',500);
+                ->paginate();
             })*/
-            ->paginate();
 
         $success = session()->get('success');
         return view('admin.categories.index', [

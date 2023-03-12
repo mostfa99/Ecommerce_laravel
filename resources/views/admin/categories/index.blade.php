@@ -11,6 +11,31 @@
     </ol>
     @endsection
     @section('content')
+    <div class="row">
+        <div class="col">
+            <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between align-items-center mb-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4 for="name">{{__('Filter')}}</h4>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" name="name" class="form-control" placeholder="{{__('Name')}}" value="{{request('name')}}">
+                            <select name="status" class="form-control">
+                                <option value="">{{__('All')}}</option>
+                                <option value="active" @selected(request('status'))>Active</option>
+                                <option value="draft" @selected(request('draft'))>Draft</option>
+                            </select>
+                            <button class="btn btn-dark ml-3">
+                                {{__('Filter')}}
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <x-alert />
     <!-- return count of categories in collection with singler or popular will use it in main dashbord  -->
     {{trans_choice('app.categoreis_count',$categories->count() , ['number' => $categories->count()])}}
@@ -20,28 +45,26 @@
     <table class="table">
         <thead>
             <tr>
-                <th>{{__('loop')}}</th>
+                <!-- <th>{{__('loop')}}</th> -->
                 <th>{{__('ID')}}</th>
                 <th>{{__('Name')}}</th>
-                <th>{{__('Slug')}}</th>
+                <!-- <th>{{__('Slug')}}</th> -->
                 <th>{{__('Paretn Name')}} </th>
                 <th>{{__('Products Count')}}</th>
                 <th>{{__('Status')}}</th>
                 <th>{{__('Create At')}}</th>
                 <th>{{__('Edit')}}</th>
                 <th>{{__('Delete')}}</th>
-
             </tr>
         </thead>
         <tbody>
-
-            @foreach($categories as $catagory)
+            @forelse ($categories as $catagory)
             <tr>
                 <!-- to do loop number  -->
-                <td>{{ $loop->first? 'First' :($loop->last? 'Last' : $loop->iteration) }}</td>
+                <!-- <td>{{ $loop->first? 'First' :($loop->last? 'Last' : $loop->iteration) }}</td> -->
                 <td>{{$catagory->id}}</td>
                 <td>{{ $catagory->name }}</td>
-                <td>{{ $catagory->slug }}</td>
+                <!-- <td>{{ $catagory->slug }}</td> -->
                 <td>{{ @$catagory->parent->name}}</td>
                 <td>{{ $catagory->count}}</td>
                 <td>{{ $catagory->status }}</td>
@@ -55,9 +78,12 @@
                         <button type="submit" class="btn btn-sm btn-danger"> {{__('Delete')}}</button>
                     </form>
                 </td>
-
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="7">There are no categories to display</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
     <!-- for number of pages  after paginte in controller to display it  -->

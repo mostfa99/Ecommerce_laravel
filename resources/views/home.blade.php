@@ -44,7 +44,7 @@
                         <h3 class="title">New Products</h3>
                         <div class="section-nav">
                             <ul class="section-tab-nav tab-nav">
-                                <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
+                                <li class="active"><a data-toggle="*" href="#tab1">All</a></li>
                                 @foreach ($categories->take(4) as $category)
                                 <li><a data-toggle=".{{$category->slug}}" href="#tab1" class="category-link">
                                         {{ $category->name }}
@@ -195,9 +195,9 @@
 
                     <div class="products-widget-slick" data-nav="#slick-nav-3">
                         <div>
-
                             <!-- product widget -->
-                            @foreach ($products->take(4) as $product )
+                            @foreach ($products->take(3) as $product )
+                            <!-- product widget -->
                             <div class="product-widget">
                                 <div class="product-img">
                                     <img src="{{$product->image_url}}" alt="Product Image">
@@ -208,8 +208,25 @@
                                     <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
                                 </div>
                             </div>
-                            @endforeach
                             <!-- /product widget -->
+                            @endforeach
+                        </div>
+                        <div>
+                            <!-- product widget -->
+                            @foreach ($products->take(3) as $product )
+                            <!-- product widget -->
+                            <div class="product-widget">
+                                <div class="product-img">
+                                    <img src="{{$product->image_url}}" alt="Product Image">
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">{{$product->category_name}}</p>
+                                    <h3 class="product-name"><a href="{{$product->premalink}}">{{$product->name}}</a></h3>
+                                    <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
+                                </div>
+                            </div>
+                            <!-- /product widget -->
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -221,11 +238,12 @@
                             <div id="slick-nav-4" class="products-slick-nav"></div>
                         </div>
                     </div>
-                    <div class="products-widget-slick" data-nav="#slick-nav-3">
-                        <div>
 
+                    <div class="products-widget-slick" data-nav="#slick-nav-4">
+                        <div>
                             <!-- product widget -->
-                            @foreach ($products->take(4) as $product )
+                            @foreach ($products->take(3) as $product )
+                            <!-- product widget -->
                             <div class="product-widget">
                                 <div class="product-img">
                                     <img src="{{$product->image_url}}" alt="Product Image">
@@ -236,9 +254,27 @@
                                     <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
                                 </div>
                             </div>
-                            @endforeach
                             <!-- /product widget -->
+                            @endforeach
                         </div>
+                        <div>
+                            <!-- product widget -->
+                            @foreach ($products->take(3) as $product )
+                            <!-- product widget -->
+                            <div class="product-widget">
+                                <div class="product-img">
+                                    <img src="{{$product->image_url}}" alt="Product Image">
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">{{$product->category_name}}</p>
+                                    <h3 class="product-name"><a href="{{$product->premalink}}">{{$product->name}}</a></h3>
+                                    <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
+                                </div>
+                            </div>
+                            <!-- /product widget -->
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
 
@@ -251,25 +287,42 @@
                             <div id="slick-nav-5" class="products-slick-nav"></div>
                         </div>
                     </div>
-
-                    <div class="products-widget-slick" data-nav="#slick-nav-3">
-                        <div>
-
-                            <!-- product widget -->
-                            @foreach ($products->take(4) as $product )
-                            <div class="product-widget">
-                                <div class="product-img">
-                                    <img src="{{$product->image_url}}" alt="Product Image">
+                    <div>
+                        <div class="products-widget-slick" data-nav="#slick-nav-5">
+                            <div>
+                                @foreach ($products->take(3) as $product )
+                                <!-- product widget -->
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="{{$product->image_url}}" alt="Product Image">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">{{$product->category_name}}</p>
+                                        <h3 class="product-name"><a href="{{$product->premalink}}">{{$product->name}}</a></h3>
+                                        <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
+                                    </div>
                                 </div>
-                                <div class="product-body">
-                                    <p class="product-category">{{$product->category_name}}</p>
-                                    <h3 class="product-name"><a href="{{$product->premalink}}">{{$product->name}}</a></h3>
-                                    <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
-                                </div>
+                                <!-- /product widget -->
+                                @endforeach
                             </div>
-                            @endforeach
-                            <!-- /product widget -->
+                            <div>
+                                @foreach ($products->take(3) as $product )
+                                <!-- product widget -->
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="{{$product->image_url}}" alt="Product Image">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">{{$product->category_name}}</p>
+                                        <h3 class="product-name"><a href="{{$product->premalink}}">{{$product->name}}</a></h3>
+                                        <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
+                                    </div>
+                                </div>
+                                <!-- /product widget -->
+                                @endforeach
+                            </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -279,5 +332,4 @@
         <!-- /container -->
     </div>
     <!-- /SECTION -->
-
 </x-store-front-layout>

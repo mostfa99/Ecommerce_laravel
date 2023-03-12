@@ -2,10 +2,11 @@
 @section('title')
 
 <div class="d-flex justify-content-between">
-    <h2>Products List</h2>
+    <h2>{{__('Products List')}}</h2>
     <div class="">
-        <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">Create</a>
-        <a class="btn btn-sm btn-outline-dark" href="{{route('products.trash')}}">Trash</a>
+        <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">
+            <i class="nav-icon fas fa-edit"></i>{{__('Create')}}</a>
+        <a class="btn btn-sm btn-outline-dark" href="{{route('products.trash')}}">{{__('Trash')}}</a>
     </div>
 
 </div>
@@ -13,12 +14,36 @@
 @endsection
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{ route('products.index')}}">Products</a></li>
+    <li class="breadcrumb-item"><a href="#">{{__('Home')}}</a></li>
+    <li class="breadcrumb-item active"><a href="{{ route('products.index')}}">{{__('Products')}}</a></li>
 </ol>
 @endsection
 @section('content')
-
+<div class="row">
+    <div class="col">
+        <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between align-items-center mb-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h4 for="name">{{__('Filter')}}</h4>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="{{__('Name')}}" value="{{request('name')}}">
+                        <select name="status" class="form-control">
+                            <option value="">{{__('All')}}</option>
+                            <option value="active" @selected(request('status'))>Active</option>
+                            <option value="draft" @selected(request('draft'))>Draft</option>
+                        </select>
+                        <button class="btn btn-dark ml-3">
+                            {{__('Filter')}}
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <x-alert />
 <x-message type="info" :count="1+1">
     <x-slot name="title">
@@ -32,7 +57,7 @@
         <tr>
 
             <th></th>
-            <th>{{__('Name')}}</th>
+            <th>{{__('Product names')}}</th>
             <th>{{__('Category')}} </th>
             <th> {{__('Price')}}</th>
             <th>{{__('Qty')}}</th>
@@ -45,7 +70,7 @@
     </thead>
     <tbody>
 
-        @foreach($products as $product)
+        @forelse($products as $product)
         <tr>
             <!-- to do loop number  -->
 
@@ -58,19 +83,23 @@
             <td>{{ $product->created_at }}</td>
             <td>
                 <a href="{{route('products.edit',$product->id)}}" class="btn btn-sm btn-dark">
-                    Edit
+                    {{__('Edit')}}
                 </a>
             </td>
             <td>
                 <form action="{{route('products.destroy',$product->id)}}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-sm btn-danger"> Delete</button>
+                    <button type="submit" class="btn btn-sm btn-danger">{{__('Delete')}}</button>
                 </form>
             </td>
 
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="7">{{__('There are no products to display')}}</td>
+        </tr>
+        @endforelse
     </tbody>
 </table>
 

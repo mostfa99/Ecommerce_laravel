@@ -19,19 +19,24 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
         </div>
-        <form action="{{ route('wishlist.add', $product->id) }}" method="POST">
-            <div class="product-btns">
-                @csrf
-                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
-                        wishlist</span></button>
-            </div>
-        </form>
         <div class="product-btns">
-            <form action="{{ route('compare.index') }}" method="GET">
-
-                <button type="submit" class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+            <form action="{{ route('wishlist.add', $product->id) }}" method="POST" class="product-form">
+                <button class="add-to-wishlist">
+                    @csrf
+                    <i class="fa fa-heart-o"></i>
+                    <span class="tooltipp">add to wishlist</span>
+                </button>
             </form>
-            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+            <form action="{{ route('compare.index') }}" method="GET" class="product-form">
+                <button class="add-to-compare">
+                    <i class="fa fa-exchange"></i>
+                    <span class="tooltipp">add to compare</span>
+                </button>
+            </form>
+            <button class="quick-view">
+                <i class="fa fa-eye"></i>
+                <span class="tooltipp">quick view</span>
+            </button>
         </div>
     </div>
 

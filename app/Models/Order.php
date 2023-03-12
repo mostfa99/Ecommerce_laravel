@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Observers\OrderObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'number', 'user_id', 'shipping', 'discount', 'tax', 'total',
@@ -18,6 +20,7 @@ class Order extends Model
         'shipping_country', 'billing_name', 'billing_email',
         'billing_phone', 'billing_address', 'billing_country', 'notes',
     ];
+    protected $dates = ['deleted_at'];
 
     protected static function booted()
     {

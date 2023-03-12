@@ -177,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="info">
                         <a href="{{route('profile')}}" class="d-block">{{Auth::user()->name}}</a>
-                        <form method=" POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button class="btn btn-sidebar" type="submit">
                                 <a href="route('logout')" onclick="event.preventDefault();
@@ -210,7 +210,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{route('admin.dashboard')}}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Starter Pages
+                                    {{__('Dashboard')}}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -221,56 +221,102 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    Pages
+                                    {{__('Pages')}}
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview ">
                                 <li class="nav-item ">
                                     <a href="{{route('products.index')}}" class="nav-link{{ Request::is('admin/products*') ? ' active' : '' }}">
-                                        <i class="fas fa-angle-left right"></i>
-                                        <p>Products</p>
+                                        <i class="fa fa-solid fa-box-open"></i>
+                                        <p>{{__('Products')}}
+                                            <i class="fas fa-angle-left right"></i>
+
+                                        </p>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{route('products.index')}}" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>All Products</p>
+                                                <p>
+                                                    <i class="far fa-dot-circle nav-icon"></i>
+                                                    {{__('All Products')}}
+                                                </p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('products.create')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>Create</p>
+                                                <p>{{__('Create')}}</p>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a href="{{route('products.trash')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>trash</p>
+                                                <p>{{__('trash')}}</p>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('catagories.index')}}" class="nav-link{{ Request::route()->getName() == 'catagories.index' ? ' active' : '' }}">
-                                        <i class="fas fa-angle-left right"></i>
-                                        <p>Categories</p>
+
+                                        <i class="fa fa-solid fa-bookmark"></i>
+                                        <p>
+                                            {{__('Categories')}}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{route('catagories.index')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>All Catagories</p>
+                                                <p>{{__('All Catagories')}}</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('catagories.create')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>Create</p>
+                                                <p>{{__('Create')}}</p>
                                             </a>
                                         </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('orders.index')}}" class="nav-link{{ Request::route()->getName() == 'orders.index' ? ' active' : '' }}">
+                                        <i class="fa fa-solid fa-paper-plane"></i>
+                                        <p>
+                                            {{__('Orders')}}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('orders.index')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>{{('All Orders')}}</p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="" class="nav-link{{ Request::route()->getName() == 'users.index' ? ' active' : '' }}">
+                                        <i class="fa fa-solid fa-user"></i>
+                                        <p>
+                                            {{__('Users')}}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>{{__('All User')}}</p>
+                                            </a>
+                                        </li>
+
                                     </ul>
                                 </li>
                             </ul>

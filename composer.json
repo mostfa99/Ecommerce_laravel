@@ -20,6 +20,8 @@
         "laravel/vonage-notification-channel": "^3.2",
         "league/flysystem-ftp": "^3.10",
         "livewire/livewire": "^2.5",
+        "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "*",
         "pusher/pusher-php-server": "^7.2",
         "stripe/stripe-php": "^10.8",
         "symfony/intl": "^6.2"
