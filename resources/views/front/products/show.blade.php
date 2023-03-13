@@ -97,10 +97,10 @@
                                         <span class="qty-down">-</span>
                                     </div>
                                 </div>
-                                <h1>
-                                    do here
-                                </h1>
-                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                <button class="add-to-cart-btn" type="submit">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    add to cart
+                                </button>
                             </div>
                         </form>
                         <ul class="product-btns">
@@ -266,9 +266,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                                                             do eiusmod tempor incididunt ut labore et dolore magna
-                                                            aliqua</p>
+                                                            aliqua
+                                                        </p>
                                                     </div>
                                                 </li>
                                                 <li>
@@ -284,9 +286,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                                                             do eiusmod tempor incididunt ut labore et dolore magna
-                                                            aliqua</p>
+                                                            aliqua
+                                                        </p>
                                                     </div>
                                                 </li>
                                                 <li>

@@ -9,7 +9,9 @@
     </div>
     <div class="product-body">
         <p class="product-category">{{$product->category_name}}</p>
-        <h3 class="product-name"><a class="ps-shoe__overlay" href="{{$product->premalink}}">{{$product->name}}</a></h3>
+        <h3 class="product-name">
+            <a class="ps-shoe__overlay" href="{{$product->premalink}}">{{$product->name}}</a>
+        </h3>
         <h4 class="product-price">{{$product->sale_price}}$ <del class="product-old-price">{{$product->price}}$</del>
         </h4>
         <div class="product-rating">
@@ -33,10 +35,12 @@
                     <span class="tooltipp">add to compare</span>
                 </button>
             </form>
-            <button class="quick-view">
-                <i class="fa fa-eye"></i>
-                <span class="tooltipp">quick view</span>
-            </button>
+            <form action="{{route('products.details',$product->slug)}}" method="get" class="product-form">
+                <button class="quick-view">
+                    <i class="fa fa-eye"></i>
+                    <span class="tooltipp">quick view</span>
+                </button>
+            </form>
         </div>
     </div>
 
