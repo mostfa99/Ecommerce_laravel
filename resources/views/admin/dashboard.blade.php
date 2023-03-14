@@ -1,22 +1,6 @@
 @extends('layout.admin')
 @section('title')
 
-<div class="d-flex justify-content-between">
-    <h2>Products List</h2>
-    <div class="">
-        <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">Create</a>
-        <a class="btn btn-sm btn-outline-dark" href="{{route('products.trash')}}">Trash</a>
-    </div>
-
-</div>
-
-@endsection
-@section('breadcrumb')
-<ol class="breadcrumb float-sm-right">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{ route('products.index')}}">Products</a></li>
-</ol>
-@endsection
 @section('content')
 <section class="content">
     <div class="container-fluid">

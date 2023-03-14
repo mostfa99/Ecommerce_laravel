@@ -25,11 +25,11 @@
                         <input type="number" name="order_number" class="form-control" placeholder="{{__('Order Number')}}" value="{{request('order_number')}}">
                         <select name="status" class="form-control">
                             <option value="">{{__('All')}}</option>
-                            <option value="active" @selected(request('status'))>pending</option>
-                            <option value="draft" @selected(request('cancelled'))>cancelled</option>
-                            <option value="draft" @selected(request('processing'))>processing</option>
-                            <option value="draft" @selected(request('shipping'))>shipping</option>
-                            <option value="draft" @selected(request('completed'))>completed</option>
+                            <option value="pending" @selected(request('pending'))>pending</option>
+                            <option value="cancelled" @selected(request('cancelled'))>cancelled</option>
+                            <option value="processing" @selected(request('processing'))>processing</option>
+                            <option value="shipping" @selected(request('shipping'))>shipping</option>
+                            <option value="completed" @selected(request('completed'))>completed</option>
 
                         </select>
                         <button class="btn btn-dark ml-3">

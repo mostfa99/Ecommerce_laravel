@@ -13,6 +13,22 @@ class HomeController extends Controller
 {
     public function index()
     {
+        /*$request = request();
+        $query = Product::query();
+        if ($name = $request->query('name')) {
+            $query->where('name', 'LIKE', "%{$name}%");
+        }
+        if ($status = $request->query('categories')) {
+            $query->where('categories', 'LIKE', "%{$status}%");
+        }
+        $products =  $query->WithoutGlobalScopes([ActiveStatusScope::class])
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->with('category.parent')
+            ->select([
+                'products.*',
+                // 'categories.name as category_name',
+            ]);*/
+
         $categories = Category::with('parent')
             ->withCount('products')
             ->paginate(5);

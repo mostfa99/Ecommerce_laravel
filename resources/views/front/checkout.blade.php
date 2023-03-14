@@ -7,7 +7,6 @@
                 @csrf
                 <!-- row -->
                 <div class="row">
-
                     <div class="col-md-7">
                         <!-- Billing Details -->
                         <div class="billing-details">
@@ -18,26 +17,22 @@
                                 <x-form-input name="billing_name" :label="__('Name')" placeholder="Name" />
                             </div>
                             <div class="form-group">
-                                <x-form-input name="billing_email" type="email" :label="__('E-mail')"
-                                    placeholder="Email" />
+                                <x-form-input name="billing_email" type="email" :label="__('E-mail')" placeholder="Email" />
                             </div>
                             <div class="form-group">
-                                <x-form-input name="billing_address" type="text" :label="__('Address')"
-                                    placeholder="Address" />
+                                <x-form-input name="billing_address" type="text" :label="__('Address')" placeholder="Address" />
                             </div>
                             <div class="form-group">
                                 <x-form-input name="billing_city" type="text" :label="__('City')" placeholder="City" />
 
                             </div>
                             <div class="form-group">
-                                <x-form-select name="billing_country" type="text" :label="__('Country')"
-                                    :options="$countries" placeholder="Country" />
+                                <x-form-select name="billing_country" type="text" :label="__('Country')" :options="$countries" placeholder="Country" />
 
                             </div>
 
                             <div class="form-group">
-                                <x-form-input name="billing_phone" type="text" :label="__('Phone Number')"
-                                    placeholder="Phone Number" />
+                                <x-form-input name="billing_phone" type="text" :label="__('Phone Number')" placeholder="Phone Number" />
                             </div>
                             <div class="form-group">
                                 <div class="input-checkbox">
@@ -51,8 +46,7 @@
                                             eiusmod
                                             tempor
                                             incididunt.</p>
-                                        <input class="input" type="password" name="password"
-                                            placeholder="Enter Your Password">
+                                        <input class="input" type="password" name="password" placeholder="Enter Your Password">
                                     </div>
                                 </div>
                             </div>
@@ -192,41 +186,4 @@
         <!-- /container -->
     </div>
     <!-- /SECTION -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </x-store-front-layout>

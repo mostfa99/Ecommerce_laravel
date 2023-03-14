@@ -47,11 +47,11 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
-        $this->renderable(function (Throwable $e) {
-            if ($e instanceof QueryException) {
-                return redirect()->back()
-                    ->with('erorr', $e->getMessage());
-            }
-        });
+        // $this->renderable(function (Throwable $e) {
+        //     if ($e instanceof QueryException) {
+        //         return redirect()->back()
+        //             ->with('erorr', $e->getMessage());
+        //     }
+        // });
     }
 }

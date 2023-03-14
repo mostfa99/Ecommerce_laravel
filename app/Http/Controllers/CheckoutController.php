@@ -37,7 +37,6 @@ class CheckoutController extends Controller
             'cart' => $this->cart,
             'user' => Auth::user(),
             'countries' => Countries::getNames(App::currentLocale()),
-
         ]);
     }
 
@@ -101,6 +100,7 @@ class CheckoutController extends Controller
            */
             // هان بنختار وين نوجه المستخدم سواء على صفحة الدفع او على الاورد حسب شو بدك
             // call route to orders by name orders with success massage
+
             return redirect()->route('order.payments.create', $order->id)->with('success', __('Order Created'));
         } catch (Throwable $e) {
             DB::rollBack();

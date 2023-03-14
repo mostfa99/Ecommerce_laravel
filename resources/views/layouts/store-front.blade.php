@@ -44,9 +44,16 @@
         <div id="top-header">
             <div class="container">
                 <ul class="header-links pull-left">
-                    <li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-                    <li><a href="mailto:mt.a1999@outlook.sa"><i class="fa fa-envelope-o"></i> email@services.com</a></li>
-                    <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+                    <li><a href="#">
+                            <i class="fa fa-map-marker"></i>
+                            Gaza Palestine </a></li>
+                    <li><a href="#">
+                            <i class="fa fa-phone"></i>
+                            +972-59-514308</a></li>
+                    <li><a href="mailto:mt.a1999@outlook.sa">
+                            <i class="fa fa-envelope-o"></i>
+                            email@services.com
+                        </a></li>
                 </ul>
                 <ul class="header-links pull-right">
                     <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
@@ -169,7 +176,6 @@
     <!-- SECTION -->
     <div class="section">
         <x-alert />
-
         {{$slot}}
     </div>
     <!-- /SECTION -->
@@ -225,9 +231,16 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                 incididunt ut.</p>
                             <ul class="footer-links">
-                                <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                                <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                                <li><a href="mailto:mt.a1999@outlook.sa"><i class="fa fa-envelope-o"></i> email@services.com</a></li>
+                                <li><a href="#">
+                                        <i class="fa fa-map-marker"></i>
+                                        Gaza Palestine </a></li>
+                                <li><a href="#">
+                                        <i class="fa fa-phone"></i>
+                                        +972-59-514308</a></li>
+                                <li><a href="mailto:mt.a1999@outlook.sa">
+                                        <i class="fa fa-envelope-o"></i>
+                                        email@services.com
+                                    </a></li>
                             </ul>
                         </div>
                     </div>
@@ -322,32 +335,5 @@
     <script type="text/javascript" src="{{asset('js/cart.js')}}"></script>
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </html>
