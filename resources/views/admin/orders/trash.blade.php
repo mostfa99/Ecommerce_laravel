@@ -2,14 +2,14 @@
 @section('title')
 
 <div class="d-flex justify-content-between">
-    <h2>Trash Products</h2>
+    <h2>{{__('Trash Orders')}}</h2>
 </div>
 
 @endsection
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{ route('orders.index')}}"> Trash Orders</a></li>
+    <li class="breadcrumb-item"><a href="#">{{__('Home')}}</a></li>
+    <li class="breadcrumb-item active"><a href="{{ route('orders.index')}}">{{__('Trash Orders')}}</a></li>
 </ol>
 @endsection
 @section('content')
@@ -18,12 +18,12 @@
     <form action="{{route('orders.restore')}}" method="post" class="mr-3">
         @csrf
         @method('put')
-        <button type="submit" class="btn btn-sm btn-warning"> Restore all</button>
+        <button type="submit" class="btn btn-sm btn-warning"> {{__('Restore all')}}</button>
     </form>
     <form action="{{route('orders.force-delete')}}" method="post">
         @csrf
         @method('delete')
-        <button type="submit" class="btn btn-sm btn-danger"> Empty Trash </button>
+        <button type="submit" class="btn btn-sm btn-danger"> {{__('Empty Trash')}} </button>
     </form>
 </div>
 
@@ -34,7 +34,7 @@
             <th>{{__('ID')}}</th>
             <th>{{__('Order Number')}}</th>
             <!-- <th>{{__('Slug')}}</th> -->
-            <th>{{__('Shiping Name')}} </th>
+            <th>{{__('Shipping Name')}} </th>
             <th>{{__('Payment Status')}}</th>
             <th>{{__('Status')}}</th>
             <th>{{__('Create At')}}</th>
@@ -58,20 +58,20 @@
                 <form action="{{ route('orders.restore', ['id' => $order->id]) }}" method="post">
                     @csrf
                     @method('put')
-                    <button type="submit" class="btn btn-sm btn-warning"> Restore</button>
+                    <button type="submit" class="btn btn-sm btn-warning"> {{__('Restore')}}</button>
                 </form>
             </td>
             <td>
                 <form action="{{ route('orders.force-delete', ['id' => $order->id]) }}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-sm btn-danger"> Delete forever</button>
+                    <button type="submit" class="btn btn-sm btn-danger"> {{__('Delete forever')}}</button>
                 </form>
             </td>
         </tr>
         @empty
         <tr>
-            <td colspan="7">There are no orders to display</td>
+            <td colspan="7">{{(__('There are no orders to display'))}}</td>
         </tr>
         @endforelse
     </tbody>

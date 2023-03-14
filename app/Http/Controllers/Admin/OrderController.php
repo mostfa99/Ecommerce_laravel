@@ -98,7 +98,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         Order::destroy($id);
         return redirect()->route('orders.index')
-            ->with('success', "Order($order->name) Deleted!");
+            ->with('success', "Order($order->number) Deleted!");
     }
 
     public function trash()
@@ -109,12 +109,18 @@ class OrderController extends Controller
         ]);
     }
 
-    public function restore($id = null)
+    public function restore(Request $request, $id = null)
     {
-        $order = Order::onlyTrashed()->findOrFail($id);
-        $order->restore(); // Use instance method to restore
+
+        if ($id) {
+            $order = Order::onlyTrashed()->findOrfail($id);
+            $order->restore();
+            return redirect()->route('orders.index')
+                ->with('success', "Order($order->number) Restored! ");
+        }
+        Order::onlyTrashed()->restore();
         return redirect()->route('orders.index')
-            ->with('success', "Order($order->name) Restored!");
+            ->with('success', "All Trashed Order Restored. ");
     }
 
     public function forceDelete($id = null)
@@ -123,7 +129,7 @@ class OrderController extends Controller
             $order = Order::onlyTrashed()->findOrFail($id);
             $order->forceDelete();
             return redirect()->route('orders.index')
-                ->with('success', "Order($order->name) deleted forever!");
+                ->with('success', "Order($order->number) deleted forever!");
         }
         Order::onlyTrashed()->forceDelete();
         return redirect()->route('orders.index')

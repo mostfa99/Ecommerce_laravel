@@ -1,9 +1,8 @@
 @extends('layout.admin')
 @section('title')
-{{$title}}
 
-<div class="">
-    <a class="btn btn-sm btn-outline-dark" href="{{route('orders.trash')}}">{{__('Trash')}}</a>
+<div class="input-group">
+    <a class="btn btn-sm btn-danger" href="{{ route('orders.trash') }}">{{ __('Trash') }}</a>
 </div>
 @endsection
 @section('breadcrumb')
@@ -18,6 +17,7 @@
         <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between align-items-center mb-4">
             <div class="row">
                 <div class="col-md-12">
+
                     <div class="form-group">
                         <h4 for="name">{{__('Filter')}}</h4>
                     </div>

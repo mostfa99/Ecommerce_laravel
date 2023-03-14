@@ -2,14 +2,14 @@
 @section('title')
 
 <div class="d-flex justify-content-between">
-    <h2>Trash Products</h2>
+    <h2>{{__('Trash Products')}}</h2>
 </div>
 
 @endsection
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{ route('products.index')}}"> Trash Products</a></li>
+    <li class="breadcrumb-item"><a href="#">{{__('Home')}}</a></li>
+    <li class="breadcrumb-item active"><a href="{{ route('products.index')}}"> {{__('Trash Products')}}</a></li>
 </ol>
 @endsection
 @section('content')
@@ -18,12 +18,12 @@
     <form action="{{route('products.restore')}}" method="post" class="mr-3">
         @csrf
         @method('put')
-        <button type="submit" class="btn btn-sm btn-warning"> Restore all</button>
+        <button type="submit" class="btn btn-sm btn-warning"> {{__('Restore all')}} </button>
     </form>
     <form action="{{route('products.force-delete')}}" method="post">
         @csrf
         @method('delete')
-        <button type="submit" class="btn btn-sm btn-danger"> Empty Trash </button>
+        <button type="submit" class="btn btn-sm btn-danger"> {{__('Empty Trash')}} </button>
     </form>
 </div>
 
@@ -32,12 +32,12 @@
         <tr>
 
             <th></th>
-            <th>Name</th>
-            <th>Category </th>
-            <th>price </th>
-            <th>Qty. </th>
-            <th>Status </th>
-            <th>delete At</th>
+            <th>{{__('Name')}} </th>
+            <th>{{__('Category')}} </th>
+            <th>{{__('Price')}}</th>
+            <th>{{__('Qty')}}</th>
+            <th>{{__('Status')}} </th>
+            <th>{{__('delete At')}}</th>
             <th></th>
             <th></th>
 
@@ -60,14 +60,14 @@
                 <form action="{{route('products.restore',$product->id)}}" method="post">
                     @csrf
                     @method('put')
-                    <button type="submit" class="btn btn-sm btn-warning"> Restore</button>
+                    <button type="submit" class="btn btn-sm btn-warning">{{__('Restore')}}</button>
                 </form>
             </td>
             <td>
                 <form action="{{route('products.force-delete',$product->id)}}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-sm btn-danger"> Delete forever</button>
+                    <button type="submit" class="btn btn-sm btn-danger">{{__('Delete forever')}}</button>
                 </form>
             </td>
 

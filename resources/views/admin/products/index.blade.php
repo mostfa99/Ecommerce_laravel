@@ -6,7 +6,7 @@
     <div class="">
         <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">
             <i class="nav-icon fas fa-edit"></i>{{__('Create')}}</a>
-        <a class="btn btn-sm btn-outline-dark" href="{{route('products.trash')}}">{{__('Trash')}}</a>
+        <a class="btn btn-sm btn-danger" href="{{route('products.trash')}}">{{__('Trash')}}</a>
     </div>
 
 </div>

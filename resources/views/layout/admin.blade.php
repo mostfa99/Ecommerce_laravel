@@ -246,14 +246,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <li class="nav-item">
                                             <a href="{{route('products.create')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>{{__('Create')}}</p>
+                                                <p>{{__('Create New')}}</p>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a href="{{route('products.trash')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>{{__('trash')}}</p>
+                                                <p>{{__('Trash')}}</p>
                                             </a>
                                         </li>
                                     </ul>
@@ -277,7 +277,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <li class="nav-item">
                                             <a href="{{route('catagories.create')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>{{__('Create')}}</p>
+                                                <p>{{__('Create New')}}</p>
                                             </a>
                                         </li>
                                     </ul>
@@ -294,7 +294,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <li class="nav-item">
                                             <a href="{{route('orders.index')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>{{('All Orders')}}</p>
+                                                <p>{{__('All Orders')}}</p>
                                             </a>
                                         </li>
 
@@ -336,7 +336,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <x-alert />
                             @yield('title')
                         </div><!-- /.col -->
                         <div class="col-sm-6">
