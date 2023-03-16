@@ -36,7 +36,6 @@
             </form>
         </div>
     </div>
-    <x-alert />
     <!-- return count of categories in collection with singler or popular will use it in main dashbord  -->
     {{trans_choice('app.categoreis_count',$categories->count() , ['number' => $categories->count()])}}
 

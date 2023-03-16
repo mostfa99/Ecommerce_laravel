@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -39,18 +42,24 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
-     *
+     *npm run d
      * @return void
      */
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            return $this->report($e);
         });
-        // $this->renderable(function (Throwable $e) {
-        //     if ($e instanceof QueryException) {
-        //         return redirect()->back()
-        //             ->with('erorr', $e->getMessage());
+
+        // $this->renderable(function (QueryException $e) {
+        //     return redirect()->back()
+        //         ->with('erorr', $e->getMessage());
+        // });
+        // $this->renderable(function (AuthenticationException $e, Request $request) {
+        //     if ($request->expectsJson()) {
+        //         return new JsonResponse([
+        //             'Message' => 'You must Login!'
+        //         ], 401);
         //     }
         // });
     }

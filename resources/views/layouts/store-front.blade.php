@@ -46,7 +46,7 @@
                 <ul class="header-links pull-left">
                     <li><a href="#">
                             <i class="fa fa-map-marker"></i>
-                            Gaza Palestine </a></li>
+                            Khanyounis-Gaza Palestine </a></li>
                     <li><a href="#">
                             <i class="fa fa-phone"></i>
                             +972-59-514308</a></li>

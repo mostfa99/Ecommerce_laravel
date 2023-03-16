@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductsExport;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductsImport;
 use App\Models\Category;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
@@ -226,5 +230,39 @@ class ProductsController extends Controller
         Product::onlyTrashed()->forceDelete();
         return redirect()->route('products.index')
             ->with('success', "All Trashed Products delete forever. ");
+    }
+
+    public function export(Request $request)
+    {
+        $query = Product::query();
+        if ($name = $request->query('name')) {
+            $query->where('products.name', 'LIKE', "%{$name}%");
+        }
+        if ($status = $request->query('status')) {
+            $query->where('products.status', 'LIKE', "%{$status}%");
+        }
+        $products =  $query->WithoutGlobalScopes([ActiveStatusScope::class])
+            // ->join('categories','categories.id','=','products.category_id')
+            ->with('category.parent')
+            ->select([
+                'products.*',
+                // 'categories.name as category_name',
+            ]);
+        $export = new ProductsExport();
+        $export->setQuery($query);
+        return Excel::download($export, 'product.xlsx');
+    }
+    public function importView()
+    {
+        return View('admin.products.import');
+    }
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => ['required', 'mimes:xls,xlsx,scv'],
+        ]);
+        Excel::import(new ProductsImport, $request->file('file')->path());
+        return redirect()->route('products.index')
+            ->with('success', "All  Products Imported. ");
     }
 }

@@ -88,6 +88,12 @@ Route::namespace('Admin')
                 ->name('restore');
             Route::delete('trash/{id?}', [ProductsController::class, 'forceDelete'])
                 ->name('force-delete');
+            Route::get('/export', [ProductsController::class, 'export'])->name('export');
+
+            Route::get('/import', [ProductsController::class, 'importView'])
+                ->name('import');
+
+            Route::post('/import', [ProductsController::class, 'import']);
         });
         // catagories Route
         Route::group([

@@ -7,8 +7,9 @@
         <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">
             <i class="nav-icon fas fa-edit"></i>{{__('Create')}}</a>
         <a class="btn btn-sm btn-danger" href="{{route('products.trash')}}">{{__('Trash')}}</a>
+        <a class="btn btn-sm btn-dark" href="{{route('products.export', request()->query())}}">{{__('Export')}}</a>
+        <a class="btn btn-sm btn-success" href="{{route('products.import', request()->query())}}">{{__('Import')}}</a>
     </div>
-
 </div>
 
 @endsection
@@ -44,7 +45,7 @@
         </form>
     </div>
 </div>
-<x-alert />
+
 <x-message type="info" :count="1+1">
     <x-slot name="title">
         Info
