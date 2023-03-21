@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\CountriesController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductsController;
@@ -58,9 +59,9 @@ Route::namespace('Admin')
     ->prefix('admin')
     ->middleware(['auth', 'auth.type:admin,super-admin'])
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         // Orders
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -75,6 +76,9 @@ Route::namespace('Admin')
         Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
         Route::get('notifications/{id}', [NotificationsController::class, 'show'])->name('notifications.read');
         Route::get('/get-user', [HomeController::class, 'getUser'])->name('getUser');
+        Route::get('/get-admin', [HomeController::class, 'getAdmin'])
+            ->middleware(['auth', 'auth.type:super-admin'])
+            ->name('getAdmin');
 
         // Product Route
         Route::group([
@@ -137,8 +141,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})
-    ->middleware(['auth:web,admin', 'verified'])
+})->middleware(['auth:web', 'verified'])
     ->name('dashboard');
 
 // product front
@@ -166,6 +169,7 @@ Route::get('orders/{order}/pay/stripe/callback', [PaymentsController::class, 'co
 Route::get('/orders', function () {
     return Order::all();
 })->name('orders');
+
 Route::get('chat', [MessagesController::class, 'index'])->name('chat');
 Route::post('chat', [MessagesController::class, 'store']);
 

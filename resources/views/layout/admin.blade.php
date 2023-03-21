@@ -15,6 +15,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
+    <link rel="shortcut icon" href="{{asset('assets/admin/img/dashboard-icon.png')}}" type="image/x-icon">
 
     @if (App::currentLocale() == 'ar')
     <link rel="stylesheet" href="{{ asset('assets/admin/css/adminlte.rtl.min.css') }}">
@@ -302,7 +303,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="" class="nav-link{{ Request::route()->getName() == 'users.index' ? ' active' : '' }}">
+                                    <a href="" class="nav-link{{ Request::route()->getName() == 'getUser' ? ' active' : '' }}">
                                         <i class="fa fa-solid fa-user"></i>
                                         <p>
                                             {{__('Users')}}
@@ -311,7 +312,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">
+                                            <a href="{{route('getUser')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon"></i>
                                                 <p>{{__('All User')}}</p>
                                             </a>
@@ -319,8 +320,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                     </ul>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link{{ Request::route()->getName() == 'getAdmin' ? ' active' : '' }}">
+                                        <i class="fa fa-solid fa-admin"></i>
+                                        <p>
+                                            {{__('Admin')}}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('getAdmin')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>{{__('All Admin')}}</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
-
                         </li>
                     </ul>
                 </nav>
