@@ -53,6 +53,7 @@
         });
     });
 
+
     $(".qty-input").on("change", function () {
         // Get the item ID and new quantity from the input element
         var id = $(this).attr("id").replace("qty_", "");

@@ -85,7 +85,23 @@ class DatabaseRepository implements CartRepository
             ->orWhere('user_id', Auth::id())
             ->delete();
     }
+    public function update($cart, $data)
+    {
+        $cart->update($data);
+    }
 
+    public function remove($cartId)
+    {
+        $cart = Cart::find($cartId);
+        if ($cart) {
+            $cart->delete();
+        }
+    }
+
+    public function count()
+    {
+        return $this->all()->count();
+    }
     protected function getCookieId()
     {
         $id = Cookie::get('cart_cookie_id');

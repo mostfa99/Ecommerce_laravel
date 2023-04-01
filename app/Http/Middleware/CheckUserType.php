@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class CheckUserType
 {
@@ -21,8 +22,8 @@ class CheckUserType
         $user = $request->user();
         // $user =Auth::user();
 
-        if(!in_array($user->type, $types)){
-        abort(403,'You Must be an adminstrator');
+        if (!in_array($user->type, $types)) {
+            return redirect('/login');
         }
 
         return $next($request);

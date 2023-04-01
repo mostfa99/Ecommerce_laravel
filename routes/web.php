@@ -1,17 +1,19 @@
 <?php
 
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\CatagoriesController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\TwoFactorAuthentcationContoller;
 use App\Http\Controllers\Admin\TwoFactorChallangeController;
 use App\Http\Controllers\Admin\UserProfileController;
+
+
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\Front\PaymentsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompareController;
+use App\Http\Controllers\Front\UserController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\RatingController;
 use App\Http\Middleware\CheckUserType;
@@ -55,11 +58,9 @@ Route::prefix('admin')
 // namespace =>     App/Admin
 // prefix    =>     controller/admin
 
-Route::namespace('Admin')
-    ->prefix('admin')
+Route::prefix('admin')
     ->middleware(['auth', 'auth.type:admin,super-admin'])
     ->group(function () {
-
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -71,73 +72,74 @@ Route::namespace('Admin')
         Route::get('/trash/{id?}', [OrderController::class, 'forceDelete'])->name('orders.force-delete');
 
         // USER
-        Route::get('/user-profile', [UserProfileController::class, 'index'])->name('profile');
+        Route::get('/adminProfile', [UserProfileController::class, 'index'])->name('adminProfile');
         Route::get('/2fa', [TwoFactorAuthentcationContoller::class, 'index'])->name('2fa');
         Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
         Route::get('notifications/{id}', [NotificationsController::class, 'show'])->name('notifications.read');
         Route::get('/get-user', [HomeController::class, 'getUser'])->name('getUser');
         Route::get('/get-admin', [HomeController::class, 'getAdmin'])
-            ->middleware(['auth', 'auth.type:super-admin'])
+            ->middleware(['auth.type:super-admin'])
             ->name('getAdmin');
 
+        // roles
+        Route::resource('/roles', RolesController::class);
+
+        // countries
+        Route::resource('/countries', CountriesController::class);
+
         // Product Route
-        Route::group([
-            'prefix' => '/products',
-            'as' => 'products.'
-        ], function () {
-            Route::get('/trash', [ProductsController::class, 'trash'])
-                ->name('trash');
+        Route::group(
+            [
+                'prefix' => '/products',
+                'as' => 'products.'
+            ],
+            function () {
+                Route::resource('/', ProductsController::class);
+                Route::get('/trash', [ProductsController::class, 'trash'])
+                    ->name('trash');
 
-            Route::put('products/restore/{id?}', [ProductsController::class, 'restore'])
-                ->name('restore');
-            Route::delete('trash/{id?}', [ProductsController::class, 'forceDelete'])
-                ->name('force-delete');
-            Route::get('/export', [ProductsController::class, 'export'])->name('export');
+                Route::put('products/restore/{id?}', [ProductsController::class, 'restore'])
+                    ->name('restore');
+                Route::delete('trash/{id?}', [ProductsController::class, 'forceDelete'])
+                    ->name('force-delete');
+                Route::get('/export', [ProductsController::class, 'export'])->name('export');
 
-            Route::get('/import', [ProductsController::class, 'importView'])
-                ->name('import');
+                Route::get('/import', [ProductsController::class, 'importView'])
+                    ->name('import');
 
-            Route::post('/import', [ProductsController::class, 'import']);
-        });
+                Route::post('/import', [ProductsController::class, 'import']);
+            }
+        );
         // catagories Route
-        Route::group([
-            'prefix' => '/catagories',
-            'as' => 'catagories.'
-        ], function () {
-            // Route::resource('/catagories', CatagoriesController::class);
-            Route::get('create', [CatagoriesController::class, 'create'])
-                ->name('create');
-            Route::post('catagories', [CatagoriesController::class, 'store'])
-                ->name('store'); //to edit in database we will use post or delete but cant use get
-            Route::get('/{category}', [CatagoriesController::class, 'show'])
-                ->name('show');
-            Route::get('/edit/{id}', [CatagoriesController::class, 'edit'])
-                ->name('edit');
-            Route::put('/{id}', [CatagoriesController::class, 'update'])
-                ->name('update');
-            Route::delete('/{id}', [CatagoriesController::class, 'destroy'])
-                ->name('destroy');
-            Route::get('', [CatagoriesController::class, 'index'])
-                ->name('index');
-        });
+        Route::group(
+            [
+                'prefix' => '/catagories',
+                'as' => 'catagories.'
+            ],
+            function () {
+                // Route::resource('/catagories', CatagoriesController::class);
+                Route::get('create', [CatagoriesController::class, 'create'])
+                    ->name('create');
+                Route::post('catagories', [CatagoriesController::class, 'store'])
+                    ->name('store'); //to edit in database we will use post or delete but cant use get
+                Route::get('/{category}', [CatagoriesController::class, 'show'])
+                    ->name('show');
+                Route::get('/edit/{id}', [CatagoriesController::class, 'edit'])
+                    ->name('edit');
+                Route::put('/{id}', [CatagoriesController::class, 'update'])
+                    ->name('update');
+                Route::delete('/{id}', [CatagoriesController::class, 'destroy'])
+                    ->name('destroy');
+                Route::get('', [CatagoriesController::class, 'index'])
+                    ->name('index');
+            }
+        );
     });
-
-Route::resource('admin/products', ProductsController::class)
-    ->middleware(['auth', 'auth.type:admin,super-admin']);
-
-Route::resource('admin/roles', RolesController::class)
-    ->middleware(['auth', 'auth.type:admin,super-admin']);
-
-Route::resource('admin/countries', CountriesController::class)
-    ->middleware(['auth', 'auth.type:admin,super-admin']);
-
-Route::post('ratings/{type}', [RatingController::class, 'store'])
-    ->where('type', 'product|profile');
-
-Route::get('profile/{profile}', [ProfileController::class, 'show']);
-
 // homePage
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('ratings/{type}', [RatingController::class, 'store'])
+    ->where('type', 'product|profile');
+Route::get('profile/{profile}', [ProfileController::class, 'show']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -150,9 +152,6 @@ Route::get('/products/{slug}', [ProductController::class, 'show'])->name('produc
 
 Route::get('/Categories', [CategoryController::class, 'index'])->name('Category');
 Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-
-Route::get('/cart', [CartController::class, 'index'])->name('cart');
-Route::post('/cart', [CartController::class, 'store']);
 
 Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store']);
@@ -182,7 +181,14 @@ Route::get('/compare', [CompareController::class, 'index'])->name('compare.index
 Route::get('/categories', [CategoryController::class, 'index'])->name('front.catagories.index');
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('front.catagories.show');
 
-Route::get('/my-account', [AccountController::class, 'index'])->name('account');
 
 Route::delete('/cart/{id}', [CartController::class, 'destroy'])
     ->name('cart.destroy');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart', [CartController::class, 'store']);
+
+Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+Route::get('password', [UserController::class, 'password'])->name('password');
+Route::post('password', [UserController::class, 'password_action'])->name('password.action');
+
+Route::get('logout', [UserController::class, 'logout'])->name('logout');

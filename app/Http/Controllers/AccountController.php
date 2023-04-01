@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -23,7 +24,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        // return view('front.account.register');
     }
 
     /**

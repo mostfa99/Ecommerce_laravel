@@ -5,15 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Repositories\Cart\CartRepository;
-use App\Repositories\Cart\CookieRepository;
+use App\Repositories\Cart\DatabaseRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class CartController extends Controller
 {
-    /**
-     * @var \App\Repositories\Cart\CartRepository
-     */
     protected $cart;
 
     public function __construct(CartRepository $cart)
@@ -24,8 +20,6 @@ class CartController extends Controller
     public function index()
     {
         $cart = $this->cart->all();
-
-        // return $this->cart->all();
         return view('front.cart', [
             'cart' => $cart,
             'total' => $this->cart->total(),
@@ -40,37 +34,62 @@ class CartController extends Controller
                 $id = request()->input('product_id');
                 $product = Product::find($id);
                 if ($value > $product->quantity) {
-                    $fail(__('Quantity grater than quantity stack. '));
+                    $fail(__('Quantity greater than quantity in stock.'));
                 }
             }],
         ]);
-        $cart = $this->cart->add($request->post('product_id'), $request->post('quantity', 1));
+
+        $item = Product::findOrFail($request->post('product_id'));
+        $qty = $request->post('quantity', 1);
+        $this->cart->add($item, $qty);
 
         if ($request->expectsJson()) {
             return $this->cart->all();
-            // return $cart->refresh();
-            // after i change from quantity data becouse it be oject that method will return fresh data
-            // refresh()
         }
 
-        return redirect()->back()->with('success', __("{$cart->product->name}  added to cart!"));
+        return redirect()->back()->with('success', "{$item->name} added to cart!");
     }
 
-
-    public function show(Request $id)
+    public function show($id)
     {
-        $cart = Cart::where('slug', '=', $id)->firstOrfail();
-        // dd($product);
+        $cart = $this->cart->get($id);
+
         return view('front.cart', [
             'cart' => $cart,
-
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'quantity' => ['int', 'min:1'],
+        ]);
+
+        $newQty = $request->post('quantity');
+        $this->cart->update($id, $newQty);
+
+        return redirect()->back()->with('success', 'Cart updated successfully.');
+    }
+
+    public function remove($cart)
+    {
+        // Make sure $cart is an instance of the Cart model
+        $cart = Cart::find($cart);
+        if ($cart) {
+            $cart->delete();
+        }
+    }
+    public function clear()
+    {
+        $this->cart->clear();
+
+        return redirect()->back()->with('success', 'Cart cleared successfully.');
     }
     public function destroy($id)
     {
-        Cart::destroy($id);
-        session()->put('success', 'category deleted!');
-        return redirect()->route('cart')
-            ->with('success', 'Cart Deleted!');
+        $cartRepository = new DatabaseRepository();
+        $cartRepository->remove($id);
+
+        return redirect()->route('cart')->with('success', 'Item has been removed from cart!');
     }
 }

@@ -17,11 +17,11 @@
     <link type="text/css" rel="stylesheet" href="{{asset('assets/front/css/bootstrap.min.css')}}" />
 
     <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href=" {{asset('assets/front/css/slick.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/front/css/slick.css')}}" />
     <link type="text/css" rel="stylesheet" href="{{asset('assets/front/css/slick-theme.css')}}" />
 
     <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href=" {{asset('assets/front/css/nouislider.min.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/front/css/nouislider.min.css')}}" />
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="{{asset('assets/front/css/font-awesome.min.css')}}">
@@ -34,7 +34,6 @@
  		  <script src="{{asset('assets/front/https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')}}"></script>
  		  <script src="{{asset('assets/front/https://oss.maxcdn.com/respond/1.4.2/respond.min.js')}}"></script>
  		<![endif]-->
-
 </head>
 
 <body class="ps-loading">
@@ -58,13 +57,13 @@
                 <ul class="header-links pull-right">
                     <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
                     @auth
-                    <li><a href="{{route('account')}}"><i class="fa fa-user-o"></i> My Account</a></li>
-                    </a>
-                    @else
-                    <a href="{{route('login')}}">
-                        <li><a href="{{route('account')}}"><i class="fa fa-user-o"></i> Register</a></li>
-                    </a>
+                    <li><a href="{{ route('profile') }}"><i class="fa fa-info"></i> profile</a></li>
+                    <li> <a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
                     @endauth
+                    @guest
+                    <li><a href="{{ route('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
+                    <li><a href="{{ route('register') }}"><i class="fa fa-registered"></i> Register</a></li>
+                    @endguest
                 </ul>
             </div>
         </div>
